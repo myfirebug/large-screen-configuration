@@ -55,8 +55,10 @@
   },
   "homepage": "https://github.com/myfirebug/cli#readme",
   "dependencies": {
+    "antd": "^5.23.1",
     "axios": "^1.4.0",
     "css-vars-ponyfill": "^2.4.8",
+    "dayjs": "^1.11.13",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.14.2"

@@ -25,10 +25,10 @@ export function ThemeProvider(props: IThemeProvider) {
   );
 }
 
-export function useWidget() {
+export function useTheme() {
   return useContext(ThemeContext);
 }
 
-export function useWidgetDispatch() {
+export function useThemeDispatch() {
   return useContext(ThemeDispatchContext);
 }
