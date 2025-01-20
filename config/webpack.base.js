@@ -4,9 +4,10 @@ const WebpackBar = require("webpackbar");
 const path = require("path");
 const { tools } = require("./utils");
 const { getStyleLoader, isDev, fmtDate } = tools;
+const config = require(`../src/config.js`);
 
 module.exports = {
-  stats: "errors-only",
+  // stats: "errors-only",
   // 入口相对路径
   entry: "./src/main.tsx",
   // 输出
@@ -89,7 +90,13 @@ module.exports = {
       // 模板：以public/index.html文件创建新的html文件
       // 新的文件特点：结构和原来一致，自动引入打包出的资源
       template: path.resolve(__dirname, "../public/index.html"),
-      title: "我是标题",
+      config: `<script>window.CONFIG=${JSON.stringify(config)}</script>`,
+      // 标题
+      title: config.title,
+      // 描述
+      description: config.description,
+      // 关键词
+      keywords: config.keywords,
       // 代码更新时间
       buildTime: fmtDate(new Date(), "yyyy-MM-dd hh:mm:ss"),
     }),
@@ -104,6 +111,11 @@ module.exports = {
       "@service": path.resolve(__dirname, "../src/service/"),
       "@pages": path.resolve(__dirname, "../src/pages/"),
       "@core": path.resolve(__dirname, "../src/core/"),
+      "@components": path.resolve(__dirname, "../src/components/"),
     },
+  },
+  cache: {
+    type: "filesystem",
+    allowCollectingMemory: true,
   },
 };
