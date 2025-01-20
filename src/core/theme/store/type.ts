@@ -1,0 +1,3 @@
+// 修改主题名称
+export const MODIFY_THEME_NAME = "MODIFY_THEME_NAME";
+export type MODIFY_THEME_NAME_TYPE = typeof MODIFY_THEME_NAME;

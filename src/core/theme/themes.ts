@@ -1,7 +1,4 @@
-import { theme01 } from "./theme01";
-import { theme02 } from "./theme02";
-import { theme03 } from "./theme03";
-import { theme04 } from "./theme04";
+import { themeBlue } from "./themeBlue";
 
 type IThemes = {
   [propName in IThemeName]: {
@@ -9,13 +6,20 @@ type IThemes = {
   };
 };
 
-export type IThemeName = "theme01" | "theme02" | "theme03" | "theme04";
+export type IThemeName = "themeBlue";
 
-export const themeList: IThemeName[] = [
-  "theme01",
-  "theme02",
-  "theme03",
-  "theme04",
+export interface IThemeItem {
+  name: IThemeName;
+  color: string;
+}
+
+export const themeList: IThemeItem[] = [
+  {
+    name: "themeBlue",
+    color: themeBlue["--cms-primary-color"],
+  },
 ];
 
-export const themes: IThemes = { theme01, theme02, theme03, theme04 };
+export const themes: IThemes = {
+  themeBlue,
+};
