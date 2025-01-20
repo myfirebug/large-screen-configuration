@@ -1,0 +1,15 @@
+@include b(frame-layout) {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  @include e(content) {
+    flex: 1;
+    display: flex;
+  }
+  @include e(aside) {
+  }
+  @include e(main) {
+    flex: 1;
+  }
+}
