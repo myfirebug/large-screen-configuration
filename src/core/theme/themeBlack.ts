@@ -1,0 +1,29 @@
+// 蓝色主题
+export const themeBlack = {
+  // 全局主题色(1)
+  "--cms-primary-color": "#f2bf5a",
+  // 次主色(2)
+  "--cms-secondary-color": "#ffc33c",
+  // 主题色主要文字颜色(3)
+  "--cms-theme-text-color-primary": "#131217",
+  // 主题色分割线(4)
+  "--cms-theme-divider-color": "#b58c3a",
+  // 主题色特殊文字颜色(5)
+  "--cms-theme-text-color-secondary": "#9d0109",
+  // 一级背景色(6)
+  "--cms-background-color-primary": "#212227",
+  // 二级背景色(7)
+  "--cms-background-color-secondary": "#131217",
+  // 分割线(8)
+  "--cms-divider-color": "#363840",
+  // 主要文字颜色(9)
+  "--cms-text-color-primary": "#fff",
+  // 次要文字颜色(10)
+  "--cms-text-color-secondary": "#adb4bc",
+  // 辅助色(11)
+  "--cms-color-help": "#9d0109",
+  // 顶部背景(12)
+  "--cms-top-background-color": "#1e1d25",
+  // 侧边栏背景(13)
+  "--cms-aside-background-color": "#1e1d25",
+};
