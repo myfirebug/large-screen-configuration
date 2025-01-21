@@ -4,6 +4,9 @@ import routerDatas, { IRoute } from "@src/router/routes";
 import { useLocation, Link } from "react-router-dom";
 import { Breadcrumb, Dropdown, MenuProps } from "antd";
 import { LoginOutlined, DownOutlined } from "@ant-design/icons";
+
+import { useThemeDispatch, useTheme } from "@src/core/theme/themeContext";
+import { themeList } from "@src/core/theme/themes";
 import "./index.scss";
 
 interface IHeader {}
@@ -11,6 +14,8 @@ interface IHeader {}
 const Header: FC<IHeader> = () => {
   const { pathname } = useLocation();
   const [breadcrumb, setBreadcrumb] = useState<any[]>([]);
+  const dispatch = useThemeDispatch();
+  const theme = useTheme();
   useEffect(() => {
     setBreadcrumb(() => {
       const result = getParentsById(
@@ -51,6 +56,25 @@ const Header: FC<IHeader> = () => {
       </div>
       <div></div>
       <div className="cms-frame-layout__header--right">
+        <div className="cms-theme__select">
+          <div className="cms-theme__select--header"></div>
+          <div className="cms-theme__select--body">
+            {themeList.map((item) => (
+              <div
+                className="cms-theme__select--item"
+                key={item.name}
+                onClick={() => {
+                  theme !== item.name &&
+                    dispatch({
+                      type: "MODIFY_THEME_NAME",
+                      data: item.name,
+                    });
+                }}
+                style={{ background: item.color }}
+              ></div>
+            ))}
+          </div>
+        </div>
         <Dropdown menu={{ items }} overlayClassName="cms-user-dropdown">
           <div className="cms-user">
             <div className="cms-avatar">

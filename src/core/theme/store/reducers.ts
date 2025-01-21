@@ -1,12 +1,14 @@
 import { MODIFY_THEME_NAME } from "./type";
 import { IThemeName } from "../themes";
 import { ModifyActions } from "./action";
+import { setTheme } from "../index";
 
-export const initialState: IThemeName = "themeBlue";
+export const initialState: IThemeName = "themeGreen";
 
 export const themeReducer = (state = initialState, action: ModifyActions) => {
   switch (action.type) {
     case MODIFY_THEME_NAME: {
+      setTheme(action.data);
       return action.data;
     }
     default: {

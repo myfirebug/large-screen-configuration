@@ -8,7 +8,7 @@ interface IThemeProvider {
   children: ReactNode;
 }
 
-export const ThemeContext = createContext<IThemeName | undefined>("themeBlue");
+export const ThemeContext = createContext<IThemeName | undefined>("themeGreen");
 
 export const ThemeDispatchContext = createContext<
   React.Dispatch<ModifyActions>

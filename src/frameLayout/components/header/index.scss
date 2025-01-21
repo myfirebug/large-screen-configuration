@@ -19,6 +19,10 @@
         color: rgba(255, 255, 255, 0.8);
       }
     }
+    @include m(right) {
+      display: flex;
+      align-items: center;
+    }
   }
 }
 
@@ -51,6 +55,50 @@
     color: var(--cms-text-color-secondary) !important;
     .anticon {
       margin-right: 5px;
+    }
+  }
+}
+
+@include b(theme) {
+  @include e(select) {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 100%;
+    padding: 0 10px;
+    cursor: pointer;
+    &:hover {
+      .cms-theme__select--body {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    @include m(header) {
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--cms-divider-color);
+      background: var(--cms-primary-color);
+      border-radius: 5px;
+    }
+    @include m(item) {
+      width: 16px;
+      height: 16px;
+      margin-top: 5px;
+      border: 2px solid var(--cms-divider-color);
+      border-radius: 5px;
+    }
+    @include m(body) {
+      transition: all 0.25s ease 0s;
+      opacity: 0;
+      transform: scale(0);
+      transform-origin: top center;
+      position: absolute;
+      top: 25px;
+      left: 0;
+      padding: 5px 10px 10px 10px;
+      border-radius: 3px;
+      background: var(--cms-background-color-primary);
+      box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
     }
   }
 }

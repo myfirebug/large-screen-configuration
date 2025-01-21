@@ -1,4 +1,5 @@
 import { themeBlue } from "./themeBlue";
+import { themeGreen } from "./themeGreen";
 
 type IThemes = {
   [propName in IThemeName]: {
@@ -6,7 +7,7 @@ type IThemes = {
   };
 };
 
-export type IThemeName = "themeBlue";
+export type IThemeName = "themeBlue" | "themeGreen";
 
 export interface IThemeItem {
   name: IThemeName;
@@ -18,8 +19,13 @@ export const themeList: IThemeItem[] = [
     name: "themeBlue",
     color: themeBlue["--cms-primary-color"],
   },
+  {
+    name: "themeGreen",
+    color: themeGreen["--cms-primary-color"],
+  },
 ];
 
 export const themes: IThemes = {
   themeBlue,
+  themeGreen,
 };
