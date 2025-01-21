@@ -8,9 +8,9 @@ module.exports = {
   // 站点关键词
   keywords: "我是站点关键词",
   // 开发环境接口地址
-  developmentApi: "",
+  developmentApi: "a",
   // 正式环境接口地址
-  productionApi: "",
+  productionApi: "b",
   // 主题
-  theme: "theme01",
+  theme: "themeBlue",
 };
