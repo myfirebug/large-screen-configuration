@@ -14,7 +14,7 @@ html {
   color: var(--cms-text-color-primary);
   font-size: 14px;
   min-height: 100vh;
-  background-color: var(--cms-background-color-secondary);
+  background-color: var(--cms-background-color-primary);
   transition: all 0.25s ease 0s;
   -webkit-user-select: none; /* Safari */
   -moz-user-select: none; /* Firefox */

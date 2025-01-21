@@ -1,0 +1,56 @@
+@include b(frame-layout) {
+  @include e(header) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 45px;
+    padding: 0 18px;
+    background: var(--cms-top-background-color);
+    @include m(left) {
+      display: flex;
+      align-items: center;
+      h1 {
+        margin: 0;
+        padding-left: 6px;
+        padding-right: 20px;
+        font-size: 18px;
+      }
+      .ant-breadcrumb li:last-child {
+        color: rgba(255, 255, 255, 0.8);
+      }
+    }
+  }
+}
+
+@include b(avatar) {
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--cms-background-color-primary);
+}
+
+@include b(user) {
+  display: flex;
+  align-items: center;
+  .anticon {
+    margin-left: 5px;
+    color: var(--cms-divider-color);
+  }
+  @include e(name) {
+    color: var(--cms-secondary-color);
+  }
+}
+
+@include b(user-dropdown) {
+  .ant-dropdown-menu {
+    background: var(--cms-background-color-secondary);
+  }
+  .ant-dropdown-menu-item {
+    color: var(--cms-text-color-secondary) !important;
+    .anticon {
+      margin-right: 5px;
+    }
+  }
+}

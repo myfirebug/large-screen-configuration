@@ -2,24 +2,28 @@
 export const themeBlue = {
   // 全局主题色(1)
   "--cms-primary-color": "#facf20",
-  // 次主色(2)ffb800
+  // 次主色(2)
   "--cms-secondary-color": "#ffb800",
-  // 主题色主要文字颜色(10)
+  // 主题色主要文字颜色(3)
   "--cms-theme-text-color-primary": "#0f5d49",
-  // 主题色分割线(11)
+  // 主题色分割线(4)
   "--cms-theme-divider-color": "#00000014",
-  // 主题色特殊文字颜色(12)
+  // 主题色特殊文字颜色(5)
   "--cms-theme-text-color-secondary": "#ff4a4a",
-  // 一级背景色(3)
+  // 一级背景色(6)
   "--cms-background-color-primary": "#22674b",
-  // 二级背景色(4)
+  // 二级背景色(7)
   "--cms-background-color-secondary": "#194c38",
-  // 分割线(5)
+  // 分割线(8)
   "--cms-divider-color": "#318763",
-  // 主要文字颜色(6)
+  // 主要文字颜色(9)
   "--cms-text-color-primary": "#fff",
-  // 次要文字颜色(7)
+  // 次要文字颜色(10)
   "--cms-text-color-secondary": "#7cffae",
-  // 辅助色(9)
+  // 辅助色(11)
   "--cms-color-help": "#ff4a4a",
+  // 顶部背景(12)
+  "--cms-top-background-color": "#1c553e",
+  // 侧边栏背景(13)
+  "--cms-aside-background-color": "#1c553e",
 };

@@ -1,0 +1,11 @@
+@include b(frame-layout) {
+  @include e(aside) {
+    background: var(--cms-top-background-color);
+    .ant-menu {
+      background: var(--cms-top-background-color);
+    }
+    .ant-menu-inline-collapsed {
+      width: 50px;
+    }
+  }
+}

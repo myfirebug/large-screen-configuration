@@ -45,6 +45,26 @@ const routerDatas: IRoute[] = [
         },
       },
       {
+        path: "/home",
+        title: "首页",
+        modulePath: "home",
+        icon: "&#xe8b9;",
+        meta: {
+          auth: false,
+          menu: true,
+        },
+      },
+      {
+        path: "/elements",
+        title: "组件",
+        modulePath: "elements",
+        icon: "&#xe8b9;",
+        meta: {
+          auth: false,
+          menu: true,
+        },
+      },
+      {
         path: "/404",
         title: "404",
         modulePath: "notFound",
