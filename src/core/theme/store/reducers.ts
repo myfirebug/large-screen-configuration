@@ -5,7 +5,10 @@ import { setTheme } from "../index";
 
 export const initialState: IThemeName = "themeGreen";
 
-export const themeReducer = (state = initialState, action: ModifyActions) => {
+export const themeReducer = (
+  state: IThemeName = initialState,
+  action: ModifyActions
+) => {
   switch (action.type) {
     case MODIFY_THEME_NAME: {
       setTheme(action.data);

@@ -77,7 +77,7 @@
       width: 16px;
       height: 16px;
       border: 2px solid var(--cms-divider-color);
-      background: var(--cms-primary-color);
+      background: var(--cms-background-color-primary);
       border-radius: 5px;
     }
     @include m(item) {

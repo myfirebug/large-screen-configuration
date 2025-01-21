@@ -70,7 +70,7 @@ const Header: FC<IHeader> = () => {
                       data: item.name,
                     });
                 }}
-                style={{ background: item.color }}
+                style={{ background: item.bgColor }}
               ></div>
             ))}
           </div>
