@@ -2,13 +2,35 @@
 <html lang="en" data-buildTime="<%= htmlWebpackPlugin.options.buildTime %>">
   <head>
     <meta charset="UTF-8" />
+    <meta name="next-font-preconnect" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Content-Language" content="en_US" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="theme-color" content="#fff" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="referrer" content="origin" />
+    <meta name="x5-orientation" content="portrait" />
+    <meta name="screen-orientation" content="portrait" />
+    <meta name="google" value="notranslate" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,viewport-fit=cover"
+    />
+    <meta name="keywords" content="<%= htmlWebpackPlugin.options.keywords %>" />
+    <meta
+      name="description"
+      property="og:description"
+      content="<%= htmlWebpackPlugin.options.description %>"
+    />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <title><%= htmlWebpackPlugin.options.title %></title>
     <%= htmlWebpackPlugin.options.config %>
   </head>
   <body>
     <div id="root"></div>
+    <script src="./lib/particles.min.js"></script>
   </body>
 </html>
