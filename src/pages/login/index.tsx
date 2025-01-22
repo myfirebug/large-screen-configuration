@@ -1,10 +1,22 @@
 import React, { useRef, useEffect } from "react";
 import { Button, Form, Input } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { ILoginForm } from "@src/service";
+import { useLogin } from "@src/core/hook";
+import {
+  useFrameLayout,
+  useFrameLayoutDispatch,
+} from "@src/frameLayout/frameLayoutContext";
+import { useNavigate } from "react-router-dom";
+
 import "./index.scss";
 
 function Login() {
+  const navigate = useNavigate();
+  const { loginLoading, login } = useLogin();
   const particles = useRef<HTMLDivElement>(null);
+  const frameLayoutDispatch = useFrameLayoutDispatch();
+  const frameLayout = useFrameLayout();
 
   useEffect(() => {
     if (particles.current) {
@@ -121,7 +133,20 @@ function Login() {
     }
   }, [particles]);
 
-  const onFinish = async (values: any) => {};
+  useEffect(() => {
+    if (frameLayout?.token) {
+      navigate("/home");
+    }
+  }, [frameLayout?.token, navigate]);
+
+  const onFinish = async (values: ILoginForm) => {
+    login(values, (data) => {
+      frameLayoutDispatch({
+        type: "MODIFY_TOKEN",
+        data: data,
+      });
+    });
+  };
   return (
     <div className="cms-login">
       <div className="cms-login__mask" ref={particles} id="js_particles"></div>
@@ -137,7 +162,7 @@ function Login() {
           onFinish={onFinish}
           autoComplete="off"
         >
-          <Form.Item
+          <Form.Item<ILoginForm>
             label=""
             name="username"
             rules={[{ required: true, message: "请输入用户名" }]}
@@ -150,7 +175,7 @@ function Login() {
             />
           </Form.Item>
 
-          <Form.Item
+          <Form.Item<ILoginForm>
             label=""
             name="password"
             rules={[{ required: true, message: "请输入密码" }]}
@@ -164,7 +189,13 @@ function Login() {
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit" block size="large">
+            <Button
+              type="primary"
+              htmlType="submit"
+              block
+              size="large"
+              loading={loginLoading}
+            >
               登录
             </Button>
           </Form.Item>

@@ -50,7 +50,7 @@ const routerDatas: IRoute[] = [
         modulePath: "home",
         icon: "&#xe8b9;",
         meta: {
-          auth: false,
+          auth: true,
           menu: true,
         },
       },
@@ -58,7 +58,7 @@ const routerDatas: IRoute[] = [
         path: "/elements",
         title: "组件",
         modulePath: "elements",
-        icon: "&#xe8b9;",
+        icon: "&#xe640;",
         meta: {
           auth: false,
           menu: true,

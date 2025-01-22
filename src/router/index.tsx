@@ -2,6 +2,7 @@ import React, { Suspense, FC, memo } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import routes, { IRoute, IMeta } from "./routes";
 import lazyLoad from "@src/compoents/lazyLoad";
+import { useFrameLayout } from "@src/frameLayout/frameLayoutContext";
 
 interface IPrivateRoute {
   children: JSX.Element | null;
@@ -27,13 +28,18 @@ const PrivateRoute: FC<IPrivateRoute> = ({ children, meta, title, token }) => {
  * @returns
  */
 const routeTree = (datas: IRoute[]) => {
+  const frameLayout = useFrameLayout();
   return datas.map(({ path, children, modulePath, title, meta, redirect }) => {
     return children && children.length ? (
       <Route
         path={path}
         element={
           modulePath ? (
-            <PrivateRoute title={title} meta={meta} token="">
+            <PrivateRoute
+              title={title}
+              meta={meta}
+              token={frameLayout?.token as string}
+            >
               {lazyLoad(modulePath)}
             </PrivateRoute>
           ) : null
@@ -57,7 +63,11 @@ const routeTree = (datas: IRoute[]) => {
           (path as string) === "*" ? (
             <Navigate to="/404" replace />
           ) : modulePath ? (
-            <PrivateRoute title={title} meta={meta} token="">
+            <PrivateRoute
+              title={title}
+              meta={meta}
+              token={frameLayout?.token as string}
+            >
               {lazyLoad(modulePath)}
             </PrivateRoute>
           ) : null

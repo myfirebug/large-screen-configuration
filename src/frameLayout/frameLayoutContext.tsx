@@ -26,7 +26,7 @@ export const FrameLayoutDispatchContext = createContext<
 
 export function FrameLayoutProvider(props: IThemeProvider) {
   const { children } = props;
-  const [theme, dispatch] = useReducer(frameLayoutReducer, initialState);
+  const [layout, dispatch] = useReducer(frameLayoutReducer, initialState);
   const currentTheme = useTheme();
   return (
     <ConfigProvider
@@ -45,7 +45,7 @@ export function FrameLayoutProvider(props: IThemeProvider) {
         },
       }}
     >
-      <FrameLayoutContext.Provider value={theme}>
+      <FrameLayoutContext.Provider value={layout}>
         <FrameLayoutDispatchContext.Provider value={dispatch}>
           <FrameLayout>{children}</FrameLayout>
         </FrameLayoutDispatchContext.Provider>
