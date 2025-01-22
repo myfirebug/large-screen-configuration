@@ -12,7 +12,6 @@ export function useLogin() {
       API.loginService
         .login(params)
         .then((data) => {
-          console.log(data, "data");
           setLoginLoading(false);
           if (data.result) {
             navigate("/home");
