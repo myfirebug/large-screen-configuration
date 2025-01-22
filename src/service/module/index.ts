@@ -1,3 +1,3 @@
-import topicService from "./topic.service";
+import loginService from "./login.service";
 
-export const API = { topicService };
+export const API = { loginService };
