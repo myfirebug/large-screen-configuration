@@ -8,14 +8,16 @@ import { LoginOutlined, DownOutlined } from "@ant-design/icons";
 import { useThemeDispatch, useTheme } from "@src/core/theme/themeContext";
 import { themeList } from "@src/core/theme/themes";
 import "./index.scss";
+import { useFrameLayoutDispatch } from "@src/frameLayout/frameLayoutContext";
 
 interface IHeader {}
 
 const Header: FC<IHeader> = () => {
   const { pathname } = useLocation();
   const [breadcrumb, setBreadcrumb] = useState<any[]>([]);
-  const dispatch = useThemeDispatch();
+  const themeDispatch = useThemeDispatch();
   const theme = useTheme();
+  const frameLayoutDispatch = useFrameLayoutDispatch();
   useEffect(() => {
     setBreadcrumb(() => {
       const result = getParentsById(
@@ -30,7 +32,13 @@ const Header: FC<IHeader> = () => {
     {
       key: "1",
       label: (
-        <div>
+        <div
+          onClick={() =>
+            frameLayoutDispatch({
+              type: "REMOVE_TOKEN",
+            })
+          }
+        >
           <LoginOutlined />
           退出登录
         </div>
@@ -65,7 +73,7 @@ const Header: FC<IHeader> = () => {
                 key={item.name}
                 onClick={() => {
                   theme !== item.name &&
-                    dispatch({
+                    themeDispatch({
                       type: "MODIFY_THEME_NAME",
                       data: item.name,
                     });

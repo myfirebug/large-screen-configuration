@@ -1,4 +1,4 @@
-import { MODIFY_TOKEN, ALL_STATE } from "./type";
+import { MODIFY_TOKEN, REMOVE_TOKEN, ALL_STATE } from "./type";
 import { ModifyActions } from "./action";
 import { localStorage } from "@src/utils";
 import { STORE_TOKEN } from "@src/core/enums/access.enums";
@@ -17,6 +17,13 @@ export const frameLayoutReducer = (
       return {
         ...state,
         token: action.data,
+      };
+    }
+    case REMOVE_TOKEN: {
+      localStorage.remove(STORE_TOKEN);
+      return {
+        ...state,
+        token: "",
       };
     }
     default: {
