@@ -60,7 +60,7 @@ const routerDatas: IRoute[] = [
         modulePath: "elements",
         icon: "&#xe640;",
         meta: {
-          auth: false,
+          auth: true,
           menu: true,
         },
       },

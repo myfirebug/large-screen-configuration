@@ -8,7 +8,11 @@ import { LoginOutlined, DownOutlined } from "@ant-design/icons";
 import { useThemeDispatch, useTheme } from "@src/core/theme/themeContext";
 import { themeList } from "@src/core/theme/themes";
 import "./index.scss";
-import { useFrameLayoutDispatch } from "@src/frameLayout/frameLayoutContext";
+import {
+  useFrameLayout,
+  useFrameLayoutDispatch,
+} from "@src/frameLayout/frameLayoutContext";
+import { useInfo } from "@src/core/hook";
 
 interface IHeader {}
 
@@ -17,7 +21,9 @@ const Header: FC<IHeader> = () => {
   const [breadcrumb, setBreadcrumb] = useState<any[]>([]);
   const themeDispatch = useThemeDispatch();
   const theme = useTheme();
+  const frameLayout = useFrameLayout();
   const frameLayoutDispatch = useFrameLayoutDispatch();
+  const { getUserInfo } = useInfo();
   useEffect(() => {
     setBreadcrumb(() => {
       const result = getParentsById(
@@ -27,6 +33,17 @@ const Header: FC<IHeader> = () => {
       return result ? result.reverse() : [];
     });
   }, [pathname]);
+
+  useEffect(() => {
+    if (!frameLayout?.userInfo) {
+      getUserInfo((data) => {
+        frameLayoutDispatch({
+          type: "USER_INFO",
+          data: data,
+        });
+      });
+    }
+  }, [frameLayout?.userInfo, frameLayoutDispatch, getUserInfo]);
 
   const items: MenuProps["items"] = [
     {
@@ -89,7 +106,7 @@ const Header: FC<IHeader> = () => {
               <img alt="" />
             </div>
             <span className="cms-user__name">
-              欢迎 <b>admin</b>
+              欢迎 <b>{frameLayout?.userInfo?.username || "--"}</b>
             </span>
             <DownOutlined />
           </div>

@@ -16,7 +16,7 @@
         font-size: 18px;
       }
       .ant-breadcrumb li:last-child {
-        color: rgba(255, 255, 255, 0.8);
+        color: var(--cms-text-color-secondary);
       }
     }
     @include m(right) {
