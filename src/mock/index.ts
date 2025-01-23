@@ -1,6 +1,8 @@
 import Mock from "mockjs";
 // 登录模块
 import * as login from "./login.mock";
+// 用户模块
+import * as userInfo from "./userInfo.mock";
 
 /**
  * 根据模块创建接口
@@ -29,5 +31,6 @@ function create(mod: any) {
 }
 
 create(login);
+create(userInfo);
 
 export default Mock;
