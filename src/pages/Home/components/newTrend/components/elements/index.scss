@@ -1,0 +1,40 @@
+@include b(home) {
+  @include e(elements) {
+    display: flex;
+    height: 700px;
+    overflow: hidden;
+    @include m(left) {
+      width: 70%;
+      height: 100%;
+      overflow: hidden;
+    }
+    @include m(right) {
+      padding: 20px 0 0 30px;
+      width: 30%;
+      box-sizing: border-box;
+    }
+  }
+}
+
+@include b(useLeaderboard) {
+  @include e(list) {
+  }
+  @include e(item) {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 20px 5px 0;
+    color: var(--cms-text-color-primary);
+    .id {
+      width: 24px;
+      height: 24px;
+      text-align: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--cms-background-color-primary);
+    }
+    .name {
+      flex: 1;
+      padding-left: 10px;
+    }
+  }
+}
