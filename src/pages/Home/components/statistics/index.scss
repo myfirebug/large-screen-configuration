@@ -1,0 +1,27 @@
+@include b(home) {
+  @include e(statistics) {
+    display: flex;
+    padding: 20px 0 0 20px;
+    @include m(item) {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 1;
+      height: 110px;
+      margin-right: 20px;
+      padding: 20px 10px 15px 20px;
+      border-radius: 5px;
+      background: var(--cms-background-color-secondary);
+      .name {
+        color: var(--cms-text-color-secondary);
+      }
+      .value {
+        font-weight: bold;
+        font-size: 30px;
+      }
+      .content {
+        color: var(--cms-divider-color);
+      }
+    }
+  }
+}
