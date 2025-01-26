@@ -1,0 +1,13 @@
+@include b(box) {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  @include e(header) {
+    height: 30px;
+    line-height: 30px;
+  }
+  @include e(body) {
+    flex: 1;
+    overflow: hidden;
+  }
+}
