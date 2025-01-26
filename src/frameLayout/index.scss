@@ -3,13 +3,18 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   @include e(content) {
+    width: 100%;
     flex: 1;
     display: flex;
+    overflow: hidden;
   }
   @include e(aside) {
   }
   @include e(main) {
     flex: 1;
+    overflow: hidden;
+    overflow-y: auto;
   }
 }
