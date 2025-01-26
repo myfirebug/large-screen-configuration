@@ -43,6 +43,7 @@ export function FrameLayoutProvider(props: IThemeProvider) {
           colorText: "var(--cms-text-color-secondary)",
           controlOutline: "var(--cms-secondary-color)",
           colorErrorOutline: "#ff4d4f",
+          colorBorderSecondary: "var(--cms-divider-color)",
         },
       }}
     >
