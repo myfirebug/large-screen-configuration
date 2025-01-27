@@ -10,21 +10,6 @@ function NewTrend() {
       label: "组件",
       children: <Elements />,
     },
-    {
-      key: "2",
-      label: "微件",
-      children: <></>,
-    },
-    {
-      key: "3",
-      label: "页面",
-      children: <></>,
-    },
-    {
-      key: "4",
-      label: "项目",
-      children: <></>,
-    },
   ];
   return (
     <div className="cms-home__newTrend">

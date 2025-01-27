@@ -153,7 +153,7 @@ const Elements: FC<IElements> = () => {
                 // 对图形的解释部分
                 orient: "vertical",
                 right: 30,
-                y: "center",
+                top: "center",
                 icon: "circle", // 添加
                 formatter: function (name: string) {
                   // 添加
