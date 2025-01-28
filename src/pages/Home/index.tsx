@@ -1,10 +1,13 @@
 import React from "react";
+import Statistics from "./components/statistics";
+import NewTrend from "./components/newTrend";
 import "./index.scss";
 
 function Home() {
   return (
     <div className="cms-home">
-      <div className="cms-home__statistics"></div>
+      <Statistics />
+      <NewTrend />
     </div>
   );
 }
