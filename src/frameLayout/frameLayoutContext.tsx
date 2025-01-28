@@ -4,7 +4,7 @@ import { frameLayoutReducer, initialState } from "./store/reducers";
 import { useTheme } from "@core/theme/themeContext";
 import { ALL_STATE } from "./store/type";
 import FrameLayout from "./index";
-import { ConfigProvider } from "antd";
+import { ConfigProvider, theme } from "antd";
 import { getCurrentPrimaryColor, IThemeName } from "@core/theme";
 // 由于 antd 组件的默认文案是英文，所以需要修改为中文
 import dayjs from "dayjs";
@@ -44,7 +44,11 @@ export function FrameLayoutProvider(props: IThemeProvider) {
           controlOutline: "var(--cms-secondary-color)",
           colorErrorOutline: "#ff4d4f",
           colorBorderSecondary: "var(--cms-divider-color)",
+          colorBgElevated: "var(--cms-background-color-primary)",
+          colorBgSpotlight: "var(--cms-background-color-secondary)",
+          colorLinkHover: "var(--cms-secondary-color)",
         },
+        algorithm: [theme.darkAlgorithm, theme.compactAlgorithm],
       }}
     >
       <FrameLayoutContext.Provider value={layout}>
