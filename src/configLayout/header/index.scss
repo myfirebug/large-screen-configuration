@@ -1,0 +1,51 @@
+@include b(config-layout) {
+  @include e(header) {
+    position: relative;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 45px;
+    padding: 0 18px;
+    background: var(--cms-top-background-color);
+    border-bottom: 1px solid var(--cms-divider-color);
+    @include m(left) {
+      display: flex;
+      align-items: center;
+      .logo {
+        font-size: 20px;
+      }
+      .name {
+        padding: 0 20px 0 10px;
+        font-size: 18px;
+      }
+      .edit {
+        cursor: pointer;
+        &:hover {
+          color: var(--cms-primary-color);
+        }
+      }
+    }
+    @include m(right) {
+      display: flex;
+      > div {
+        display: flex;
+        align-items: center;
+        margin-left: 5px;
+        padding: 0 10px 0 5px;
+        line-height: 24px;
+        font-size: 12px;
+        background: var(--cms-primary-color);
+        color: var(--cms-theme-text-color-primary);
+        border-radius: 5px;
+        cursor: pointer;
+        &:hover {
+          background: var(--cms-secondary-color);
+        }
+        i {
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+}
