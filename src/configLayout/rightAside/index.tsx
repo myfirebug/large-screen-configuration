@@ -47,8 +47,8 @@ const ConfigLayoutRightAsid: FC<IConfigLayoutRightAside> = ({
     setTabs(() => {
       return ALLTABS.filter((item) => navs.includes(item.type));
     });
-    setCurrent(navs[0]);
-  }, [navs, setTabs, setCurrent]);
+    !current && setCurrent(navs[0]);
+  }, [navs, setTabs, setCurrent, current]);
   return (
     <div className="cms-config-layout__rightAside">
       <div
