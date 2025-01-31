@@ -47,6 +47,7 @@ export function FrameLayoutProvider(props: IThemeProvider) {
           colorBgElevated: "var(--cms-background-color-primary)",
           colorBgSpotlight: "var(--cms-background-color-secondary)",
           colorLinkHover: "var(--cms-secondary-color)",
+          controlItemBgActive: "var(--cms-background-color-secondary)",
         },
         algorithm: [theme.darkAlgorithm, theme.compactAlgorithm],
       }}
