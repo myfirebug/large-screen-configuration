@@ -4,7 +4,7 @@ import axios from "../fetch";
 
 const elementsService = {
   // 用户信息
-  elements(params: any) {
+  elements(params?: any) {
     return axios.get<IElement[], IElementsResult>(elements.list, params);
   },
 };

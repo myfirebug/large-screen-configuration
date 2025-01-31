@@ -17,7 +17,7 @@ export const waitTime = async (time: number = 100) => {
   await waitTimePromise(time);
 };
 
-const columns: ProColumns<IElement[]>[] = [
+const columns: ProColumns<IElement>[] = [
   {
     title: "名称",
     dataIndex: "name",
@@ -72,15 +72,15 @@ const Elements: FC<any> = () => {
   const actionRef = useRef<ActionType>();
   return (
     <div className="cms-elements">
-      <ProTable<IElement[]>
+      <ProTable<IElement>
         columns={columns}
         actionRef={actionRef}
-        request={async (params, sort, filter) => {
-          console.log(sort, filter);
+        request={async (params) => {
           await waitTime(2000);
-          return API.elementsService
-            .elements({ params })
-            .then((data) => data.data);
+          return API.elementsService.elements({ params }).then((res) => {
+            console.log(res, "res");
+            return res;
+          });
         }}
         rowKey="id"
         options={{

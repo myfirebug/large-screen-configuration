@@ -1,13 +1,17 @@
-export type elementType = "baseText";
-
 export interface IElement {
   name: string;
   url: string;
   id: number;
   createTime: string;
-  type: string;
+  type: elementsType;
   count: number;
-  element: string;
+  element: elementsNameType;
+  x: number;
+  y: number;
+  column: number;
+  row: number;
+  offsetX?: number;
+  offsetY?: number;
 }
 
 // 用户信息结果
