@@ -9,7 +9,7 @@ interface IBox {
 
 const Box: FC<IBox> = ({ title, children, onClose }) => {
   return (
-    <div className="cms-box" style={{ display: title ? "block" : "none" }}>
+    <div className="cms-box" style={{ display: title ? "flex" : "none" }}>
       <div className="cms-box__header">
         <div className="name">{title}</div>
         <CloseOutlined onClick={onClose} />
