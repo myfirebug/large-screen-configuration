@@ -39,8 +39,8 @@ const ConfigLayoutLeftAside: FC<IConfigLayoutLeftAside> = ({
     setTabs(() => {
       return ALLTABS.filter((item) => navs.includes(item.type));
     });
-    !current && setCurrent(navs[0]);
-  }, [navs, setTabs, setCurrent, current]);
+    setCurrent(navs[0]);
+  }, [navs, setTabs, setCurrent]);
   return (
     <div className="cms-config-layout__leftAside">
       <ul className="cms-config-layout__leftAside--tabs">
