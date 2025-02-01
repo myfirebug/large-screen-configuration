@@ -40,14 +40,13 @@ const ConfigLayoutLeftAsideElements: FC<
         {elementsList
           .filter((item) => item.type === current)
           ?.map((item) => (
-            <DragItem title={item.name} data={item} groupName="elements">
-              <Image
-                width={224}
-                height={120}
-                src={item.url}
-                preview={false}
-                key={item.id}
-              />
+            <DragItem
+              title={item.name}
+              data={item}
+              groupName="elements"
+              key={item.id}
+            >
+              <Image width={224} height={120} src={item.url} preview={false} />
             </DragItem>
           ))}
         {!elementsLoading &&
