@@ -5,6 +5,8 @@ import * as login from "./login.mock";
 import * as userInfo from "./userInfo.mock";
 // 组件模块
 import * as elements from "./elements.mock";
+// 微件模块
+import * as widgets from "./widgets.mock";
 
 /**
  * 根据模块创建接口
@@ -35,5 +37,6 @@ function create(mod: any) {
 create(login);
 create(userInfo);
 create(elements);
+create(widgets);
 
 export default Mock;

@@ -1,4 +1,4 @@
-export const userInfo = {
+export const elements = {
   url: "/elements",
   method: "get",
   data: {
