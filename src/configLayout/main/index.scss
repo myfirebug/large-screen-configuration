@@ -1,0 +1,23 @@
+@include b(config-layout) {
+  @include e(main) {
+    position: relative;
+    flex: 1;
+    overflow: auto;
+    background: url(../../assets/images/configBg.png) repeat;
+    background-position: 22px 22px;
+  }
+  @include e(center) {
+    width: 5000px;
+    height: 3000px;
+    padding: 66px 0 0 66px;
+    position: relative;
+  }
+  @include e(bottom) {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 50px;
+    background: var(--cms-background-color-secondary);
+  }
+}
