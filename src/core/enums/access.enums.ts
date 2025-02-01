@@ -13,3 +13,12 @@ export const PAGETYPENAME = {
   layer: "图层",
   linkage: "联动",
 };
+// 组件类型
+export const ELEMETSTYPE = {
+  text: "文本",
+  image: "图片",
+  table: "表格",
+  line: "折线图",
+  bar: "柱状图",
+  pie: "饼图",
+};
