@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import { ThemeProvider } from "@core/theme/themeContext";
-import { FrameLayoutProvider } from "./frameLayout/frameLayoutContext";
+import { FrameLayoutProvider } from "@src/layout/frameLayout/frameLayoutContext";
 
 import "@src/assets/scss/base/normalize.css";
 import Routes from "./router";

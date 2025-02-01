@@ -11,7 +11,7 @@ import "./index.scss";
 import {
   useFrameLayout,
   useFrameLayoutDispatch,
-} from "@src/frameLayout/frameLayoutContext";
+} from "@src/layout/frameLayout/frameLayoutContext";
 import { useInfo } from "@src/core/hook";
 
 interface IHeader {}

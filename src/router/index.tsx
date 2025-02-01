@@ -2,7 +2,7 @@ import React, { Suspense, FC, memo } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import routes, { IRoute, IMeta } from "./routes";
 import lazyLoad from "@src/compoents/lazyLoad";
-import { useFrameLayout } from "@src/frameLayout/frameLayoutContext";
+import { useFrameLayout } from "@src/layout/frameLayout/frameLayoutContext";
 
 interface IPrivateRoute {
   children: JSX.Element | null;

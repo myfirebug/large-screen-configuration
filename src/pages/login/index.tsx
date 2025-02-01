@@ -6,7 +6,7 @@ import { useLogin } from "@src/core/hook";
 import {
   useFrameLayout,
   useFrameLayoutDispatch,
-} from "@src/frameLayout/frameLayoutContext";
+} from "@src/layout/frameLayout/frameLayoutContext";
 import { useNavigate } from "react-router-dom";
 
 import "./index.scss";
