@@ -1,0 +1,13 @@
+@include b(drag) {
+  @include e(item) {
+    text-align: center;
+    @include m(body) {
+      padding-top: 15px;
+    }
+    @include m(footer) {
+      line-height: 24px;
+      padding-top: 5px;
+      text-align: center;
+    }
+  }
+}
