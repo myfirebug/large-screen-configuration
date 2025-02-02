@@ -1,0 +1,13 @@
+@include b(drag) {
+  @include e(moveMask) {
+    position: absolute;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+    transition: all 0.2s;
+    z-index: 2;
+    opacity: 1;
+    background: var(--cms-divider-color);
+    border-radius: 4px;
+  }
+}
