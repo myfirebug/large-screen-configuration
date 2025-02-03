@@ -1,8 +1,8 @@
-import React, { FC, useMemo } from "react";
+import React, { FC, HtmlHTMLAttributes, useMemo } from "react";
 import { getItemSizeStyle } from "../drag";
 import "./index.scss";
 
-interface IMoveMask {
+interface IMoveMask extends HtmlHTMLAttributes<HTMLDivElement> {
   /** 容器格子宽 */
   width: number;
   /** 容器格子高 */
@@ -30,12 +30,18 @@ const MoveMask: FC<IMoveMask> = ({
   x = 0,
   y = 0,
   isPutDown = false,
+  style,
 }) => {
   // 获取遮罩层样式
   const maskStyle = useMemo(() => {
     return getItemSizeStyle(width, height, x, y, gap, column, row);
   }, [column, gap, height, row, width, x, y]);
-  return <div className="cms-drag__moveMask" style={maskStyle}></div>;
+  return (
+    <div
+      className="cms-drag__moveMask"
+      style={{ ...maskStyle, ...style }}
+    ></div>
+  );
 };
 
 export default MoveMask;
