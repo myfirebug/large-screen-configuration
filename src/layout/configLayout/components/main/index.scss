@@ -2,14 +2,15 @@
   @include e(main) {
     position: relative;
     flex: 1;
-    overflow: auto;
+    overflow: hidden;
     background: url(../../../../assets/images/configBg.png) repeat;
     background-position: 22px 22px;
   }
   @include e(center) {
-    width: 5000px;
-    height: 3000px;
-    padding: 66px 0 0 66px;
+    width: 100%;
+    height: 100%;
+    padding: 66px;
+    box-sizing: border-box;
     position: relative;
   }
   @include e(bottom) {
