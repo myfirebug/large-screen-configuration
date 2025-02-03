@@ -1,17 +1,17 @@
 export interface IElement {
   name: string;
   url: string;
-  id: number;
+  id: string;
   createTime: string;
   type: elementsType;
   count: number;
   element: elementsNameType;
+  elementId: string;
   x: number;
   y: number;
   column: number;
   row: number;
-  offsetX?: number;
-  offsetY?: number;
+  configuration: IAnyObject;
 }
 
 // 用户信息结果

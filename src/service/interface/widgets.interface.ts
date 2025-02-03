@@ -1,16 +1,20 @@
+import { IElement } from "./elements.interface";
+
 export interface IWidget {
   name: string;
   url: string;
-  id: number;
+  id: string;
   createTime: string;
   type: elementsType;
   count: number;
+  widgetId: string;
   x: number;
   y: number;
   column: number;
   row: number;
-  offsetX?: number;
-  offsetY?: number;
+  configuration: IAnyObject;
+  header: IElement[];
+  body: IElement[];
 }
 
 // 用户信息结果
