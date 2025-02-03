@@ -7,12 +7,12 @@ export interface IWidget {
   createTime: string;
   type: elementsType;
   count: number;
-  widgetId: string;
+  widgetId?: string;
   x: number;
   y: number;
   column: number;
   row: number;
-  configuration: IAnyObject;
+  configuration: IAnyObject | null;
   header: IElement[];
   body: IElement[];
 }

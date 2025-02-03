@@ -73,7 +73,12 @@ const Widgets: FC<any> = () => {
       valueType: "option",
       key: "option",
       render: (text, record, _, action) => [
-        <a key="editable" onClick={() => navigate("/widgets/configuration")}>
+        <a
+          key="editable"
+          onClick={() => {
+            navigate(`/widgets/configuration?id=${record.id}`);
+          }}
+        >
           编辑
         </a>,
         <a
