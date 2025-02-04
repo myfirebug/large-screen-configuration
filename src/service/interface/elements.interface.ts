@@ -6,7 +6,7 @@ export interface IElement {
   type: elementsType;
   count: number;
   element: elementsNameType;
-  elementId: string;
+  elementId?: string;
   x: number;
   y: number;
   column: number;

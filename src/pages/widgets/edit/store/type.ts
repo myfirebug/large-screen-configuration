@@ -8,6 +8,10 @@ export type WIDGET_TYPE = typeof WIDGET;
 export const MODIFY_WIDGET = "MODIFY_WIDGET";
 export type MODIFY_WIDGET_TYPE = typeof MODIFY_WIDGET;
 
+// 新增组件
+export const ADD_ELEMENT = "ADD_ELEMENT";
+export type ADD_ELEMENT_TYPE = typeof ADD_ELEMENT;
+
 // 选中组件
 export const SELECT_ELEMENT_ID = "SELECT_ELEMENT_ID";
 export type SELECT_ELEMENT_ID_TYPE = typeof SELECT_ELEMENT_ID;

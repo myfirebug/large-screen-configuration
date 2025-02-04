@@ -10,6 +10,7 @@ import DragContent from "@src/compoents/dragdrop/dragContent";
 import "@src/layout/configLayout/index.scss";
 import WidgetLayout from "@src/layout/widgetLayout";
 import { initialState, widgetReducer } from "./store/reducers";
+import { IElement } from "@src/service";
 interface IConfigLayout {}
 
 const ConfigLayout: FC<IConfigLayout> = () => {
@@ -43,6 +44,21 @@ const ConfigLayout: FC<IConfigLayout> = () => {
     }
   }, [location]);
   console.log(layout, dispatch);
+
+  const ondropHander = (
+    position: "header" | "body",
+    isAdd: boolean,
+    data: IAnyObject
+  ) => {
+    // 新增
+    if (isAdd) {
+      dispatch({
+        type: "ADD_ELEMENT",
+        position: position,
+        data: data as IElement,
+      });
+    }
+  };
   return (
     <div className="cms-config-layout">
       <ConfigLayoutHeader
@@ -70,10 +86,24 @@ const ConfigLayout: FC<IConfigLayout> = () => {
         <ConfigLayoutMain>
           <WidgetLayout
             header={
-              <DragContent column={8} row={1} gap={4} groupName="elements" />
+              <DragContent
+                column={8}
+                row={1}
+                gap={4}
+                groupName="elements"
+                field="elementId"
+                ondrop={(isAdd, data) => ondropHander("header", isAdd, data)}
+              />
             }
             body={
-              <DragContent column={8} row={8} gap={4} groupName="elements" />
+              <DragContent
+                column={8}
+                row={8}
+                gap={4}
+                groupName="elements"
+                field="elementId"
+                ondrop={(isAdd, data) => ondropHander("body", isAdd, data)}
+              />
             }
           />
         </ConfigLayoutMain>

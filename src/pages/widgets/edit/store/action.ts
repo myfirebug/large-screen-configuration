@@ -1,9 +1,10 @@
-import { IWidget } from "@src/service";
+import { IElement, IWidget } from "@src/service";
 import {
   WIDGET_TYPE,
   MODIFY_WIDGET_TYPE,
   SELECT_ELEMENT_ID_TYPE,
   MODIFY_ELEMENT_TYPE,
+  ADD_ELEMENT_TYPE,
 } from "./type";
 
 export interface widgetAction {
@@ -14,6 +15,12 @@ export interface widgetAction {
 export interface modifyWidgetAction {
   type: MODIFY_WIDGET_TYPE;
   data: IAnyObject;
+}
+
+export interface addElementIdAction {
+  type: ADD_ELEMENT_TYPE;
+  position: "header" | "body";
+  data: IElement;
 }
 
 export interface selectElementIdAction {
@@ -29,5 +36,6 @@ export interface modifyElementAction {
 export type ModifyActions =
   | widgetAction
   | modifyWidgetAction
+  | addElementIdAction
   | selectElementIdAction
   | modifyElementAction;

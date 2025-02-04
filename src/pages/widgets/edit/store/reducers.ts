@@ -5,6 +5,7 @@ import {
   MODIFY_ELEMENT,
   MODIFY_WIDGET,
   SELECT_ELEMENT_ID,
+  ADD_ELEMENT,
 } from "./type";
 
 export const initialState: ALL_STATE = {
@@ -27,23 +28,34 @@ export const initialState: ALL_STATE = {
 };
 
 export const widgetReducer = (state = initialState, action: ModifyActions) => {
+  const copy: ALL_STATE = JSON.parse(JSON.stringify(state));
   switch (action.type) {
     // 获取微件
     case WIDGET: {
       return {
-        ...state,
+        ...copy,
         ...action.data,
       };
     }
     case MODIFY_WIDGET: {
-      return {
-        ...state,
-        widget: {
-          ...state.widget,
-          ...action.data,
-        },
+      copy.widget = {
+        ...copy.widget,
+        ...action.data,
       };
+      return copy;
     }
+    case ADD_ELEMENT: {
+      if (action.position === "header") {
+        copy.widget.header = [...copy.widget.header, action.data];
+      } else {
+        copy.widget.body = [...copy.widget.body, action.data];
+      }
+      copy.elementId = action.data.elementId;
+
+      console.log(copy, "copy");
+      return copy;
+    }
+
     case MODIFY_ELEMENT: {
       return state;
     }
