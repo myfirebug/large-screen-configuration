@@ -19,7 +19,6 @@ export interface modifyWidgetAction {
 
 export interface addElementIdAction {
   type: ADD_ELEMENT_TYPE;
-  position: "header" | "body";
   data: IElement;
 }
 

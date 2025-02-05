@@ -1,3 +1,4 @@
+import { IElement } from "@src/service";
 import { ModifyActions } from "./action";
 import {
   ALL_STATE,
@@ -21,8 +22,7 @@ export const initialState: ALL_STATE = {
     column: 1,
     row: 1,
     configuration: {},
-    header: [],
-    body: [],
+    elements: [],
   },
   elementId: undefined,
 };
@@ -45,19 +45,18 @@ export const widgetReducer = (state = initialState, action: ModifyActions) => {
       return copy;
     }
     case ADD_ELEMENT: {
-      if (action.position === "header") {
-        copy.widget.header = [...copy.widget.header, action.data];
-      } else {
-        copy.widget.body = [...copy.widget.body, action.data];
-      }
-      copy.elementId = action.data.elementId;
-
-      console.log(copy, "copy");
+      copy.widget.elements.push(action.data);
       return copy;
     }
 
     case MODIFY_ELEMENT: {
-      return state;
+      const index = copy.widget.elements.findIndex(
+        (item) => item.elementId === action.data.elementId
+      );
+      if (index !== -1) {
+        copy.widget.elements[index] = { ...action.data } as IElement;
+      }
+      return copy;
     }
 
     case SELECT_ELEMENT_ID: {

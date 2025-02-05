@@ -37,13 +37,11 @@ const ConfigLayout: FC<IConfigLayout> = () => {
           column: 1,
           row: 1,
           configuration: {},
-          header: [],
-          body: [],
+          elements: [],
         },
       });
     }
   }, [location]);
-  console.log(layout, dispatch);
 
   const ondropHander = (
     position: "header" | "body",
@@ -54,8 +52,18 @@ const ConfigLayout: FC<IConfigLayout> = () => {
     if (isAdd) {
       dispatch({
         type: "ADD_ELEMENT",
-        position: position,
-        data: data as IElement,
+        data: {
+          ...data,
+          position: position,
+        } as IElement,
+      });
+    } else {
+      dispatch({
+        type: "MODIFY_ELEMENT",
+        data: {
+          ...data,
+          position: position,
+        } as IElement,
       });
     }
   };
@@ -92,6 +100,11 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                 gap={4}
                 groupName="elements"
                 field="elementId"
+                datas={
+                  layout?.widget.elements.filter(
+                    (item) => item.position === "header"
+                  ) || []
+                }
                 ondrop={(isAdd, data) => ondropHander("header", isAdd, data)}
               />
             }
@@ -102,6 +115,11 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                 gap={4}
                 groupName="elements"
                 field="elementId"
+                datas={
+                  layout?.widget.elements.filter(
+                    (item) => item.position === "body"
+                  ) || []
+                }
                 ondrop={(isAdd, data) => ondropHander("body", isAdd, data)}
               />
             }
