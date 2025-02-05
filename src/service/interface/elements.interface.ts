@@ -12,6 +12,7 @@ export interface IElement {
   column: number;
   row: number;
   configuration: IAnyObject;
+  position?: "header" | "body";
 }
 
 // 用户信息结果

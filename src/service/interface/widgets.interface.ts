@@ -13,8 +13,7 @@ export interface IWidget {
   column: number;
   row: number;
   configuration: IAnyObject | null;
-  header: IElement[];
-  body: IElement[];
+  elements: IElement[];
 }
 
 // 用户信息结果
