@@ -1,0 +1,23 @@
+@include b(drag) {
+  @include e(content) {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    @include m(container) {
+      > div {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+        pointer-events: none;
+      }
+    }
+  }
+  @include e(preview) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    // pointer-events: none;
+    overflow: hidden;
+    z-index: 5;
+    pointer-events: none;
+  }
+}
