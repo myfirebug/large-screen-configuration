@@ -1,4 +1,4 @@
-import React, { FC, HtmlHTMLAttributes, useMemo } from "react";
+import React, { FC, HtmlHTMLAttributes, ReactNode, useMemo } from "react";
 import { getItemSizeStyle } from "../drag";
 import "./index.scss";
 
@@ -17,8 +17,7 @@ interface IMoveMask extends HtmlHTMLAttributes<HTMLDivElement> {
   x: number;
   /** 拖拽元素 y 坐标 */
   y: number;
-  /** 是否可以放置 */
-  isPutDown: boolean;
+  children: ReactNode;
 }
 
 const MoveMask: FC<IMoveMask> = ({
@@ -29,18 +28,17 @@ const MoveMask: FC<IMoveMask> = ({
   row = 0,
   x = 0,
   y = 0,
-  isPutDown = false,
   style,
+  children,
 }) => {
   // 获取遮罩层样式
   const maskStyle = useMemo(() => {
     return getItemSizeStyle(width, height, x, y, gap, column, row);
   }, [column, gap, height, row, width, x, y]);
   return (
-    <div
-      className="cms-drag__moveMask"
-      style={{ ...maskStyle, ...style }}
-    ></div>
+    <div className="cms-drag__moveMask" style={{ ...maskStyle, ...style }}>
+      {children}
+    </div>
   );
 };
 
