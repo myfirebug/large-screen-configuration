@@ -21,6 +21,42 @@ class DragStore<T extends IAnyObject> {
 export const dragStore = new DragStore<IAnyObject>();
 
 /**
+ * 判断是否在当前四边形内
+ * @param {*} p1 父容器
+ * @param {*} p2
+ * @returns
+ *  对应是 左上角坐标 和 右下角坐标
+ *  [0,0,1,1]  => 左上角坐标 0,0  右下角 1,1
+ */
+export const booleanWithin = (
+  p1: [number, number, number, number],
+  p2: [number, number, number, number]
+) => {
+  return p1[0] <= p2[0] && p1[1] <= p2[1] && p1[2] >= p2[2] && p1[3] >= p2[3];
+};
+
+/**
+ * 判断是两四边形是否相交
+ * @param {*} p1 父容器
+ * @param {*} p2
+ * @returns
+ *  对应是 左上角坐标 和 右下角坐标
+ *  [0,0,1,1]  => 左上角坐标 0,0  右下角 1,1
+ */
+export const booleanIntersects = (
+  p1: [number, number, number, number],
+  p2: [number, number, number, number]
+) => {
+  return !(
+    p1[2] <= p2[0] || // p1 在 p2 左边
+    p2[2] <= p1[0] || // p1 在 p2 右边
+    p1[3] <= p2[1] || // p1 在 p2 上边
+    // p1 在 p2 下边
+    p2[3] <= p1[1]
+  );
+};
+
+/**
  * 获取元素位置信息
  * @param {*} width 格子宽
  * @param {*} height 格子高
