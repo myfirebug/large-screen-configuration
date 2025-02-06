@@ -1,16 +1,15 @@
 class DragStore<T extends IAnyObject> {
-  moveItem = new Map<string, IAnyObject>();
+  moveItem = new Map<string, T>();
 
   set(key: string, data: T) {
     this.moveItem.set(key, data);
-    console.log(data);
   }
 
   remove(key: string) {
     this.moveItem.delete(key);
   }
 
-  get(key: string): undefined | IAnyObject {
+  get(key: string): undefined | T {
     return this.moveItem.get(key);
   }
 }
