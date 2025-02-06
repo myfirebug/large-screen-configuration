@@ -43,7 +43,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
     }
   }, [location]);
 
-  const ondropHander = (
+  const onDropHandler = (
     position: "header" | "body",
     isAdd: boolean,
     data: IAnyObject
@@ -66,6 +66,13 @@ const ConfigLayout: FC<IConfigLayout> = () => {
         } as IElement,
       });
     }
+  };
+
+  const onResizeEndHandler = (data: IAnyObject) => {
+    dispatch({
+      type: "MODIFY_ELEMENT",
+      data: { ...data },
+    });
   };
   return (
     <div className="cms-config-layout">
@@ -105,7 +112,9 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                     (item) => item.position === "header"
                   ) || []
                 }
-                ondrop={(isAdd, data) => ondropHander("header", isAdd, data)}
+                onDropHandler={(isAdd, data) =>
+                  onDropHandler("header", isAdd, data)
+                }
               />
             }
             body={
@@ -120,7 +129,10 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                     (item) => item.position === "body"
                   ) || []
                 }
-                ondrop={(isAdd, data) => ondropHander("body", isAdd, data)}
+                onDropHandler={(isAdd, data) =>
+                  onDropHandler("body", isAdd, data)
+                }
+                onResizeEndHandler={onResizeEndHandler}
               />
             }
           />

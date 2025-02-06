@@ -55,6 +55,7 @@ export const widgetReducer = (state = initialState, action: ModifyActions) => {
       );
       if (index !== -1) {
         copy.widget.elements[index] = { ...action.data } as IElement;
+        copy.elementId = action.data.elementId;
       }
       return copy;
     }
