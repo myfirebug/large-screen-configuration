@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useReducer } from "react";
+import React, { FC, useCallback, useEffect, useReducer } from "react";
 import { useLocation } from "react-router-dom";
 import ConfigLayoutHeader from "@src/layout/configLayout/components/header";
 import ConfigLayoutLeftAside from "@src/layout/configLayout/components/leftAside";
@@ -68,12 +68,13 @@ const ConfigLayout: FC<IConfigLayout> = () => {
     }
   };
 
-  const onResizeEndHandler = (data: IAnyObject) => {
+  const onResizeEndHandler = useCallback((data: IAnyObject) => {
     dispatch({
       type: "MODIFY_ELEMENT",
       data: { ...data },
     });
-  };
+  }, []);
+
   return (
     <div className="cms-config-layout">
       <ConfigLayoutHeader
@@ -115,6 +116,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                 onDropHandler={(isAdd, data) =>
                   onDropHandler("header", isAdd, data)
                 }
+                onResizeEndHandler={onResizeEndHandler}
               />
             }
             body={
