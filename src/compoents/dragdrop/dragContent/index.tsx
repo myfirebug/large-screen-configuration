@@ -58,6 +58,7 @@ const DragContent = memo(
       x: 0,
       y: 0,
     });
+    const [resizeEnd, setResizeEnd] = useState(false);
     // 拖拽中的元素
     const [current, setCuurent] = useState<IAnyObject>({});
     // 动态计算目标元素的宽高
@@ -152,6 +153,7 @@ const DragContent = memo(
     const onDragOver = useCallback(
       (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
+        console.log(e);
         const dragData = dragStore.get(groupName as string);
         if (dragData) {
           setCuurent((state) => ({
@@ -204,6 +206,7 @@ const DragContent = memo(
     const onResizeStart = useCallback(() => {
       const dragData = dragStore.get(groupName as string);
       if (dragData) {
+        setResizeEnd(false);
         setCuurent((state) => ({
           ...state,
           ...dragData,
@@ -214,6 +217,7 @@ const DragContent = memo(
     // 调正大小时
     const onResizeing = useCallback(
       (e: any) => {
+        setResizeEnd(false);
         setCuurent((state) => ({
           ...state,
           column: getColumn(e.target.offsetWidth),
@@ -224,15 +228,24 @@ const DragContent = memo(
     );
     // 调整大小结束
     const onResizeEnd = useCallback(() => {
-      setCuurent((state) => {
-        const data = {
-          ...state,
-          show: false,
-        };
-        onResizeEndHandler?.(data);
-        return data;
-      });
-    }, [onResizeEndHandler]);
+      setResizeEnd(true);
+      setCuurent((state) => ({
+        ...state,
+        show: false,
+      }));
+    }, []);
+
+    useEffect(() => {
+      const dragData = dragStore.get(groupName as string);
+      if (resizeEnd && isPutDown) {
+        if (
+          dragData?.column !== current.column ||
+          dragData?.row !== current.row
+        ) {
+          onResizeEndHandler?.(current);
+        }
+      }
+    }, [onResizeEndHandler, current, groupName, resizeEnd, isPutDown]);
 
     return (
       <div
@@ -313,7 +326,6 @@ const DragContent = memo(
     if (JSON.stringify(prevProps) === JSON.stringify(nextProps)) {
       return true;
     }
-    console.log(prevProps, nextProps);
     return false;
   }
 );
