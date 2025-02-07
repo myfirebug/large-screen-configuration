@@ -12,6 +12,10 @@ export type MODIFY_WIDGET_TYPE = typeof MODIFY_WIDGET;
 export const ADD_ELEMENT = "ADD_ELEMENT";
 export type ADD_ELEMENT_TYPE = typeof ADD_ELEMENT;
 
+// 删除组件
+export const DELETE_ELEMENT = "DELETE_ELEMENT";
+export type DELETE_ELEMENT_TYPE = typeof DELETE_ELEMENT;
+
 // 选中组件
 export const SELECT_ELEMENT_ID = "SELECT_ELEMENT_ID";
 export type SELECT_ELEMENT_ID_TYPE = typeof SELECT_ELEMENT_ID;

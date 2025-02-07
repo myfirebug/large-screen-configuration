@@ -75,6 +75,13 @@ const ConfigLayout: FC<IConfigLayout> = () => {
     });
   }, []);
 
+  const onCloseHander = useCallback((id: string) => {
+    dispatch({
+      type: "DELETE_ELEMENT",
+      id,
+    });
+  }, []);
+
   return (
     <div className="cms-config-layout">
       <ConfigLayoutHeader
@@ -117,6 +124,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                   onDropHandler("header", isAdd, data)
                 }
                 onResizeEndHandler={onResizeEndHandler}
+                onCloseHander={onCloseHander}
               />
             }
             body={
@@ -135,6 +143,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                   onDropHandler("body", isAdd, data)
                 }
                 onResizeEndHandler={onResizeEndHandler}
+                onCloseHander={onCloseHander}
               />
             }
           />

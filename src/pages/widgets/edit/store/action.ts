@@ -5,6 +5,7 @@ import {
   SELECT_ELEMENT_ID_TYPE,
   MODIFY_ELEMENT_TYPE,
   ADD_ELEMENT_TYPE,
+  DELETE_ELEMENT_TYPE,
 } from "./type";
 
 export interface widgetAction {
@@ -17,9 +18,14 @@ export interface modifyWidgetAction {
   data: IAnyObject;
 }
 
-export interface addElementIdAction {
+export interface addElementAction {
   type: ADD_ELEMENT_TYPE;
   data: IElement;
+}
+
+export interface deleteElementAction {
+  type: DELETE_ELEMENT_TYPE;
+  id: string;
 }
 
 export interface selectElementIdAction {
@@ -35,6 +41,7 @@ export interface modifyElementAction {
 export type ModifyActions =
   | widgetAction
   | modifyWidgetAction
-  | addElementIdAction
+  | addElementAction
+  | deleteElementAction
   | selectElementIdAction
   | modifyElementAction;

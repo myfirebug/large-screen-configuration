@@ -32,8 +32,16 @@ interface IDragContent {
    * @returns
    */
   onDropHandler?: (isAdd: boolean, data: IAnyObject) => void;
-
+  /**
+   * @param data 改变的数据
+   * @returns
+   */
   onResizeEndHandler?: (data: IAnyObject) => void;
+  /**
+   * @param id 刪除的数据ID
+   * @returns
+   */
+  onCloseHander?: (id: string) => void;
 }
 
 const DragContent = memo(
@@ -48,6 +56,7 @@ const DragContent = memo(
       onDropHandler,
       datas,
       onResizeEndHandler,
+      onCloseHander,
     } = props;
     // 目标元素
     const target = useRef<HTMLDivElement>(null);
@@ -153,7 +162,6 @@ const DragContent = memo(
     const onDragOver = useCallback(
       (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
-        console.log(e);
         const dragData = dragStore.get(groupName as string);
         if (dragData) {
           setCuurent((state) => ({
@@ -242,7 +250,14 @@ const DragContent = memo(
           dragData?.column !== current.column ||
           dragData?.row !== current.row
         ) {
+          console.log(
+            dragData,
+            current,
+            groupName,
+            "update onResizeEndHandler"
+          );
           onResizeEndHandler?.(current);
+          setResizeEnd(false);
         }
       }
     }, [onResizeEndHandler, current, groupName, resizeEnd, isPutDown]);
@@ -296,6 +311,7 @@ const DragContent = memo(
               onResizeStart={onResizeStart}
               onResizeing={onResizeing}
               onResizeEnd={onResizeEnd}
+              onCloseHander={onCloseHander}
             ></PreviewItem>
           ))}
 

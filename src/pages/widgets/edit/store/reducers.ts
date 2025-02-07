@@ -7,6 +7,7 @@ import {
   MODIFY_WIDGET,
   SELECT_ELEMENT_ID,
   ADD_ELEMENT,
+  DELETE_ELEMENT,
 } from "./type";
 
 export const initialState: ALL_STATE = {
@@ -29,6 +30,7 @@ export const initialState: ALL_STATE = {
 
 export const widgetReducer = (state = initialState, action: ModifyActions) => {
   const copy: ALL_STATE = JSON.parse(JSON.stringify(state));
+  console.log(action);
   switch (action.type) {
     // 获取微件
     case WIDGET: {
@@ -46,6 +48,13 @@ export const widgetReducer = (state = initialState, action: ModifyActions) => {
     }
     case ADD_ELEMENT: {
       copy.widget.elements.push(action.data);
+      return copy;
+    }
+
+    case DELETE_ELEMENT: {
+      copy.widget.elements = copy.widget.elements.filter(
+        (item) => item.elementId !== action.id
+      );
       return copy;
     }
 
