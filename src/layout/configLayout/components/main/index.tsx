@@ -1,5 +1,5 @@
 import React, { FC, ReactNode } from "react";
-import Rule from "../rule";
+import Rule from "./components/rule";
 import "./index.scss";
 interface IConfigLayoutMain {
   children: ReactNode;
