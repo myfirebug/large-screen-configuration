@@ -13,12 +13,24 @@ interface IPreviewItem extends HtmlHTMLAttributes<HTMLDivElement> {
   onResizeing?: (e: React.DragEvent<HTMLDivElement>) => void;
   onResizeEnd?: () => void;
   groupName?: string;
+  /**
+   * @param id 刪除的数据ID
+   * @returns
+   */
+  onCloseHander?: (id: string) => void;
 }
 
 const PreviewItem = memo(
   (props: IPreviewItem) => {
-    const { data, style, groupName, onResizeStart, onResizeing, onResizeEnd } =
-      props;
+    const {
+      data,
+      style,
+      groupName,
+      onResizeStart,
+      onResizeing,
+      onResizeEnd,
+      onCloseHander,
+    } = props;
     const [moveing, setMoveing] = useState(false);
     const [resizeing, setResizeing] = useState(false);
     const previewStyles = useMemo(() => {
@@ -39,11 +51,15 @@ const PreviewItem = memo(
     // 移动开始
     const onDragStart = useCallback(
       (e: React.DragEvent<HTMLDivElement>) => {
-        dragStore.set(groupName as string, data);
+        dragStore.set(groupName as string, {
+          ...data,
+          pageX: e.pageX,
+          pageY: e.pageY,
+        });
         setTimeout(() => {
           setMoveing(true);
         }, 0);
-        unset(e.target);
+        setResizeing(false);
       },
       [data, groupName]
     );
@@ -61,26 +77,26 @@ const PreviewItem = memo(
         dragStore.set(groupName as string, data);
         setResizeing(true);
         onResizeStart?.();
-
-        e.target.addEventListener("mousemove", (event) => {
-          onResizeing?.(e);
-        });
-        e.target.addEventListener("mouseup", (event: any) => {
-          unset(event.target);
-          onResizeEnd?.();
-          event.target.style.width = "100%";
-          event.target.style.height = "100%";
-          dragStore.remove(groupName as string);
-        });
       },
-      [data, groupName, onResizeEnd, onResizeStart, onResizeing]
+      [data, groupName, onResizeStart]
     );
 
-    const unset = (target: any) => {
-      setResizeing(false);
-      target.onmousemove = null;
-      target.onmouseup = null;
-    };
+    const onMouseMove = useCallback(
+      (e: React.DragEvent<HTMLDivElement>) => {
+        onResizeing?.(e);
+      },
+      [onResizeing]
+    );
+
+    const onMouseUp = useCallback(
+      (e: any) => {
+        onResizeEnd?.();
+        e.target.style.width = "100%";
+        e.target.style.height = "100%";
+        setResizeing(false);
+      },
+      [onResizeEnd]
+    );
     return (
       <div
         className="cms-drag__preview--item"
@@ -89,8 +105,16 @@ const PreviewItem = memo(
         draggable
         onDragEnd={onDragEnd}
         onMouseDown={onMouseDown}
+        onMouseMove={onMouseMove}
+        onMouseUp={onMouseUp}
       >
-        <div className="close"></div>
+        <div
+          className="close"
+          onClick={(e) => {
+            e.preventDefault();
+            onCloseHander?.(data.elementId);
+          }}
+        ></div>
         <div className="resize"></div>
       </div>
     );
