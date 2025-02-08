@@ -7,7 +7,7 @@ export interface IWidget {
   createTime: string;
   type: elementsType;
   count: number;
-  widgetId?: string;
+  widgetId: string;
   x: number;
   y: number;
   column: number;
