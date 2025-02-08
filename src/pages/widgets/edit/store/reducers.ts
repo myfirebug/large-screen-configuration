@@ -9,6 +9,7 @@ import {
   ADD_ELEMENT,
   DELETE_ELEMENT,
 } from "./type";
+import elementsConfig from "@src/core/config/elements";
 
 export const initialState: ALL_STATE = {
   widget: {
@@ -30,7 +31,7 @@ export const initialState: ALL_STATE = {
 
 export const widgetReducer = (state = initialState, action: ModifyActions) => {
   const copy: ALL_STATE = JSON.parse(JSON.stringify(state));
-  console.log(action);
+  console.log(state, action);
   switch (action.type) {
     // 获取微件
     case WIDGET: {
@@ -47,7 +48,11 @@ export const widgetReducer = (state = initialState, action: ModifyActions) => {
       return copy;
     }
     case ADD_ELEMENT: {
-      copy.widget.elements.push(action.data);
+      console.log(elementsConfig, "elementsConfig");
+      copy.widget.elements.push({
+        ...action.data,
+        ...elementsConfig[action.data.element],
+      });
       return copy;
     }
 
