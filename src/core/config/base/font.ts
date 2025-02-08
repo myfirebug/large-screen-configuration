@@ -1,6 +1,6 @@
 export const font = {
   configureValue: {
-    styleFontSize: 26,
+    styleFontSize: 14,
     styleLetterSpacing: 0,
     styleFontWeight: "normal",
     styleTextAlign: "center",
