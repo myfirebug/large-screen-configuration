@@ -1,16 +1,21 @@
-import React, { FC, useCallback, useEffect, useReducer } from "react";
+import React, { FC, useCallback, useEffect, useMemo, useReducer } from "react";
 import { useLocation } from "react-router-dom";
-import ConfigLayoutHeader from "@src/layout/configLayout/components/header";
-import ConfigLayoutLeftAside from "@src/layout/configLayout/components/leftAside";
-import ConfigLayoutRightAside from "@src/layout/configLayout/components/rightAside";
-import ConfigLayoutMain from "@src/layout/configLayout/components/main";
-import ConfigLayoutLeftAsideElements from "@src/layout/configLayout/components/elements";
 import DragContent from "@src/compoents/dragdrop/dragContent";
+import elements from "@src/elements";
+import {
+  ConfigLayoutHeader,
+  ConfigLayoutMain,
+  ConfigLayoutLeftAside,
+  ConfigLayoutRightAside,
+  ConfigLayoutLeftAsideElements,
+  ConfigLayoutRightAsideLayer,
+} from "@src/layout/configLayout";
 
 import "@src/layout/configLayout/index.scss";
 import WidgetLayout from "@src/layout/widgetLayout";
 import { initialState, widgetReducer } from "./store/reducers";
 import { IElement } from "@src/service";
+import { capitalizeFirstLetter, guid } from "@src/utils";
 interface IConfigLayout {}
 
 const ConfigLayout: FC<IConfigLayout> = () => {
@@ -20,7 +25,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     // 编辑
-    if (queryParams) {
+    if (queryParams.size) {
     } else {
       // 新增
       dispatch({
@@ -36,6 +41,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
           y: 0,
           column: 1,
           row: 1,
+          widgetId: guid(),
           configuration: {},
           elements: [],
         },
@@ -76,11 +82,50 @@ const ConfigLayout: FC<IConfigLayout> = () => {
   }, []);
 
   const onCloseHander = useCallback((id: string) => {
+    console.log(id, "onCloseHander");
     dispatch({
       type: "DELETE_ELEMENT",
       id,
     });
   }, []);
+
+  const renderPreview = useCallback((data: IAnyObject) => {
+    if (data.element && elements[capitalizeFirstLetter(data.element)]) {
+      return React.createElement(
+        elements[capitalizeFirstLetter(data.element)],
+        {
+          options: data.configureValue,
+        }
+      );
+    }
+    return <div>你访问的组件不存在请联系售后人员</div>;
+  }, []);
+  // 判断右侧边栏所需模块
+  const rightAside = useMemo(() => {
+    let arr: PageType[] = [];
+    if (layout?.widgetId) {
+      if (layout?.elementId) {
+        arr = ["layer", "element", "widget", "linkage"];
+      } else {
+        arr = ["layer", "widget", "linkage"];
+      }
+    } else {
+      arr = ["layer", "linkage"];
+    }
+    return arr;
+  }, [layout?.elementId, layout?.widgetId]);
+
+  const onSelected = useCallback(
+    (widgetId: string, elementId: string | undefined) => {
+      if (elementId && layout?.elementId !== elementId) {
+        dispatch({
+          type: "SELECT_ELEMENT",
+          id: elementId,
+        });
+      }
+    },
+    [layout?.elementId]
+  );
 
   return (
     <div className="cms-config-layout">
@@ -125,6 +170,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                 }
                 onResizeEndHandler={onResizeEndHandler}
                 onCloseHander={onCloseHander}
+                renderPreview={renderPreview}
               />
             }
             body={
@@ -144,13 +190,24 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                 }
                 onResizeEndHandler={onResizeEndHandler}
                 onCloseHander={onCloseHander}
+                renderPreview={renderPreview}
               />
             }
           />
         </ConfigLayoutMain>
         <ConfigLayoutRightAside
-          navs={["layer", "element", "widget"]}
+          navs={rightAside}
           render={(data) => {
+            if (data === "layer") {
+              return (
+                <ConfigLayoutRightAsideLayer
+                  datas={layout?.widget ? [layout?.widget] : []}
+                  widgetId={layout?.widgetId}
+                  elementId={layout?.elementId}
+                  onSelected={onSelected}
+                />
+              );
+            }
             return <div>{data}</div>;
           }}
         />
