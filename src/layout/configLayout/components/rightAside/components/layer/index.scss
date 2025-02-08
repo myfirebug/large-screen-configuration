@@ -1,0 +1,35 @@
+@include b(config-layout) {
+  @include e(layer) {
+    line-height: 30px;
+    height: 100%;
+    overflow: hidden;
+    overflow-y: auto;
+    cursor: pointer;
+    color: var(--cms-text-color-secondary);
+    .anticon {
+      margin-right: 5px;
+    }
+    .name {
+      padding: 0 10px;
+      border-bottom: 1px solid var(--cms-divider-color);
+      transition: all 0.25s ease 0s;
+      &:hover,
+      &.is-active {
+        font-weight: bold;
+        color: var(--cms-primary-color);
+      }
+    }
+    .content {
+      > div {
+        padding: 0 10px 0 26px;
+        border-bottom: 1px solid var(--cms-divider-color);
+        transition: all 0.25s ease 0s;
+        &:hover,
+        &.is-active {
+          color: var(--cms-primary-color);
+          background: var(--cms-background-color-primary);
+        }
+      }
+    }
+  }
+}
