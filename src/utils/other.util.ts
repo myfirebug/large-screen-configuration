@@ -41,3 +41,7 @@ export const getStyles = (config: { [propName: string]: any }) => {
   result.animationDuration = config.styleAnimationDuration + "s";
   return result;
 };
+
+export const capitalizeFirstLetter = (str: string) => {
+  return str.replace(/^\w/, (c) => c.toUpperCase());
+};
