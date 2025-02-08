@@ -36,7 +36,7 @@ const ALLTABS: ITabItem[] = [
   },
 ];
 
-const ConfigLayoutRightAsid: FC<IConfigLayoutRightAside> = ({
+export const ConfigLayoutRightAside: FC<IConfigLayoutRightAside> = ({
   render,
   navs,
 }) => {
@@ -85,5 +85,3 @@ const ConfigLayoutRightAsid: FC<IConfigLayoutRightAside> = ({
     </div>
   );
 };
-
-export default ConfigLayoutRightAsid;

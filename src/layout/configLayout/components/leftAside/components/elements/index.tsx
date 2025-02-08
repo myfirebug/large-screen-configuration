@@ -15,7 +15,7 @@ const ALLELEMENTS: elementsType[] = [
   "pie",
 ];
 
-const ConfigLayoutLeftAsideElements: FC<
+export const ConfigLayoutLeftAsideElements: FC<
   IConfigLayoutLeftAsideElements
 > = () => {
   const [current, setCurrent] = useState<elementsType>("text");
@@ -57,5 +57,3 @@ const ConfigLayoutLeftAsideElements: FC<
     </div>
   );
 };
-
-export default ConfigLayoutLeftAsideElements;

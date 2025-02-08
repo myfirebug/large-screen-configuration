@@ -5,7 +5,7 @@ interface IConfigLayoutMain {
   children: ReactNode;
 }
 
-const ConfigLayoutMain: FC<IConfigLayoutMain> = ({ children }) => {
+export const ConfigLayoutMain: FC<IConfigLayoutMain> = ({ children }) => {
   return (
     <div className="cms-config-layout__main">
       <div className="cms-config-layout__center">
@@ -15,5 +15,3 @@ const ConfigLayoutMain: FC<IConfigLayoutMain> = ({ children }) => {
     </div>
   );
 };
-
-export default ConfigLayoutMain;

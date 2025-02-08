@@ -18,7 +18,7 @@ interface IConfigLayoutHeader {
   modifyNameSuccessHander?: (name: string) => void;
 }
 
-const ConfigLayoutHeader: FC<IConfigLayoutHeader> = ({
+export const ConfigLayoutHeader: FC<IConfigLayoutHeader> = ({
   name,
   logo,
   pageType,
@@ -64,5 +64,3 @@ const ConfigLayoutHeader: FC<IConfigLayoutHeader> = ({
     </>
   );
 };
-
-export default ConfigLayoutHeader;
