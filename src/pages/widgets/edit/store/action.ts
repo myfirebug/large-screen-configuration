@@ -2,7 +2,7 @@ import { IElement, IWidget } from "@src/service";
 import {
   WIDGET_TYPE,
   MODIFY_WIDGET_TYPE,
-  SELECT_ELEMENT_ID_TYPE,
+  SELECT_ELEMENT_TYPE,
   MODIFY_ELEMENT_TYPE,
   ADD_ELEMENT_TYPE,
   DELETE_ELEMENT_TYPE,
@@ -28,9 +28,9 @@ export interface deleteElementAction {
   id: string;
 }
 
-export interface selectElementIdAction {
-  type: SELECT_ELEMENT_ID_TYPE;
-  data: string;
+export interface selectElementAction {
+  type: SELECT_ELEMENT_TYPE;
+  id: string;
 }
 
 export interface modifyElementAction {
@@ -43,5 +43,5 @@ export type ModifyActions =
   | modifyWidgetAction
   | addElementAction
   | deleteElementAction
-  | selectElementIdAction
+  | selectElementAction
   | modifyElementAction;

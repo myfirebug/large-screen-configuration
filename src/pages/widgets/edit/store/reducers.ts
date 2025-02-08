@@ -5,7 +5,7 @@ import {
   WIDGET,
   MODIFY_ELEMENT,
   MODIFY_WIDGET,
-  SELECT_ELEMENT_ID,
+  SELECT_ELEMENT,
   ADD_ELEMENT,
   DELETE_ELEMENT,
 } from "./type";
@@ -25,8 +25,10 @@ export const initialState: ALL_STATE = {
     row: 1,
     configuration: {},
     elements: [],
+    widgetId: "",
   },
   elementId: undefined,
+  widgetId: undefined,
 };
 
 export const widgetReducer = (state = initialState, action: ModifyActions) => {
@@ -35,10 +37,9 @@ export const widgetReducer = (state = initialState, action: ModifyActions) => {
   switch (action.type) {
     // 获取微件
     case WIDGET: {
-      return {
-        ...copy,
-        ...action.data,
-      };
+      copy.widget = action.data;
+      copy.widgetId = action.data.widgetId;
+      return copy;
     }
     case MODIFY_WIDGET: {
       copy.widget = {
@@ -48,11 +49,11 @@ export const widgetReducer = (state = initialState, action: ModifyActions) => {
       return copy;
     }
     case ADD_ELEMENT: {
-      console.log(elementsConfig, "elementsConfig");
       copy.widget.elements.push({
         ...action.data,
         ...elementsConfig[action.data.element],
       });
+      copy.elementId = action.data.elementId;
       return copy;
     }
 
@@ -60,6 +61,9 @@ export const widgetReducer = (state = initialState, action: ModifyActions) => {
       copy.widget.elements = copy.widget.elements.filter(
         (item) => item.elementId !== action.id
       );
+      if (action.id === copy.elementId) {
+        copy.elementId = "";
+      }
       return copy;
     }
 
@@ -74,8 +78,9 @@ export const widgetReducer = (state = initialState, action: ModifyActions) => {
       return copy;
     }
 
-    case SELECT_ELEMENT_ID: {
-      return state;
+    case SELECT_ELEMENT: {
+      copy.elementId = action.id;
+      return copy;
     }
     default: {
       console.log("你访问的类型不对，请自行检查");
