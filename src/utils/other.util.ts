@@ -20,25 +20,36 @@ export function guid(): string {
  * 设置样式
  * @param config json数据
  */
-export const getStyles = (config: { [propName: string]: any }) => {
+export const getStyles = (
+  config: { [propName: string]: any },
+  prefix: string = "style"
+) => {
   let result: any = {
     width: config.width,
     height: config.height,
-    animationIterationCount: config.styleAnimateInfinite ? "infinite" : 1,
-    textShadow: `${config.styleTextShadowX}px ${config.styleTextShadowY}px ${config.styleTextShadowF}px ${config.styleTextShadowC}`,
-    boxShadow: `${config.styleBoxShadowX}px ${config.styleBoxShadowY}px ${
-      config.styleBoxShadowF
-    }px ${config.styleBoxShadowC} ${config.styleBoxInset ? "inset" : ""}`,
+    animationIterationCount: config[`${prefix}AnimateInfinite`]
+      ? "infinite"
+      : 1,
+    textShadow: `${config[prefix + `TextShadowX`]}px ${
+      config[prefix + `TextShadowY`]
+    }px ${config[prefix + `TextShadowF`]}px ${config[prefix + `TextShadowC`]}`,
+    boxShadow: `${config[prefix + `BoxShadowX`]}px ${
+      config[prefix + `BoxShadowY`]
+    }px ${config[prefix + `BoxShadowF`]}px ${config[prefix + `BoxShadowC`]} ${
+      config[prefix + `BoxInset`] ? "inset" : ""
+    }`,
   };
   for (let filed in config) {
-    if (filed.indexOf("style") === 0 && typeof config[filed] !== "object") {
+    if (filed.indexOf(prefix) === 0 && typeof config[filed] !== "object") {
       let newField = filed.substring(5);
       newField = newField.replace(newField[0], newField[0].toLocaleLowerCase());
       result[newField] = config[filed];
     }
   }
-  result.animationDelay = config.styleAnimationDelay + "s";
-  result.animationDuration = config.styleAnimationDuration + "s";
+  result.animationDelay = config[prefix + `AnimationDelay`] + "s";
+  result.animationDuration = config[prefix + `AnimationDuration`] + "s";
+
+  console.log(result, "result");
   return result;
 };
 
