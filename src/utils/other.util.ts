@@ -41,15 +41,21 @@ export const getStyles = (
   };
   for (let filed in config) {
     if (filed.indexOf(prefix) === 0 && typeof config[filed] !== "object") {
-      let newField = filed.substring(5);
+      let newField = filed.substring(prefix.length);
       newField = newField.replace(newField[0], newField[0].toLocaleLowerCase());
+      if (newField === "backgroundImage" && config[filed]) {
+        result[newField] = `url(${config[filed]})`;
+        result.backgroundRepeat = "no-repeat";
+        result.backgroundSize = "100% 100%";
+        continue;
+      }
       result[newField] = config[filed];
     }
   }
   result.animationDelay = config[prefix + `AnimationDelay`] + "s";
   result.animationDuration = config[prefix + `AnimationDuration`] + "s";
 
-  console.log(result, "result");
+  console.log(result, config, prefix, "result");
   return result;
 };
 
