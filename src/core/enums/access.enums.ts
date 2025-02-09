@@ -12,6 +12,7 @@ export const PAGETYPENAME = {
   project: "项目",
   layer: "图层",
   linkage: "联动",
+  data: "数据",
 };
 // 组件类型
 export const ELEMETSTYPE = {
