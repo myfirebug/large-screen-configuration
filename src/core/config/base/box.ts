@@ -1,4 +1,4 @@
-export const box = {
+export const boxConfig = {
   configureValue: {
     styleBoxInset: false,
     styleBoxShadowX: 0,

@@ -1,6 +1,6 @@
 import { baseText } from "./text";
 
-const elementsConfig = {
+const elementsConfig: any = {
   baseText,
 };
 

@@ -1,4 +1,4 @@
-export const data = {
+export const dataConfig = {
   // 数据项默认值
   configureValue: {
     useInterface: false,

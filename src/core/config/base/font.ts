@@ -1,4 +1,4 @@
-export const font = {
+export const fontConfig = {
   configureValue: {
     styleFontSize: 14,
     styleLetterSpacing: 0,

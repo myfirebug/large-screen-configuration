@@ -1,9 +1,9 @@
-import { box, font, data } from "../../base";
+import { boxConfig, fontConfig, dataConfig } from "../../base";
 
 export const baseText = {
   // 基础配置项
   configure: [
-    ...font.configure,
+    ...fontConfig.configure,
     [
       {
         name: "文字阴影",
@@ -38,8 +38,8 @@ export const baseText = {
           },
         ],
       },
-      ...box.configure,
+      ...boxConfig.configure,
     ],
   ],
-  data: data.configure,
+  data: dataConfig.configure,
 };
