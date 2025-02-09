@@ -1,5 +1,12 @@
 // 页面类型
-type PageType = "element" | "widget" | "page" | "project" | "layer" | "linkage";
+type PageType =
+  | "element"
+  | "widget"
+  | "page"
+  | "project"
+  | "layer"
+  | "linkage"
+  | "data";
 // 组件类型
 type elementsType = "text" | "image" | "table" | "line" | "bar" | "pie";
 // 组件名称类型
