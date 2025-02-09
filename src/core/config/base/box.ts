@@ -12,8 +12,45 @@ export const boxConfig = {
     styleBorderTopRightRadius: 0,
     styleBorderBottomLeftRadius: 0,
     styleBorderBottomRightRadius: 0,
+    stylePaddingLeft: 0,
+    stylePaddingRight: 0,
+    stylePaddingTop: 0,
+    stylePaddingBottom: 0,
   },
   configure: [
+    {
+      name: "内边距",
+      list: [
+        {
+          componentName: "InputNumber",
+          label: "左边距",
+          name: "stylePaddingLeft",
+          required: false,
+          placeholder: "请输入左边距",
+        },
+        {
+          componentName: "InputNumber",
+          label: "右边距",
+          name: "stylePaddingRight",
+          required: false,
+          placeholder: "请输入右边距",
+        },
+        {
+          componentName: "InputNumber",
+          label: "上边距",
+          name: "stylePaddingTop",
+          required: false,
+          placeholder: "请输入上边距",
+        },
+        {
+          componentName: "InputNumber",
+          label: "下边距",
+          name: "stylePaddingBottom",
+          required: false,
+          placeholder: "请输入下边距",
+        },
+      ],
+    },
     {
       name: "盒子阴影",
       list: [
