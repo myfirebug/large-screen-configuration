@@ -3,17 +3,19 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: var(--cms-background-color-primary);
-  border: 1px solid var(--cms-divider-color);
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  // background-image: url(https://bpic.51yuansu.com/backgd/cover/00/25/67/5bac3c7859a37.jpg?x-oss-process=image/resize,h_360,m_lfit/sharpen,100);
+  // background: var(--cms-background-color-primary);
+  // border: 1px solid var(--cms-divider-color);
+  // border-radius: 8px;
+  // box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   @include e(header) {
     height: 40px;
-    margin-bottom: 4px;
-    border-bottom: 1px solid var(--cms-divider-color);
+    padding-bottom: 4px;
+    // border-bottom: 1px solid var(--cms-divider-color);
   }
   @include e(body) {
     flex: 1;
+    overflow: hidden;
   }
 }

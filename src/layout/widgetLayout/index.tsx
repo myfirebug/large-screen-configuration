@@ -1,15 +1,27 @@
-import React, { FC, ReactNode } from "react";
+import React, { FC, HtmlHTMLAttributes, ReactNode } from "react";
 import "./index.scss";
-interface IWidgetLayout {
+interface IWidgetLayout extends HtmlHTMLAttributes<HTMLDivElement> {
   header: ReactNode;
   body: ReactNode;
+  headerStyles: IAnyObject;
+  bodyStyles: IAnyObject;
 }
 
-const WidgetLayout: FC<IWidgetLayout> = ({ header, body }) => {
+const WidgetLayout: FC<IWidgetLayout> = ({
+  header,
+  body,
+  style,
+  headerStyles,
+  bodyStyles,
+}) => {
   return (
-    <div className="cms-widget">
-      <div className="cms-widget__header">{header}</div>
-      <div className="cms-widget__body">{body}</div>
+    <div className="cms-widget" style={style}>
+      <div className="cms-widget__header" style={headerStyles}>
+        {header}
+      </div>
+      <div className="cms-widget__body" style={bodyStyles}>
+        {body}
+      </div>
     </div>
   );
 };
