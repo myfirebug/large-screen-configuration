@@ -1,0 +1,22 @@
+@include b(config-layout) {
+  @include e(element) {
+    padding-top: 10px;
+    .ant-form-item {
+      padding: 0 10px;
+    }
+    .ant-collapse-content-box {
+      padding: 8px 0 !important;
+    }
+    .ant-collapse-content,
+    .ant-collapse,
+    .ant-collapse-item,
+    .ant-collapse-header {
+      border-radius: 0 !important;
+    }
+    .ant-collapse {
+      border-left: none;
+      border-right: none;
+      margin-top: -1px;
+    }
+  }
+}
