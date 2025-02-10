@@ -9,13 +9,15 @@ import {
   ConfigLayoutRightAside,
   ConfigLayoutLeftAsideElements,
   ConfigLayoutRightAsideLayer,
+  ConfigLayoutRightAsideWidget,
+  ConfigLayoutRightAsideElement,
 } from "@src/layout/configLayout";
 
 import "@src/layout/configLayout/index.scss";
 import WidgetLayout from "@src/layout/widgetLayout";
 import { initialState, widgetReducer } from "./store/reducers";
 import { IElement } from "@src/service";
-import { capitalizeFirstLetter, guid } from "@src/utils";
+import { capitalizeFirstLetter, guid, getStyles } from "@src/utils";
 interface IConfigLayout {}
 
 const ConfigLayout: FC<IConfigLayout> = () => {
@@ -94,7 +96,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
       return React.createElement(
         elements[capitalizeFirstLetter(data.element)],
         {
-          options: data.configureValue,
+          options: data.configuration.configureValue,
         }
       );
     }
@@ -105,12 +107,12 @@ const ConfigLayout: FC<IConfigLayout> = () => {
     let arr: PageType[] = [];
     if (layout?.widgetId) {
       if (layout?.elementId) {
-        arr = ["layer", "element", "widget", "linkage"];
+        arr = ["layer", "element", "widget", "data", "linkage"];
       } else {
-        arr = ["layer", "widget", "linkage"];
+        arr = ["layer", "widget", "data", "linkage"];
       }
     } else {
-      arr = ["layer", "linkage"];
+      arr = ["layer"];
     }
     return arr;
   }, [layout?.elementId, layout?.widgetId]);
@@ -153,6 +155,17 @@ const ConfigLayout: FC<IConfigLayout> = () => {
         />
         <ConfigLayoutMain>
           <WidgetLayout
+            style={getStyles(
+              layout?.widget?.configuration?.configureValue || {}
+            )}
+            headerStyles={getStyles(
+              layout?.widget?.configuration?.configureValue || {},
+              "headerStyle"
+            )}
+            bodyStyles={getStyles(
+              layout?.widget?.configuration?.configureValue || {},
+              "bodyStyle"
+            )}
             header={
               <DragContent
                 column={8}
@@ -205,6 +218,66 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                   widgetId={layout?.widgetId}
                   elementId={layout?.elementId}
                   onSelected={onSelected}
+                />
+              );
+            } else if (data === "widget") {
+              return (
+                <ConfigLayoutRightAsideWidget
+                  configureValue={
+                    (layout?.widget?.configuration
+                      ?.configureValue as IAnyObject) || {}
+                  }
+                  onFinish={(data: IAnyObject) => {
+                    const configuration = JSON.parse(
+                      JSON.stringify(layout?.widget?.configuration)
+                    );
+                    dispatch({
+                      type: "MODIFY_WIDGET",
+                      data: {
+                        configuration: {
+                          ...configuration,
+                          configureValue: {
+                            ...configuration.configureValue,
+                            ...data,
+                          },
+                        },
+                      },
+                    });
+                  }}
+                />
+              );
+            } else if (data === "element") {
+              return (
+                <ConfigLayoutRightAsideElement
+                  configureValue={
+                    layout?.widget.elements.find(
+                      (item) => item.elementId === layout.elementId
+                    )?.configuration.configureValue || {}
+                  }
+                  onFinish={(data: IAnyObject) => {
+                    const currentElement = JSON.parse(
+                      JSON.stringify(
+                        layout?.widget?.elements.find(
+                          (item) => item.elementId === layout.elementId
+                        )
+                      )
+                    );
+                    if (currentElement) {
+                      dispatch({
+                        type: "MODIFY_ELEMENT",
+                        data: {
+                          ...currentElement,
+                          configuration: {
+                            ...currentElement.configuration,
+                            configureValue: {
+                              ...currentElement.configuration.configureValue,
+                              ...data,
+                            },
+                          },
+                        },
+                      });
+                    }
+                  }}
                 />
               );
             }
