@@ -21,6 +21,8 @@ export const widgetConfig = {
     headerStyleBackgroundColor: "",
     bodyStyleBackgroundImage: "",
     bodyStyleBackgroundColor: "",
+    isShowAuxiliaryLine: true,
+    auxiliaryLineBorderColor: "rgba(255, 255, 255, 0.2)",
   },
   configure: [
     {
@@ -72,6 +74,25 @@ export const widgetConfig = {
             componentName: "SketchPicker",
             label: "背景颜色",
             name: "bodyStyleBackgroundColor",
+            required: false,
+            placeholder: "",
+          },
+        ],
+      },
+      {
+        name: "辅助线",
+        list: [
+          {
+            componentName: "Switch",
+            label: "是否显示",
+            name: "isShowAuxiliaryLine",
+            required: false,
+            placeholder: "",
+          },
+          {
+            componentName: "SketchPicker",
+            label: "边框颜色",
+            name: "auxiliaryLineBorderColor",
             required: false,
             placeholder: "",
           },
