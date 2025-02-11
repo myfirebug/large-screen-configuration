@@ -33,5 +33,30 @@
       background: var(--cms-background-color-secondary);
       border-left: 1px solid var(--cms-divider-color);
     }
+    .ant-form-item {
+      padding: 0 10px 16px 10px;
+      margin-bottom: 0;
+    }
+    .ant-collapse-content-box {
+      padding: 8px 0 0 0 !important;
+      .ant-collapse-header {
+        padding-left: 14px;
+      }
+    }
+    .ant-collapse-header {
+      background: var(--cms-background-color-secondary);
+      border-bottom: 1px solid var(--cms-divider-color);
+    }
+    .ant-collapse-content,
+    .ant-collapse,
+    .ant-collapse-item,
+    .ant-collapse-header {
+      border-radius: 0 !important;
+    }
+    .ant-collapse {
+      border-left: none;
+      border-right: none;
+      background: var(--cms-background-color-primary);
+    }
   }
 }

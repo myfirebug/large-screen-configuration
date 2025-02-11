@@ -12,6 +12,10 @@
     padding: 66px;
     box-sizing: border-box;
     position: relative;
+    .cms-widget {
+      max-width: 600px !important;
+      max-height: 400px !important;
+    }
   }
   @include e(bottom) {
     position: absolute;
