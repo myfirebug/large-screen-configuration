@@ -49,13 +49,15 @@ export const getStyles = (
         result.backgroundSize = "100% 100%";
         continue;
       }
+      if (newField === "height" && config[filed]) {
+        result.height = `${config[filed]}px`;
+        continue;
+      }
       result[newField] = config[filed];
     }
   }
   result.animationDelay = config[prefix + `AnimationDelay`] + "s";
   result.animationDuration = config[prefix + `AnimationDuration`] + "s";
-
-  console.log(result, config, prefix, "result");
   return result;
 };
 
