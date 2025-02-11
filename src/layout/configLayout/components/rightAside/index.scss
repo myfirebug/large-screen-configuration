@@ -39,8 +39,11 @@
     }
     .ant-collapse-content-box {
       padding: 8px 0 0 0 !important;
+      .ant-collapse-content {
+        padding-left: 15px;
+      }
       .ant-collapse-header {
-        padding-left: 14px;
+        padding-left: 20px;
       }
     }
     .ant-collapse-header {
