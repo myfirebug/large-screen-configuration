@@ -3,9 +3,13 @@ export interface IElement {
   url: string;
   id: string;
   createTime: string;
+  // 类型
   type: elementsType;
-  count: number;
+  // 所使用的组件即src/elements下导出的组件名称
   element: elementsNameType;
+  // 配置名称既src/core/config/elements下导出的名称
+  code: codeNameType;
+  count: number;
   elementId?: string;
   x: number;
   y: number;
