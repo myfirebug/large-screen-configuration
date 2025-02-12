@@ -47,9 +47,14 @@ const DynamicForm: FC<IDynamicForm> = ({ datas }) => {
                 ? subItem.relationFields.split(",")
                 : [];
             return (
-              <Collapse key={subIndex} size="small">
+              <Collapse
+                key={subIndex}
+                size="small"
+                defaultActiveKey={["0-0"]}
+                bordered={false}
+              >
                 {subItem.relationFields === undefined ? (
-                  <Panel header={subItem.name} key={subItem + subIndex}>
+                  <Panel header={subItem.name} key={`${index}-${subIndex}`}>
                     <DynamicForm datas={subItem.list} />
                   </Panel>
                 ) : (
@@ -63,10 +68,14 @@ const DynamicForm: FC<IDynamicForm> = ({ datas }) => {
                         )
                       ) {
                         return (
-                          <Collapse key={subIndex} size="small">
+                          <Collapse
+                            key={subIndex}
+                            size="small"
+                            bordered={false}
+                          >
                             <Panel
                               header={subItem.name}
-                              key={subItem + subIndex}
+                              key={`${index}-${subIndex}`}
                             >
                               <DynamicForm datas={subItem.list} />
                             </Panel>

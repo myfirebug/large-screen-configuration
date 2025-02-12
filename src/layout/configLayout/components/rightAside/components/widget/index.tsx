@@ -2,7 +2,6 @@ import React, { FC, useCallback, useEffect } from "react";
 import { Form } from "antd";
 import DynamicForm from "../dynamicForm";
 import { widgetConfig } from "@src/core/config/base";
-import "./index.scss";
 
 interface IConfigLayoutRightAsideWidget {
   configureValue: IAnyObject;

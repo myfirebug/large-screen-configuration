@@ -2,7 +2,6 @@ import React, { FC, useCallback, useEffect } from "react";
 import { Form } from "antd";
 import DynamicForm from "../dynamicForm";
 import elements from "@src/core/config/classification";
-import "./index.scss";
 
 interface IConfigLayoutRightAsideElement {
   configureValue: IAnyObject;
@@ -39,7 +38,7 @@ export const ConfigLayoutRightAsideElement: FC<
         form={form}
         onValuesChange={onValuesChange}
       >
-        <DynamicForm datas={elements.baseText.configure || []} />
+        <DynamicForm datas={elements.baseLine.configure || []} />
       </Form>
     </div>
   );

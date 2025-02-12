@@ -41,10 +41,10 @@ export const ConfigLayoutLeftAsideElements: FC<
           .filter((item) => item.type === current)
           ?.map((item) => (
             <DragItem
+              key={item.code}
               title={item.name}
               data={item}
               groupName="elements"
-              key={item.id}
             >
               <Image width={224} height={120} src={item.url} preview={false} />
             </DragItem>
