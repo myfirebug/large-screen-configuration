@@ -14,6 +14,8 @@ import { guid } from "@src/utils";
 import PreviewItem from "../previewItem";
 
 interface IDragContent {
+  // 辅助线配置
+  auxiliaryLineConfig?: IAnyObject;
   datas: IAnyObject[];
   /** 拖拽分组标识 */
   groupName?: string;
@@ -60,6 +62,7 @@ const DragContent = memo((props: IDragContent) => {
     onResizeEndHandler,
     onCloseHander,
     renderPreview,
+    auxiliaryLineConfig,
   } = props;
   // 目标元素
   const target = useRef<HTMLDivElement>(null);
@@ -272,7 +275,7 @@ const DragContent = memo((props: IDragContent) => {
       <div
         className="cms-drag__content--container"
         style={{
-          display: "grid",
+          display: auxiliaryLineConfig?.show ? "grid" : "none",
           gap: `${gap}px`,
           gridTemplateColumns: `repeat(${column}, ${clientRect.width}px)`,
           gridTemplateRows: `repeat(${row},  ${clientRect.height}px)`,
@@ -281,7 +284,13 @@ const DragContent = memo((props: IDragContent) => {
         }}
       >
         {new Array(column * row).fill(null).map((_, index) => (
-          <div key={index}></div>
+          <div
+            key={index}
+            style={{
+              borderColor:
+                auxiliaryLineConfig?.borderColor || "rgba(255, 255, 255, 0.2)",
+            }}
+          ></div>
         ))}
       </div>
       <div
