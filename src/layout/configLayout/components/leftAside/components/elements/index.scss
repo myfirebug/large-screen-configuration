@@ -30,6 +30,7 @@
     @include m(item) {
       margin-top: 15px;
       text-align: center;
+      cursor: pointer;
       .name {
         line-height: 40px;
       }

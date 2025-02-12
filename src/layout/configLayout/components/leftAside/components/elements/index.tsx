@@ -46,7 +46,7 @@ export const ConfigLayoutLeftAsideElements: FC<
               data={item}
               groupName="elements"
             >
-              <Image width={224} height={120} src={item.url} preview={false} />
+              <Image width={164} height={80} src={item.url} preview={false} />
             </DragItem>
           ))}
         {!elementsLoading &&
