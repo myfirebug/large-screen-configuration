@@ -1,9 +1,7 @@
 import { fontConfig, dataConfig, boxConfig } from "@src/core/config/base";
 
 export const baseText: IAnyObject = {
-  code: "elementBaseText",
-  type: "text",
-  name: "基础文本框",
+  code: "baseText",
   // 配置项值
   configureValue: {
     styleDisplay: "block",

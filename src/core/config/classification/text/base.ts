@@ -1,6 +1,8 @@
 import { boxConfig, fontConfig, dataConfig } from "../../base";
 
 export const baseText = {
+  // 配置名称
+  code: "baseText",
   // 基础配置项
   configure: [
     ...fontConfig.configure,
