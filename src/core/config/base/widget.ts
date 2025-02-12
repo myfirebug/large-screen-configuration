@@ -21,26 +21,34 @@ export const widgetConfig = {
     headerStyleBackgroundColor: "",
     bodyStyleBackgroundImage: "",
     bodyStyleBackgroundColor: "",
+    headerStyleHeight: 40,
     isShowAuxiliaryLine: true,
     auxiliaryLineBorderColor: "rgba(255, 255, 255, 0.2)",
   },
   configure: [
-    {
-      componentName: "Input",
-      label: "背景图",
-      name: "styleBackgroundImage",
-      required: false,
-      placeholder: "请输入背景图地址",
-    },
-    {
-      componentName: "SketchPicker",
-      label: "背景颜色",
-      name: "styleBackgroundColor",
-      required: false,
-      placeholder: "",
-    },
     [
-      ...boxConfig.configure,
+      {
+        name: "基础配置",
+        list: [
+          {
+            componentName: "Input",
+            label: "背景图",
+            name: "styleBackgroundImage",
+            required: false,
+            placeholder: "请输入背景图地址",
+          },
+          {
+            componentName: "SketchPicker",
+            label: "背景颜色",
+            name: "styleBackgroundColor",
+            required: false,
+            placeholder: "",
+          },
+          boxConfig.configure,
+        ],
+      },
+    ],
+    [
       {
         name: "头部",
         list: [
@@ -57,6 +65,13 @@ export const widgetConfig = {
             name: "headerStyleBackgroundColor",
             required: false,
             placeholder: "",
+          },
+          {
+            componentName: "InputNumber",
+            label: "高度",
+            name: "headerStyleHeight",
+            required: false,
+            placeholder: "请输入高度",
           },
         ],
       },
