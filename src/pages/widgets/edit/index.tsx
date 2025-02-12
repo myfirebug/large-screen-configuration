@@ -18,6 +18,7 @@ import WidgetLayout from "@src/layout/widgetLayout";
 import { initialState, widgetReducer } from "./store/reducers";
 import { IElement } from "@src/service";
 import { capitalizeFirstLetter, guid, getStyles } from "@src/utils";
+import "animate.css";
 interface IConfigLayout {}
 
 const ConfigLayout: FC<IConfigLayout> = () => {
@@ -97,6 +98,8 @@ const ConfigLayout: FC<IConfigLayout> = () => {
         elements[capitalizeFirstLetter(data.element)],
         {
           options: data.configuration.configureValue,
+          data: data.configuration.dataValue.mock,
+          field: data.configuration.dataValue.field,
         }
       );
     }
@@ -168,6 +171,13 @@ const ConfigLayout: FC<IConfigLayout> = () => {
             )}
             header={
               <DragContent
+                auxiliaryLineConfig={{
+                  show: layout?.widget?.configuration?.configureValue
+                    ?.isShowAuxiliaryLine,
+                  borderColor:
+                    layout?.widget?.configuration?.configureValue
+                      ?.auxiliaryLineBorderColor,
+                }}
                 column={8}
                 row={1}
                 gap={4}
@@ -188,6 +198,13 @@ const ConfigLayout: FC<IConfigLayout> = () => {
             }
             body={
               <DragContent
+                auxiliaryLineConfig={{
+                  show: layout?.widget?.configuration?.configureValue
+                    ?.isShowAuxiliaryLine,
+                  borderColor:
+                    layout?.widget?.configuration?.configureValue
+                      ?.auxiliaryLineBorderColor,
+                }}
                 column={8}
                 row={8}
                 gap={4}

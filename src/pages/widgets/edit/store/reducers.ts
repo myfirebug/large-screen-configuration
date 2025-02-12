@@ -56,11 +56,19 @@ export const widgetReducer = (state = initialState, action: ModifyActions) => {
       return copy;
     }
     case ADD_ELEMENT: {
-      copy.widget.elements.push({
-        ...action.data,
-        configuration: elementsConfig[action.data.element],
-      });
-      copy.elementId = action.data.elementId;
+      if (elementsConfig[action.data.code]) {
+        copy.widget.elements.push({
+          ...action.data,
+          configuration: {
+            configureValue: elementsConfig[action.data.code].configureValue,
+            dataValue: elementsConfig[action.data.code].dataValue,
+          },
+        });
+        copy.elementId = action.data.elementId;
+      } else {
+        console.log("组件配置不存在，请仔细检查");
+      }
+
       return copy;
     }
 
