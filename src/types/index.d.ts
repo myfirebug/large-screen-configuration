@@ -10,7 +10,9 @@ type PageType =
 // 组件类型
 type elementsType = "text" | "image" | "table" | "line" | "bar" | "pie";
 // 组件名称类型
-type elementsNameType = "baseText";
+type elementsNameType = elementsType | "baseText";
+// 配置名称类型
+type codeNameType = "baseText" | "baseLine" | "baseSmookLine";
 // 任意object类型
 interface IAnyObject {
   [propName: string]: any;
