@@ -38,6 +38,66 @@ const Echarts = memo(
     } = props;
     const dom = useRef<HTMLDivElement>(null);
     const chart = useRef<EChartsType>();
+    const timmer = useRef<any>(0);
+    // tooltip auto play current index
+    const currentIndex = useRef<number>(-1);
+
+    const autoPlayHandler = useCallback(() => {
+      if (!option.series || !(option.series as echarts.SeriesOption[]).length) {
+        return false;
+      }
+
+      if (chart.current) {
+        if (timmer.current) {
+          clearInterval(timmer.current);
+        }
+        timmer.current = setInterval(() => {
+          const dataLen =
+            option.series && (option.series as echarts.SeriesOption[]).length
+              ? (
+                  (option.series as echarts.SeriesOption[])[0]
+                    ?.data as Array<any>
+                ).length
+              : 0;
+
+          // 取消之前高亮的图形
+          chart?.current?.dispatchAction({
+            type: "downplay",
+            seriesIndex: 0,
+          });
+          currentIndex.current = (currentIndex.current + 1) % dataLen;
+          // 高亮当前图形
+          chart?.current?.dispatchAction({
+            type: "highlight",
+            seriesIndex: 0,
+            dataIndex: currentIndex.current,
+          });
+          // 显示 tooltip
+          chart?.current?.dispatchAction({
+            type: "showTip",
+            seriesIndex: 0,
+            dataIndex: currentIndex.current,
+          });
+        }, 3000);
+      }
+    }, [chart, timmer, option, currentIndex]);
+
+    // 鼠标移入事件
+    const mouseHander = useCallback((e: any) => {
+      clearInterval(timmer.current);
+      currentIndex.current = e.dataIndex;
+      // 取消之前高亮的图形
+      chart?.current?.dispatchAction({
+        type: "downplay",
+        seriesIndex: 0,
+      });
+      // 高亮当前图形
+      chart?.current?.dispatchAction({
+        type: "highlight",
+        seriesIndex: 0,
+        dataIndex: currentIndex.current,
+      });
+    }, []);
 
     const init = useCallback(() => {
       if (!dom.current) {
@@ -61,7 +121,24 @@ const Echarts = memo(
       }
 
       if (option) {
-        chart.current.setOption(option, updateOptions);
+        chart.current.setOption(
+          {
+            ...option,
+            tooltip: {
+              trigger: "axis",
+              backgroundColor: "rgba(0,0,0,.6)",
+              borderColor: "rgba(255,255,255,.2)",
+              padding: [8, 8],
+              textStyle: {
+                color: "#fff",
+                fontSize: 12,
+              },
+              ...option.tooltip,
+            },
+          },
+          updateOptions
+        );
+        autoPlayHandler();
       }
     }, [
       initOptions,
@@ -71,14 +148,17 @@ const Echarts = memo(
       loading,
       loadingOptions,
       updateOptions,
+      autoPlayHandler,
     ]);
 
     const cleanup = useCallback(() => {
       if (chart.current) {
+        chart.current.off("mouseover", mouseHander);
+        chart.current.off("mouseout", autoPlayHandler);
         chart.current.dispose();
         chart.current = undefined;
       }
-    }, [chart]);
+    }, [autoPlayHandler, mouseHander]);
 
     useEffect(() => {
       init();
@@ -87,6 +167,10 @@ const Echarts = memo(
         chart.current?.resize();
         onResize?.();
       };
+      if (chart.current) {
+        chart.current.on("mouseover", mouseHander);
+        chart.current.on("mouseout", autoPlayHandler);
+      }
       const resizeObserver = new ResizeObserver((entries) => {
         if (!Array.isArray(entries) || !entries.length) {
           return;
@@ -99,7 +183,9 @@ const Echarts = memo(
         cleanup();
         resizeObserver.disconnect();
       };
-    }, [cleanup, init, autoresize]);
+    }, [cleanup, init, autoresize, chart, mouseHander, autoPlayHandler]);
+
+    console.log(123);
 
     return (
       <div
