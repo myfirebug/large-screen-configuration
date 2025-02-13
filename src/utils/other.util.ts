@@ -44,6 +44,11 @@ export const getStyles = (
         continue;
       }
       switch (newField) {
+        case "borderBottomColor": {
+          result.borderBottom =
+            `1px solid ` + config[`${prefix}BorderBottomColor`];
+          break;
+        }
         case "animateInfinite": {
           result.animationIterationCount = config[`${prefix}AnimateInfinite`]
             ? "infinite"
