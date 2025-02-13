@@ -110,9 +110,14 @@ const BaseForm: FC<IBaseForm> = ({ item }) => {
             disabled={item.disabled}
             placeholder={item.placeholder}
           >
-            {item.options.map((item: any) => (
-              <Option key={item.code} value={item.code}>
-                {item.name}
+            {item.options.map((subItem: any) => (
+              <Option key={subItem.code} value={subItem.code}>
+                <div
+                  className={`${
+                    item.name === "iconStyleSelect" ? "cms-icon" : ""
+                  }`}
+                  dangerouslySetInnerHTML={{ __html: subItem.name }}
+                ></div>
               </Option>
             ))}
           </Select>
