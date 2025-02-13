@@ -25,39 +25,60 @@ export const getStyles = (
   prefix: string = "style"
 ) => {
   let result: any = {
-    width: config.width,
-    height: config.height,
-    animationIterationCount: config[`${prefix}AnimateInfinite`]
-      ? "infinite"
-      : 1,
-    textShadow: `${config[prefix + `TextShadowX`]}px ${
-      config[prefix + `TextShadowY`]
-    }px ${config[prefix + `TextShadowF`]}px ${config[prefix + `TextShadowC`]}`,
-    boxShadow: `${config[prefix + `BoxShadowX`]}px ${
-      config[prefix + `BoxShadowY`]
-    }px ${config[prefix + `BoxShadowF`]}px ${config[prefix + `BoxShadowC`]} ${
-      config[prefix + `BoxInset`] ? "inset" : ""
+    textShadow: `${config[prefix + `TextShadowX`] || 0}px ${
+      config[prefix + `TextShadowY`] || 0
+    }px ${config[prefix + `TextShadowF`] || 0}px ${
+      config[prefix + `TextShadowC`]
     }`,
+    boxShadow: `${config[prefix + `BoxShadowX`] || 0}px ${
+      config[prefix + `BoxShadowY`] || 0
+    }px ${config[prefix + `BoxShadowF`] || 0}px ${
+      config[prefix + `BoxShadowC`] || 0
+    } ${config[prefix + `BoxInset`] ? "inset" : ""}`,
   };
   for (let filed in config) {
     if (filed.indexOf(prefix) === 0 && typeof config[filed] !== "object") {
       let newField = filed.substring(prefix.length);
       newField = newField.replace(newField[0], newField[0].toLocaleLowerCase());
-      if (newField === "backgroundImage" && config[filed]) {
-        result[newField] = `url(${config[filed]})`;
-        result.backgroundRepeat = "no-repeat";
-        result.backgroundSize = "100% 100%";
+      if (!config[filed]) {
         continue;
       }
-      if (newField === "height" && config[filed]) {
-        result.height = `${config[filed]}px`;
-        continue;
+      switch (newField) {
+        case "animateInfinite": {
+          result.animationIterationCount = config[`${prefix}AnimateInfinite`]
+            ? "infinite"
+            : 1;
+          break;
+        }
+        case "backgroundImage": {
+          result[newField] = `url(${config[filed]})`;
+          result.backgroundRepeat = "no-repeat";
+          result.backgroundSize = "100% 100%";
+          break;
+        }
+        case "height": {
+          result.height = `${config[filed]}px`;
+          break;
+        }
+        case "lineHeight": {
+          result.lineHeight = `${config[filed]}px`;
+          break;
+        }
+        case "animationDelay": {
+          result.animationDelay = config[prefix + `AnimationDelay`] + "s";
+          break;
+        }
+        case "animationDuration": {
+          result.animationDuration = config[prefix + `AnimationDuration`] + "s";
+          break;
+        }
+        default: {
+          result[newField] = config[filed];
+        }
       }
-      result[newField] = config[filed];
     }
   }
-  result.animationDelay = config[prefix + `AnimationDelay`] + "s";
-  result.animationDuration = config[prefix + `AnimationDuration`] + "s";
+
   return result;
 };
 
