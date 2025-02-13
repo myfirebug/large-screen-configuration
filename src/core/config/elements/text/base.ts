@@ -9,6 +9,7 @@ export const baseText: IAnyObject = {
     styleTextShadowY: 0,
     styleTextShadowF: 0,
     styleTextShadowC: "",
+    iconStyleFontSize: 12,
     ...boxConfig.configureValue,
     ...fontConfig.configureValue,
   },
