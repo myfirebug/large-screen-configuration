@@ -36,6 +36,7 @@ export const echartsConfig = {
       placeholder: "",
       relationFields: "titleTextShow",
       relationValues: "true",
+      addonAfter: "px",
     },
     {
       componentName: "InputNumber",
@@ -45,6 +46,7 @@ export const echartsConfig = {
       placeholder: "",
       relationFields: "titleTextShow",
       relationValues: "true",
+      addonAfter: "px",
     },
     {
       componentName: "Select",
@@ -149,6 +151,7 @@ export const echartsConfig = {
       placeholder: "",
       relationFields: "legendShow",
       relationValues: "true",
+      addonAfter: "px",
     },
     {
       componentName: "Select",
@@ -371,6 +374,7 @@ export const echartsConfig = {
             componentName: "InputNumber",
             label: "字体大小",
             name: "xAxisNameTextStyleFontSize",
+            addonAfter: "px",
             required: false,
             min: 12,
             placeholder: "",
@@ -381,6 +385,7 @@ export const echartsConfig = {
             name: "xAxisNameTextStyleLineHeight",
             required: false,
             placeholder: "",
+            addonAfter: "px",
           },
           {
             componentName: "Select",
@@ -633,6 +638,7 @@ export const echartsConfig = {
             required: false,
             min: 12,
             placeholder: "",
+            addonAfter: "px",
           },
           {
             componentName: "InputNumber",
@@ -640,6 +646,7 @@ export const echartsConfig = {
             name: "yAxisNameTextStyleLineHeight",
             required: false,
             placeholder: "",
+            addonAfter: "px",
           },
           {
             componentName: "Select",

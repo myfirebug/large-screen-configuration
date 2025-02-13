@@ -27,6 +27,7 @@ export const boxConfig = {
           name: "stylePaddingLeft",
           required: false,
           placeholder: "请输入左边距",
+          addonAfter: "px",
         },
         {
           componentName: "InputNumber",
@@ -34,6 +35,7 @@ export const boxConfig = {
           name: "stylePaddingRight",
           required: false,
           placeholder: "请输入右边距",
+          addonAfter: "px",
         },
         {
           componentName: "InputNumber",
@@ -41,6 +43,7 @@ export const boxConfig = {
           name: "stylePaddingTop",
           required: false,
           placeholder: "请输入上边距",
+          addonAfter: "px",
         },
         {
           componentName: "InputNumber",
@@ -48,6 +51,7 @@ export const boxConfig = {
           name: "stylePaddingBottom",
           required: false,
           placeholder: "请输入下边距",
+          addonAfter: "px",
         },
       ],
     },
@@ -67,6 +71,7 @@ export const boxConfig = {
           name: "styleBoxShadowX",
           required: false,
           placeholder: "请输入X轴偏移",
+          addonAfter: "px",
         },
         {
           componentName: "InputNumber",
@@ -74,6 +79,7 @@ export const boxConfig = {
           name: "styleBoxShadowY",
           required: false,
           placeholder: "请输入Y轴偏移",
+          addonAfter: "px",
         },
         {
           componentName: "InputNumber",
@@ -81,6 +87,7 @@ export const boxConfig = {
           name: "styleBoxShadowF",
           required: false,
           placeholder: "请输入模糊值",
+          addonAfter: "px",
         },
         {
           componentName: "SketchPicker",
@@ -118,6 +125,7 @@ export const boxConfig = {
           name: "styleBorderWidth",
           required: false,
           placeholder: "请输入尺寸",
+          addonAfter: "px",
         },
         {
           componentName: "SketchPicker",
@@ -137,6 +145,7 @@ export const boxConfig = {
           name: "styleBorderTopLeftRadius",
           required: false,
           placeholder: "请输入尺寸",
+          addonAfter: "px",
         },
         {
           componentName: "InputNumber",
@@ -144,6 +153,7 @@ export const boxConfig = {
           name: "styleBorderTopRightRadius",
           required: false,
           placeholder: "请输入尺寸",
+          addonAfter: "px",
         },
         {
           componentName: "InputNumber",
@@ -151,6 +161,7 @@ export const boxConfig = {
           name: "styleBorderBottomLeftRadius",
           required: false,
           placeholder: "请输入尺寸",
+          addonAfter: "px",
         },
         {
           componentName: "InputNumber",
@@ -158,6 +169,7 @@ export const boxConfig = {
           name: "styleBorderBottomRightRadius",
           required: false,
           placeholder: "请输入尺寸",
+          addonAfter: "px",
         },
       ],
     },

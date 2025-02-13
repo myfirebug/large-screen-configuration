@@ -1,6 +1,6 @@
 import { echartsConfig, animateConfig, dataConfig } from "../../base";
 
-export const baseLine = {
+export const line = {
   configure: [
     [
       {

@@ -104,6 +104,7 @@ export const animateConfig = {
           placeholder: "请选择时间",
           min: 0,
           max: 100,
+          addonAfter: "ms",
         },
         {
           componentName: "InputNumber",
@@ -113,6 +114,7 @@ export const animateConfig = {
           placeholder: "请选择延迟时间",
           min: 0,
           max: 100,
+          addonAfter: "ms",
         },
         {
           componentName: "Switch",

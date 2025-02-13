@@ -6,7 +6,7 @@ export const fontConfig = {
     styleTextAlign: "center",
     styleBackgroundColor: "",
     styleFontFamily: "Microsoft YaHei",
-    styleLineHeight: 1,
+    styleLineHeight: 24,
     styleColor: "#fff",
   },
   configure: [
@@ -17,6 +17,7 @@ export const fontConfig = {
       required: false,
       min: 12,
       placeholder: "",
+      addonAfter: "px",
     },
     {
       componentName: "InputNumber",
@@ -24,6 +25,7 @@ export const fontConfig = {
       name: "styleLetterSpacing",
       required: false,
       placeholder: "",
+      addonAfter: "px",
     },
     {
       componentName: "InputNumber",
@@ -31,6 +33,7 @@ export const fontConfig = {
       name: "styleLineHeight",
       required: false,
       placeholder: "",
+      addonAfter: "px",
     },
     {
       componentName: "Select",

@@ -1,9 +1,9 @@
 import { baseText } from "./text";
-import { baseLine } from "./line";
+import { line } from "./line";
 
 const elementsConfig: any = {
   baseText,
-  baseLine,
+  line,
 };
 
 export default elementsConfig;
