@@ -24,6 +24,8 @@ export const widgetConfig = {
     headerStyleHeight: 40,
     isShowAuxiliaryLine: true,
     auxiliaryLineBorderColor: "rgba(255, 255, 255, 0.2)",
+    headerStyleBorderBottomColor: "rgb(15, 32, 212)",
+    bodyStylePaddingTop: 4,
   },
   configure: [
     [
@@ -72,6 +74,14 @@ export const widgetConfig = {
             name: "headerStyleHeight",
             required: false,
             placeholder: "请输入高度",
+            addonAfter: "px",
+          },
+          {
+            componentName: "SketchPicker",
+            label: "下边框颜色",
+            name: "headerStyleBorderBottomColor",
+            required: false,
+            placeholder: "",
           },
         ],
       },
@@ -92,6 +102,45 @@ export const widgetConfig = {
             required: false,
             placeholder: "",
           },
+          [
+            {
+              name: "内边距",
+              list: [
+                {
+                  componentName: "InputNumber",
+                  label: "左边距",
+                  name: "bodyStylePaddingLeft",
+                  required: false,
+                  placeholder: "请输入左边距",
+                  addonAfter: "px",
+                },
+                {
+                  componentName: "InputNumber",
+                  label: "右边距",
+                  name: "bodyStylePaddingRight",
+                  required: false,
+                  placeholder: "请输入右边距",
+                  addonAfter: "px",
+                },
+                {
+                  componentName: "InputNumber",
+                  label: "上边距",
+                  name: "bodyStylePaddingTop",
+                  required: false,
+                  placeholder: "请输入上边距",
+                  addonAfter: "px",
+                },
+                {
+                  componentName: "InputNumber",
+                  label: "下边距",
+                  name: "bodyStylePaddingBottom",
+                  required: false,
+                  placeholder: "请输入下边距",
+                  addonAfter: "px",
+                },
+              ],
+            },
+          ],
         ],
       },
       {

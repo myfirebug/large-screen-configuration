@@ -11,7 +11,6 @@
   overflow: hidden;
   @include e(header) {
     height: 40px;
-    padding-bottom: 4px;
     // border-bottom: 1px solid var(--cms-divider-color);
   }
   @include e(body) {
