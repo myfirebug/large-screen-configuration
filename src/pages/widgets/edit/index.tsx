@@ -132,6 +132,12 @@ const ConfigLayout: FC<IConfigLayout> = () => {
     [layout?.elementId]
   );
 
+  const currentElement = useMemo(() => {
+    return layout?.widget.elements.find(
+      (item) => item.elementId === layout?.elementId
+    );
+  }, [layout?.elementId, layout?.widget.elements]);
+
   return (
     <div className="cms-config-layout">
       <ConfigLayoutHeader
@@ -266,10 +272,9 @@ const ConfigLayout: FC<IConfigLayout> = () => {
             } else if (data === "element") {
               return (
                 <ConfigLayoutRightAsideElement
+                  element={currentElement?.element}
                   configureValue={
-                    layout?.widget.elements.find(
-                      (item) => item.elementId === layout.elementId
-                    )?.configuration.configureValue || {}
+                    currentElement?.configuration.configureValue || {}
                   }
                   onFinish={(data: IAnyObject) => {
                     const currentElement = JSON.parse(

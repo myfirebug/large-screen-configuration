@@ -4,13 +4,14 @@ import DynamicForm from "../dynamicForm";
 import elements from "@src/core/config/classification";
 
 interface IConfigLayoutRightAsideElement {
+  element?: elementsNameType;
   configureValue: IAnyObject;
   onFinish: (data: IAnyObject) => void;
 }
 
 export const ConfigLayoutRightAsideElement: FC<
   IConfigLayoutRightAsideElement
-> = ({ configureValue, onFinish }) => {
+> = ({ configureValue, onFinish, element }) => {
   const [form] = Form.useForm();
 
   const onValuesChange = useCallback(
@@ -38,7 +39,9 @@ export const ConfigLayoutRightAsideElement: FC<
         form={form}
         onValuesChange={onValuesChange}
       >
-        <DynamicForm datas={elements.baseLine.configure || []} />
+        <DynamicForm
+          datas={elements?.[element as elementsNameType]?.configure || []}
+        />
       </Form>
     </div>
   );

@@ -49,6 +49,7 @@ const BaseForm: FC<IBaseForm> = ({ item }) => {
             min={item.min}
             max={item.max}
             style={{ width: "100%" }}
+            addonAfter={item.addonAfter || ""}
             placeholder={item.placeholder}
           />
         </Form.Item>
