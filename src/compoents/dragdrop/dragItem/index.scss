@@ -1,19 +1,31 @@
 @include b(drag) {
   @include e(item) {
     text-align: center;
+    cursor: pointer;
     &:hover {
+      img {
+        transform: scale(1.1);
+      }
       .cms-drag__item--footer {
         color: var(--cms-text-color-primary);
         font-weight: bold;
       }
     }
     @include m(body) {
-      padding-top: 15px;
+      padding-top: 10px;
+      .ant-image {
+        border-radius: 5px;
+        overflow: hidden;
+        img {
+          transition: all 0.25s ease 0s;
+        }
+      }
     }
     @include m(footer) {
-      line-height: 24px;
+      line-height: 18px;
       padding-top: 5px;
       text-align: center;
+      font-size: 12px;
       transition: all 0.25s ease 0s;
       color: var(--cms-text-color-secondary);
     }
