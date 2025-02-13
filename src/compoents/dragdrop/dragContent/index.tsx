@@ -312,11 +312,13 @@ const DragContent = memo((props: IDragContent) => {
             style={{
               pointerEvents:
                 current.show && item[field] !== current[field] ? "none" : "all",
+              resize: auxiliaryLineConfig?.show ? "both" : "none",
             }}
             onResizeStart={onResizeStart}
             onResizeing={onResizeing}
             onResizeEnd={onResizeEnd}
             onCloseHander={onCloseHander}
+            isShowCloseBtn={auxiliaryLineConfig?.show}
           >
             {renderPreview?.(item)}
           </PreviewItem>

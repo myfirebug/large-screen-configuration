@@ -20,6 +20,7 @@ interface IPreviewItem extends HtmlHTMLAttributes<HTMLDivElement> {
    */
   onCloseHander?: (id: string) => void;
   children: ReactNode;
+  isShowCloseBtn?: boolean;
 }
 
 const PreviewItem = memo((props: IPreviewItem) => {
@@ -32,6 +33,7 @@ const PreviewItem = memo((props: IPreviewItem) => {
     onResizeEnd,
     onCloseHander,
     children,
+    isShowCloseBtn,
   } = props;
   const [moveing, setMoveing] = useState(false);
   const [resizeing, setResizeing] = useState(false);
@@ -112,14 +114,18 @@ const PreviewItem = memo((props: IPreviewItem) => {
       onMouseUp={onMouseUp}
     >
       {children}
-      <div
-        className="close"
-        onClick={(e) => {
-          e.preventDefault();
-          onCloseHander?.(data.elementId);
-        }}
-      ></div>
-      <div className="resize"></div>
+      {isShowCloseBtn ? (
+        <div
+          className="close"
+          onClick={(e) => {
+            e.preventDefault();
+            onCloseHander?.(data.elementId);
+          }}
+        ></div>
+      ) : (
+        "none"
+      )}
+      {/* <div className="resize"></div> */}
     </div>
   );
 });
