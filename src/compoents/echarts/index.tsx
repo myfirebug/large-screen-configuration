@@ -167,10 +167,6 @@ const Echarts = memo(
         chart.current?.resize();
         onResize?.();
       };
-      if (chart.current) {
-        chart.current.on("mouseover", mouseHander);
-        chart.current.on("mouseout", autoPlayHandler);
-      }
       const resizeObserver = new ResizeObserver((entries) => {
         if (!Array.isArray(entries) || !entries.length) {
           return;
@@ -183,9 +179,14 @@ const Echarts = memo(
         cleanup();
         resizeObserver.disconnect();
       };
-    }, [cleanup, init, autoresize, chart, mouseHander, autoPlayHandler]);
+    }, [cleanup, init, autoresize]);
 
-    console.log(123);
+    useEffect(() => {
+      if (chart.current) {
+        chart.current.on("mouseover", mouseHander);
+        chart.current.on("mouseout", autoPlayHandler);
+      }
+    }, [autoPlayHandler, mouseHander]);
 
     return (
       <div
