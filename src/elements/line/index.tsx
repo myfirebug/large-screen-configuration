@@ -2,7 +2,7 @@ import React, { memo, useMemo } from "react";
 import Echarts from "@src/compoents/echarts";
 import { getStyles, handleData, handleEchartsOption } from "@src/utils";
 interface ILine {
-  options: ILine;
+  options: IAnyObject;
   data: any;
   field: string;
 }
@@ -37,10 +37,10 @@ const Line = memo((props: ILine) => {
         : [],
     };
   }, [data, field, options]);
+  console.log(getOption, "getOption");
   const style = useMemo(() => {
     return getStyles(options);
   }, [options]);
-  console.log(getOption, "123");
   return (
     <div style={{ ...style, width: "100%", height: "100%" }}>
       <Echarts option={getOption} />
