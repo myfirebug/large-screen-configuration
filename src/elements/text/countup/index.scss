@@ -1,0 +1,7 @@
+@include b(countUp) {
+  display: flex !important;
+  @include e(content) {
+    width: auto !important;
+    height: auto !important;
+  }
+}
