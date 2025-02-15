@@ -1,4 +1,4 @@
-import { baseText, iconText } from "./text";
+import { baseText, iconText, countUp } from "./text";
 import {
   baseLine,
   baseSmoothLine,
@@ -31,6 +31,7 @@ const elementsConfig: any = {
   radiusBar,
   stackBar,
   lengthwaysBar,
+  countUp,
 };
 
 export default elementsConfig;
