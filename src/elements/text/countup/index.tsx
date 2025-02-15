@@ -10,21 +10,6 @@ interface ICountup {
 export const CountUp: FC<ICountup> = ({ data, field, options }) => {
   const countupRef = useRef<HTMLDivElement>(null);
   const countUpAnimRef = useRef<any>(null);
-  const initCountUp = useCallback(async () => {
-    const countUpModule = await import("countup.js");
-    countUpAnimRef.current = new countUpModule.CountUp(
-      countupRef.current as HTMLDivElement,
-      data[field],
-      {
-        decimalPlaces: 2,
-      }
-    );
-    if (!countUpAnimRef.current.error) {
-      countUpAnimRef.current.start();
-    } else {
-      console.error(countUpAnimRef.current.error);
-    }
-  }, [data, field]);
 
   const style = useMemo(() => {
     return getStyles(options);
@@ -42,6 +27,21 @@ export const CountUp: FC<ICountup> = ({ data, field, options }) => {
     return getStyles(options, "addonAfterStyle");
   }, [options]);
 
+  const initCountUp = useCallback(async () => {
+    const countUpModule = await import("countup.js");
+    countUpAnimRef.current = new countUpModule.CountUp(
+      countupRef.current as HTMLDivElement,
+      data[field],
+      {
+        decimalPlaces: 2,
+      }
+    );
+    if (!countUpAnimRef.current.error) {
+      countUpAnimRef.current.start();
+    } else {
+      console.error(countUpAnimRef.current.error);
+    }
+  }, [data, field]);
   useEffect(() => {
     initCountUp();
     return () => {

@@ -49,15 +49,6 @@ export const countUp = {
         name: "滚动区域",
         list: [
           {
-            componentName: "InputNumber",
-            label: "字体大小",
-            name: "countUpStyleFontSize",
-            required: false,
-            min: 12,
-            placeholder: "",
-            addonAfter: "px",
-          },
-          {
             componentName: "SketchPicker",
             label: "字体颜色",
             name: "countUpStyleColor",
@@ -95,46 +86,6 @@ export const countUp = {
               { code: "lighter", name: "细体" },
             ],
           },
-
-          [
-            {
-              name: "内边距",
-              list: [
-                {
-                  componentName: "InputNumber",
-                  label: "左边距",
-                  name: "countUpStylePaddingLeft",
-                  required: false,
-                  placeholder: "请输入左边距",
-                  addonAfter: "px",
-                },
-                {
-                  componentName: "InputNumber",
-                  label: "右边距",
-                  name: "countUpStylePaddingRight",
-                  required: false,
-                  placeholder: "请输入右边距",
-                  addonAfter: "px",
-                },
-                {
-                  componentName: "InputNumber",
-                  label: "上边距",
-                  name: "countUpStylePaddingTop",
-                  required: false,
-                  placeholder: "请输入上边距",
-                  addonAfter: "px",
-                },
-                {
-                  componentName: "InputNumber",
-                  label: "下边距",
-                  name: "countUpStylePaddingBottom",
-                  required: false,
-                  placeholder: "请输入下边距",
-                  addonAfter: "px",
-                },
-              ],
-            },
-          ],
         ],
       },
       {

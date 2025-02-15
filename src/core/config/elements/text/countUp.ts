@@ -26,7 +26,7 @@ export const countUp: IAnyObject = {
   dataValue: {
     ...dataConfig.configureValue,
     mock: {
-      value: 1000,
+      value: 1000.12,
     },
   },
 };
