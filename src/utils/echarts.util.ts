@@ -224,9 +224,6 @@ export function handleEchartsOption(style: any): any {
           color: style?.seriesLabelColor,
         },
         roseType: style?.seriesRoseType,
-        itemStyle: {
-          borderRadius: style?.seriesRoseType ? 4 : 0,
-        },
         radius: [
           `${style?.seriesInsideRadius || 0}%`,
           `${style?.seriesAutsideRadius || 0}%`,
