@@ -27,7 +27,7 @@ const columns: ProColumns<IElement>[] = [
     dataIndex: "url",
     search: false,
     render: (text, record, _, action) => {
-      return <img src={text as string} alt="" />;
+      return <img height="60px" src={`./elements/${record.code}.png`} alt="" />;
     },
   },
   {
@@ -89,7 +89,7 @@ const Elements: FC<any> = () => {
           },
         }}
         pagination={{
-          pageSize: 20,
+          pageSize: 15,
           onChange: (page) => console.log(page),
         }}
         dateFormatter="string"
