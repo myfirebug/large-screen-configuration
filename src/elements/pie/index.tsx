@@ -13,8 +13,10 @@ const Pie = memo((props: IPie) => {
   const getOption = useMemo(() => {
     const configuration = handleEchartsOption(options);
     const currentData = data && data[field] ? data[field] : [];
-    const { legendData, xAxisData, yAxisData, series } =
-      handleData(currentData);
+    const { legendData, xAxisData, yAxisData, series } = handleData(
+      currentData,
+      "pie"
+    );
     return {
       ...configuration,
       tooltip: {

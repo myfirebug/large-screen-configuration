@@ -393,20 +393,25 @@ export function handleEchartsOption(style: any): any {
  * @param data 数据
  * @returns
  */
-export function handleData(data: any[]): result {
+export function handleData(data: any[], type?: string): result {
   let legendData: any[] = [];
   let xAxisData: any[] = [];
   let yAxisData: any[] = [];
   let series: any[] = [];
+  // 判断饼图数据项
+  let isOnlyOneData = type === "pie" && data.length === 1;
+
+  console.log(data, "data");
 
   data.forEach((item: any, index: number) => {
-    legendData.push(item.seriesName);
+    !isOnlyOneData && legendData.push(item.seriesName);
     if (item.data && item.data.length) {
       let datas: any[] = [];
       item.data.forEach((subItem: any) => {
         if (index === 0) {
           xAxisData.push(subItem.name);
           yAxisData.push(subItem.name);
+          isOnlyOneData && legendData.push(subItem.name);
         }
         datas.push(subItem.value);
       });
