@@ -1,4 +1,4 @@
-import { BaseText, CountUp } from "./text";
+import { BaseText, CountUp, MessageText } from "./text";
 import Line from "./line";
 import Bar from "./bar";
 import Pie from "./pie";
@@ -9,5 +9,6 @@ const elements: any = {
   Bar,
   CountUp,
   Pie,
+  MessageText,
 };
 export default elements;

@@ -1,0 +1,6 @@
+@include b(message-text) {
+  display: flex !important;
+  .cms-icon {
+    padding-right: 5px;
+  }
+}

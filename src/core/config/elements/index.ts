@@ -1,4 +1,4 @@
-import { baseText, iconText, countUp } from "./text";
+import { baseText, iconText, countUp, messageText } from "./text";
 import {
   baseLine,
   baseSmoothLine,
@@ -21,6 +21,7 @@ import { basePie } from "./pie";
 const elementsConfig: any = {
   baseText,
   iconText,
+  messageText,
   baseLine,
   baseSmoothLine,
   baseAreaLine,
