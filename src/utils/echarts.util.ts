@@ -46,6 +46,8 @@ export function handleEchartsOption(style: any): any {
       icon: style?.legendIcon,
       left: style?.legendLeft,
       top: style?.legendTop,
+      right: style?.legendRight,
+      bottom: style?.legendBottom,
       textStyle: {
         fontSize: style?.legendFontSize,
         color: style?.legendColor,
