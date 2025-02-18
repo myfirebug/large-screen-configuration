@@ -26,6 +26,8 @@ export const pie = {
               }),
             };
           }),
+          echartsConfig.seriesItemStyle,
+          echartsConfig.emphasis,
         ],
       },
       {

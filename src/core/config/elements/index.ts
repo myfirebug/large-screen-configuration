@@ -16,7 +16,13 @@ import {
   lengthwaysBar,
 } from "./bar";
 
-import { basePie, rosetypePie } from "./pie";
+import {
+  basePie,
+  rosetypePie,
+  doughnutPie,
+  doughnuRoundedCornerPie,
+  legentTotalPie,
+} from "./pie";
 
 const elementsConfig: any = {
   baseText,
@@ -37,6 +43,9 @@ const elementsConfig: any = {
   countUp,
   basePie,
   rosetypePie,
+  doughnutPie,
+  doughnuRoundedCornerPie,
+  legentTotalPie,
 };
 
 export default elementsConfig;

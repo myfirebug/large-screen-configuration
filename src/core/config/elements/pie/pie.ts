@@ -10,6 +10,8 @@ const pieConfig = {
     ...echartsConfig.legendValue,
     ...echartsConfig.echartColorValue,
     ...echartsConfig.pieValue,
+    ...echartsConfig.seriesItemStyleValue,
+    ...echartsConfig.emphasisValue,
     xAxisShow: false,
     yAxisShow: false,
     seriesLabelShow: true,

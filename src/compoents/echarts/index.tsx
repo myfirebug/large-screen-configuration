@@ -126,12 +126,12 @@ const Echarts = memo(
             ...option,
             tooltip: {
               trigger: "axis",
-              backgroundColor: "rgba(0,0,0,.6)",
+              backgroundColor: "#000",
               borderColor: "rgba(255,255,255,.2)",
               padding: [8, 8],
               textStyle: {
                 color: "#fff",
-                fontSize: 12,
+                fontSize: 14,
               },
               ...option.tooltip,
             },
