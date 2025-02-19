@@ -4,7 +4,10 @@ large-screen-configuration 从零搭建基于 React 的大屏拖动配置管理�
 项目纯前端-Demo 地址：[https://myfirebug.github.io/bigscreen/v2.0.1](https://myfirebug.github.io/bigscreen/v2.0.1)
 
 **技术栈**
-基于 react + react-router-dom + ES6 + scss，使用 webpack 打包
+
+```
+基于 react + react-dom + react-router-dom + antd + ES6 + scss，使用 webpack 打包
+```
 
 # 依赖安装、启动、打包
 
