@@ -1,6 +1,8 @@
 import React, { memo, useMemo } from "react";
 import Echarts from "@src/compoents/echarts";
 import { getStyles, handleData, handleEchartsOption } from "@src/utils";
+import * as echarts from "echarts";
+import tinycolor from "tinycolor2";
 interface IBar {
   options: IAnyObject;
   data: any;
@@ -15,6 +17,11 @@ const Bar = memo((props: IBar) => {
     const currentData = data && data[field] ? data[field] : [];
     const { legendData, xAxisData, yAxisData, series } =
       handleData(currentData);
+    // 当前系列颜色
+    const currentColor = (index: number) => {
+      return configuration.color[index % (configuration.color.length - 1)];
+    };
+
     return {
       ...configuration,
       legend: {
@@ -30,9 +37,32 @@ const Bar = memo((props: IBar) => {
         data: yAxisData,
       },
       series: series
-        ? series.map((item) => ({
+        ? series.map((item, index) => ({
             ...configuration.bar.series,
             ...item,
+            itemStyle: {
+              borderRadius: options?.barBorderRadius || 0,
+              color: !options.barGradation
+                ? currentColor(index)
+                : new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                    {
+                      offset: 0,
+                      color: tinycolor(currentColor(index))
+                        .lighten(15)
+                        .toString(),
+                    },
+                    {
+                      offset: 0.5,
+                      color: currentColor(index),
+                    },
+                    {
+                      offset: 1,
+                      color: tinycolor(currentColor(index))
+                        .darken(15)
+                        .toString(),
+                    },
+                  ]),
+            },
           }))
         : [],
     };
