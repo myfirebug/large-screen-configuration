@@ -14,6 +14,7 @@ import {
   radiusBar,
   stackBar,
   lengthwaysBar,
+  gradationBar,
 } from "./bar";
 
 import {
@@ -46,6 +47,7 @@ const elementsConfig: any = {
   doughnutPie,
   doughnuRoundedCornerPie,
   legentTotalPie,
+  gradationBar,
 };
 
 export default elementsConfig;

@@ -1040,6 +1040,7 @@ export const echartsConfig = {
   // 柱状图配置项值
   barValue: {
     barWidth: 40,
+    barGradation: false,
     barShowBackground: false,
     barBorderRadius: 0,
     barBackgroundStyleColor: "rgba(255,255,255, 0.1)",
@@ -1049,6 +1050,13 @@ export const echartsConfig = {
   },
   // 柱状图配置项
   bar: [
+    {
+      componentName: "Switch",
+      label: "是否使用渐变",
+      name: "barGradation",
+      required: false,
+      placeholder: "",
+    },
     {
       componentName: "Slider",
       label: "柱状宽度",
