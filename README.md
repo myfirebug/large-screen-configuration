@@ -15,7 +15,7 @@ large-screen-configuration 从零搭建基于 React 的大屏拖动配置管理�
 1.克隆项目：      git clone https://github.com/myfirebug/large-screen-configuration.git
 2.安装nodejs
 3.安装依赖：      npm install
-4.启动服务：      npm run dev
+4.启动服务：      npm start
 5.发布代码：      npm run build
 
 ```
