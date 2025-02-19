@@ -44,24 +44,30 @@ const Bar = memo((props: IBar) => {
               borderRadius: options?.barBorderRadius || 0,
               color: !options.barGradation
                 ? currentColor(index)
-                : new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                    {
-                      offset: 0,
-                      color: tinycolor(currentColor(index))
-                        .lighten(15)
-                        .toString(),
-                    },
-                    {
-                      offset: 0.5,
-                      color: currentColor(index),
-                    },
-                    {
-                      offset: 1,
-                      color: tinycolor(currentColor(index))
-                        .darken(15)
-                        .toString(),
-                    },
-                  ]),
+                : new echarts.graphic.LinearGradient(
+                    0,
+                    0,
+                    options.barOrient === "vertical" ? 1 : 0,
+                    options.barOrient === "vertical" ? 0 : 1,
+                    [
+                      {
+                        offset: 0,
+                        color: tinycolor(currentColor(index))
+                          .lighten(15)
+                          .toString(),
+                      },
+                      {
+                        offset: 0.5,
+                        color: currentColor(index),
+                      },
+                      {
+                        offset: 1,
+                        color: tinycolor(currentColor(index))
+                          .darken(15)
+                          .toString(),
+                      },
+                    ]
+                  ),
             },
           }))
         : [],

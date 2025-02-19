@@ -1047,16 +1047,10 @@ export const echartsConfig = {
     barBackgroundStyleBorderColor: "",
     barBackgroundStyleBorderWidth: 0,
     barBackgroundStyleBorderType: "solid",
+    barOrient: "horizontal",
   },
   // 柱状图配置项
   bar: [
-    {
-      componentName: "Switch",
-      label: "是否使用渐变",
-      name: "barGradation",
-      required: false,
-      placeholder: "",
-    },
     {
       componentName: "Slider",
       label: "柱状宽度",
@@ -1070,6 +1064,26 @@ export const echartsConfig = {
       name: "barBorderRadius",
       required: false,
       placeholder: "",
+    },
+    {
+      componentName: "Switch",
+      label: "是否使用渐变",
+      name: "barGradation",
+      required: false,
+      placeholder: "",
+    },
+    {
+      componentName: "Select",
+      label: "渐变方式",
+      name: "barOrient",
+      required: false,
+      placeholder: "",
+      relationFields: "barGradation",
+      relationValues: "true",
+      options: [
+        { code: "horizontal", name: "水平" },
+        { code: "vertical", name: "垂直" },
+      ],
     },
     [
       {
