@@ -1,8 +1,9 @@
 import type { ActionType, ProColumns } from "@ant-design/pro-components";
 import { ProTable } from "@ant-design/pro-components";
 
-import React, { useRef, FC } from "react";
-import { API, IElement } from "@src/service";
+import React, { useRef, FC, useEffect } from "react";
+import { IElement } from "@src/service";
+import { elements } from "@src/core/hook";
 import "./index.scss";
 
 export const waitTimePromise = async (time: number = 100) => {
@@ -37,10 +38,30 @@ const columns: ProColumns<IElement>[] = [
     ellipsis: true,
     valueType: "select",
     valueEnum: {
-      all: { text: "全部" },
-      open: {
-        text: "基础文本",
-        status: "baseText",
+      all: { text: "全部", status: "" },
+      text: {
+        text: "文本",
+        status: "text",
+      },
+      image: {
+        text: "图片",
+        status: "image",
+      },
+      table: {
+        text: "表格",
+        status: "table",
+      },
+      line: {
+        text: "折线图",
+        status: "line",
+      },
+      bar: {
+        text: "柱状图",
+        status: "bar",
+      },
+      pie: {
+        text: "饼图",
+        status: "pie",
       },
     },
   },
@@ -70,18 +91,26 @@ const columns: ProColumns<IElement>[] = [
 
 const Elements: FC<any> = () => {
   const actionRef = useRef<ActionType>();
+  const { filterElementsList, getElements, filterHandle } = elements();
+
+  useEffect(() => {
+    getElements();
+  }, [getElements]);
   return (
     <div className="cms-elements">
       <ProTable<IElement>
         columns={columns}
         actionRef={actionRef}
-        request={async (params) => {
-          await waitTime(2000);
-          return API.elementsService.elements({ params }).then((res) => {
-            console.log(res, "res");
-            return res;
-          });
-        }}
+        // request={async (params) => {
+        //   await waitTime(2000);
+        //   return API.elementsService.elements({ params }).then((res) => {
+        //     console.log(res, params, "res");
+        //     return res;
+        //   });
+        // }}
+        dataSource={filterElementsList}
+        onSubmit={filterHandle}
+        onReset={filterHandle}
         rowKey="id"
         options={{
           setting: {
