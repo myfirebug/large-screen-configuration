@@ -206,9 +206,6 @@ export function handleEchartsOption(style: any): any {
           borderType: style?.barBackgroundStyleBorderType,
           borderRadius: style?.barBorderRadius,
         },
-        itemStyle: {
-          borderRadius: style?.barBorderRadius || 0,
-        },
         label: {
           show: style?.seriesLabelShow,
           position: style?.seriesLabelPosition,
