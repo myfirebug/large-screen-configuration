@@ -21,11 +21,22 @@ large-screen-configuration 是一个高效的拖拽式低代码数据可视化�
 **已完成功能**
 
 1. [x] 登录页面开发
-       ![RUNOOB 图标](https://myfirebug.github.io/example-images/bigscreen/v2.0.1/login.png)
+
+![RUNOOB 图标](https://myfirebug.github.io/example-images/bigscreen/v2.0.1/login.png)
+
 2. [x] 首页开发
+
+![RUNOOB 图标](https://myfirebug.github.io/example-images/bigscreen/v2.0.1/home.png)
+
 3. [x] 组件列表开发
+
+![RUNOOB 图标](https://myfirebug.github.io/example-images/bigscreen/v2.0.1/elements.png)
+
 4. [x] 微件列表开发
+
 5. [x] 微件配置开发
+
+![RUNOOB 图标](https://myfirebug.github.io/example-images/bigscreen/v2.0.1/elementc-config.png)
 
 # 依赖安装、启动、打包
 
