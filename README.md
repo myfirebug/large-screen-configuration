@@ -1,7 +1,21 @@
 # 基于 React 拖动配置大屏的后台管理系统
 
-large-screen-configuration 是一个高效的拖拽式低代码数据可视化开发平台，将图表、页面元素、控件等封装为组件，由组件拼成微件，由微件拼成页面，由页面拼成项目，无需编写代码即可制作漂亮的大屏。
+large-screen-configuration 从零搭建基于 React 的大屏拖动配置管理系统，该平台是一个高效的拖拽式低代码数据可视化开发平台，将图表、页面元素、控件等封装为组件，由组件拼成微件，由微件拼成页面，由页面拼成项目，无需编写代码即可制作漂亮的大屏。
 项目纯前端-Demo 地址：[https://myfirebug.github.io/bigscreen/v2.0.1](https://myfirebug.github.io/bigscreen/v2.0.1)
+
+**技术栈**
+基于 react + react-router-dom + ES6 + scss，使用 webpack 打包
+
+# 依赖安装、启动、打包
+
+```
+1.克隆项目：      git clone https://github.com/myfirebug/large-screen-configuration.git
+2.安装nodejs
+3.安装依赖：      npm install
+4.启动服务：      npm run dev
+5.发布代码：      npm run build
+
+```
 
 **已完成页面**
 
@@ -46,16 +60,3 @@ large-screen-configuration 是一个高效的拖拽式低代码数据可视化�
 | 名称 | 版本   | 名称 | 版本   |
 | ---- | ------ | ---- | ------ |
 | node | 16.8.0 | npm  | 7.21.0 |
-
-# 依赖安装、启动、打包
-
-```
-## 克隆
-
-## 启动开发环境（开发调试时使用）
-### `npm start`
-
-## 构建正式项目
-### `npm run build`
-
-```
