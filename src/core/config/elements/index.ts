@@ -25,6 +25,8 @@ import {
   legentTotalPie,
 } from "./pie";
 
+import { baseImage } from "./image";
+
 const elementsConfig: any = {
   baseText,
   iconText,
@@ -48,6 +50,7 @@ const elementsConfig: any = {
   doughnuRoundedCornerPie,
   legentTotalPie,
   gradationBar,
+  baseImage,
 };
 
 export default elementsConfig;
