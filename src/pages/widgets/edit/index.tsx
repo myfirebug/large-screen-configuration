@@ -167,10 +167,15 @@ const ConfigLayout: FC<IConfigLayout> = () => {
             style={getStyles(
               layout?.widget?.configuration?.configureValue || {}
             )}
-            headerStyles={getStyles(
-              layout?.widget?.configuration?.configureValue || {},
-              "headerStyle"
-            )}
+            headerStyles={{
+              ...getStyles(
+                layout?.widget?.configuration?.configureValue || {},
+                "headerStyle"
+              ),
+              display: layout?.widget?.configuration?.configureValue?.headerShow
+                ? "block"
+                : "none",
+            }}
             bodyStyles={getStyles(
               layout?.widget?.configuration?.configureValue || {},
               "bodyStyle"

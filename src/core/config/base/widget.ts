@@ -26,6 +26,7 @@ export const widgetConfig = {
     auxiliaryLineBorderColor: "rgba(255, 255, 255, 0.2)",
     headerStyleBorderBottomColor: "rgb(15, 32, 212)",
     bodyStylePaddingTop: 4,
+    headerShow: true,
   },
   configure: [
     [
@@ -54,6 +55,13 @@ export const widgetConfig = {
       {
         name: "头部",
         list: [
+          {
+            componentName: "Switch",
+            label: "是否显示",
+            name: "headerShow",
+            required: false,
+            placeholder: "",
+          },
           {
             componentName: "Input",
             label: "背景图",
