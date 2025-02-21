@@ -1,0 +1,73 @@
+export const swiperConfig = {
+  configureValue: {
+    loop: true,
+    pagination: true,
+    autoplay: true,
+    navigation: false,
+    spaceBetween: 0,
+    slidesPerView: 1,
+    rows: 1,
+  },
+  configure: [
+    {
+      name: "滚动设置",
+      list: [
+        {
+          componentName: "Switch",
+          label: "循环播放",
+          name: "loop",
+          required: false,
+          placeholder: "",
+        },
+        {
+          componentName: "Switch",
+          label: "显示分页",
+          name: "pagination",
+          required: false,
+          placeholder: "",
+        },
+        {
+          componentName: "Switch",
+          label: "自动播放",
+          name: "autoplay",
+          required: false,
+          placeholder: "",
+        },
+        {
+          componentName: "Switch",
+          label: "显示导航",
+          name: "navigation",
+          required: false,
+          placeholder: "",
+        },
+        {
+          componentName: "InputNumber",
+          label: "间距",
+          name: "spaceBetween",
+          required: false,
+          min: 0,
+          placeholder: "请输入间距",
+          addonAfter: "px",
+        },
+        {
+          componentName: "InputNumber",
+          label: "一屏幻灯片数量",
+          name: "slidesPerView",
+          required: false,
+          min: 1,
+          placeholder: "请输入一屏幻灯片数量",
+          addonAfter: "个",
+        },
+        {
+          componentName: "InputNumber",
+          label: "几行",
+          name: "rows",
+          required: false,
+          min: 1,
+          placeholder: "请输入行",
+          addonAfter: "行",
+        },
+      ],
+    },
+  ],
+};

@@ -25,7 +25,7 @@ import {
   legentTotalPie,
 } from "./pie";
 
-import { baseImage } from "./image";
+import { baseImage, baseBanner } from "./image";
 
 const elementsConfig: any = {
   baseText,
@@ -51,6 +51,7 @@ const elementsConfig: any = {
   legentTotalPie,
   gradationBar,
   baseImage,
+  baseBanner,
 };
 
 export default elementsConfig;

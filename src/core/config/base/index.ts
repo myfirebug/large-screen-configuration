@@ -5,3 +5,4 @@ export * from "./widget";
 export * from "./page";
 export * from "./echarts";
 export * from "./animate";
+export * from "./swiper";

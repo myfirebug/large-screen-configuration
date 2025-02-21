@@ -2,7 +2,7 @@ import { BaseText, CountUp, MessageText } from "./text";
 import Line from "./line";
 import Bar from "./bar";
 import Pie from "./pie";
-import { BaseImage } from "./image";
+import { BaseImage, BaseBanner } from "./image";
 
 const elements: any = {
   BaseText,
@@ -12,5 +12,6 @@ const elements: any = {
   Pie,
   MessageText,
   BaseImage,
+  BaseBanner,
 };
 export default elements;
