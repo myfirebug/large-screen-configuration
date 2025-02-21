@@ -49,6 +49,15 @@ export const countUp = {
         name: "滚动区域",
         list: [
           {
+            componentName: "InputNumber",
+            label: "字体大小",
+            name: "countUpStyleFontSize",
+            required: false,
+            min: 12,
+            placeholder: "",
+            addonAfter: "px",
+          },
+          {
             componentName: "SketchPicker",
             label: "字体颜色",
             name: "countUpStyleColor",
