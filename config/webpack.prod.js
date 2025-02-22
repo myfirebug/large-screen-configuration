@@ -40,7 +40,14 @@ module.exports = merge.merge(baseConfig, {
       // 压缩css
       new CssMinimizerPlugin(),
       // 压缩JS
-      new TerserWebpackPlugin(),
+      new TerserWebpackPlugin({
+        terserOptions: {
+          compress: {
+            drop_console: true,
+            drop_debugger: true,
+          },
+        },
+      }),
     ],
     splitChunks: {
       chunks: "all",
