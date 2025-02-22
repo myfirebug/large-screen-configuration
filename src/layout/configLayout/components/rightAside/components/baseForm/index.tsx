@@ -7,16 +7,21 @@ import {
   Slider,
   Switch,
   ColorPicker,
+  FormInstance,
 } from "antd";
+// JSON编辑器
+import JsonEditor from "@src/compoents/jsonEditor";
 import TextArea from "antd/es/input/TextArea";
 
 const { Option } = Select;
 
 interface IBaseForm {
-  item: any;
+  item: IAnyObject;
+  form: FormInstance<any>;
+  callback: Function;
 }
 
-const BaseForm: FC<IBaseForm> = ({ item }) => {
+const BaseForm: FC<IBaseForm> = ({ item, form, callback }) => {
   return (
     <>
       {item.componentName === "Input" && (
@@ -32,6 +37,7 @@ const BaseForm: FC<IBaseForm> = ({ item }) => {
             allowClear
             disabled={item.disabled}
             placeholder={item.placeholder}
+            onBlur={(e) => callback(item.name, e.target.value)}
           />
         </Form.Item>
       )}
@@ -51,6 +57,7 @@ const BaseForm: FC<IBaseForm> = ({ item }) => {
             style={{ width: "100%" }}
             addonAfter={item.addonAfter || ""}
             placeholder={item.placeholder}
+            onBlur={(e) => callback(item.name, e.target.value)}
           />
         </Form.Item>
       )}
@@ -68,6 +75,7 @@ const BaseForm: FC<IBaseForm> = ({ item }) => {
             disabled={item.disabled}
             rows={8}
             placeholder={item.placeholder}
+            onBlur={(e) => callback(item.name, e.target.value)}
           />
         </Form.Item>
       )}
@@ -79,7 +87,7 @@ const BaseForm: FC<IBaseForm> = ({ item }) => {
           valuePropName="checked"
           rules={[{ required: item.require }]}
         >
-          <Switch size="small" />
+          <Switch size="small" onChange={(e) => callback(item.name, e)} />
         </Form.Item>
       )}
       {item.componentName === "Slider" && (
@@ -94,6 +102,7 @@ const BaseForm: FC<IBaseForm> = ({ item }) => {
             max={item.max || 100}
             disabled={item.disabled}
             step={item.step || 1}
+            onChangeComplete={(e) => callback(item.name, e)}
           />
         </Form.Item>
       )}
@@ -109,6 +118,7 @@ const BaseForm: FC<IBaseForm> = ({ item }) => {
             allowClear
             disabled={item.disabled}
             placeholder={item.placeholder}
+            onChange={(e) => callback(item.name, e)}
           >
             {item.options.map((subItem: any) => (
               <Option key={subItem.code} value={subItem.code}>
@@ -125,7 +135,28 @@ const BaseForm: FC<IBaseForm> = ({ item }) => {
       )}
       {item.componentName === "SketchPicker" && (
         <Form.Item label={item.label} name={item.name}>
-          <ColorPicker size="small" allowClear format="hex" showText />
+          <ColorPicker
+            size="small"
+            //allowClear
+            format="hex"
+            showText
+            onChangeComplete={(e) => callback(item.name, `#${e.toHex()}`)}
+          />
+        </Form.Item>
+      )}
+      {item.componentName === "JsonEdit" && (
+        <Form.Item
+          label={item.label}
+          name={item.name}
+          tooltip={item.tooltip}
+          rules={[{ required: item.require }]}
+        >
+          <Form.Item shouldUpdate noStyle>
+            <JsonEditor
+              value={form.getFieldValue(item.name)}
+              onChange={(e) => callback(item.name, e)}
+            />
+          </Form.Item>
         </Form.Item>
       )}
     </>

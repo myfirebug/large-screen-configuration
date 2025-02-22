@@ -1,11 +1,13 @@
-import { Collapse, Form } from "antd";
+import { Collapse, Form, FormInstance } from "antd";
 import React, { FC } from "react";
 import BaseForm from "../baseForm";
 
 const { Panel } = Collapse;
 
 interface IDynamicForm {
-  datas: any;
+  datas: IAnyObject;
+  form: FormInstance<any>;
+  callback: Function;
 }
 
 // 判断数据是Array 或者 object
@@ -13,7 +15,7 @@ const judgeType = (data: any, type: string) => {
   return Object.prototype.toString.call(data) === type;
 };
 
-const DynamicForm: FC<IDynamicForm> = ({ datas }) => {
+const DynamicForm: FC<IDynamicForm> = ({ datas, form, callback }) => {
   return datas.map((item: any, index: number) => {
     if (judgeType(item, "[object Object]")) {
       const relationFields =
@@ -21,7 +23,7 @@ const DynamicForm: FC<IDynamicForm> = ({ datas }) => {
       return (
         <div key={index}>
           {!relationFields.length ? (
-            <BaseForm item={item} />
+            <BaseForm item={item} form={form} callback={callback} />
           ) : (
             <Form.Item noStyle shouldUpdate>
               {({ getFieldValue }) => {
@@ -30,7 +32,9 @@ const DynamicForm: FC<IDynamicForm> = ({ datas }) => {
                     item.relationValues.includes(String(getFieldValue(subItem)))
                   )
                 ) {
-                  return <BaseForm item={item} />;
+                  return (
+                    <BaseForm item={item} form={form} callback={callback} />
+                  );
                 }
               }}
             </Form.Item>
@@ -55,7 +59,11 @@ const DynamicForm: FC<IDynamicForm> = ({ datas }) => {
               >
                 {subItem.relationFields === undefined ? (
                   <Panel header={subItem.name} key={`${index}-${subIndex}`}>
-                    <DynamicForm datas={subItem.list} />
+                    <DynamicForm
+                      datas={subItem.list}
+                      form={form}
+                      callback={callback}
+                    />
                   </Panel>
                 ) : (
                   <Form.Item noStyle shouldUpdate>
@@ -77,7 +85,11 @@ const DynamicForm: FC<IDynamicForm> = ({ datas }) => {
                               header={subItem.name}
                               key={`${index}-${subIndex}`}
                             >
-                              <DynamicForm datas={subItem.list} />
+                              <DynamicForm
+                                datas={subItem.list}
+                                form={form}
+                                callback={callback}
+                              />
                             </Panel>
                           </Collapse>
                         );

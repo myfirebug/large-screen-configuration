@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect } from "react";
+import React, { FC, useEffect } from "react";
 import { Form } from "antd";
 import DynamicForm from "../dynamicForm";
 import elements from "@src/core/config/classification";
@@ -14,19 +14,19 @@ export const ConfigLayoutRightAsideElement: FC<
 > = ({ configureValue, onFinish, element }) => {
   const [form] = Form.useForm();
 
-  const onValuesChange = useCallback(
-    (changedValues: any, allValues: IAnyObject) => {
-      // 所有变化的值
-      let fields = { ...allValues };
-      for (let filed in fields) {
-        if (typeof fields[filed] === "object") {
-          fields[filed] = `#${fields[filed].toHex()}`;
-        }
-      }
-      onFinish(fields);
-    },
-    [onFinish]
-  );
+  // const onValuesChange = useCallback(
+  //   (changedValues: any, allValues: IAnyObject) => {
+  //     // 所有变化的值
+  //     let fields = { ...allValues };
+  //     for (let filed in fields) {
+  //       if (typeof fields[filed] === "object") {
+  //         fields[filed] = `#${fields[filed].toHex()}`;
+  //       }
+  //     }
+  //     onFinish(fields);
+  //   },
+  //   [onFinish]
+  // );
 
   useEffect(() => {
     form.setFieldsValue(configureValue);
@@ -37,10 +37,19 @@ export const ConfigLayoutRightAsideElement: FC<
         labelCol={{ flex: "110px" }}
         labelAlign="left"
         form={form}
-        onValuesChange={onValuesChange}
+        // onValuesChange={onValuesChange}
       >
         <DynamicForm
           datas={elements?.[element as elementsNameType]?.configure || []}
+          form={form}
+          callback={(field: string, value: any) => {
+            onFinish({
+              [field]:
+                !isNaN(value) && typeof value !== "boolean"
+                  ? Number(value)
+                  : value,
+            });
+          }}
         />
       </Form>
     </div>
