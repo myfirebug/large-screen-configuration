@@ -1,10 +1,8 @@
 export const fontConfig = {
   configureValue: {
     styleFontSize: 14,
-    styleLetterSpacing: 0,
     styleFontWeight: "normal",
     styleTextAlign: "center",
-    styleBackgroundColor: "",
     styleFontFamily: "Microsoft YaHei",
     styleLineHeight: 24,
     styleColor: "#fff",

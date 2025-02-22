@@ -4,9 +4,6 @@ import { dataConfig } from "./data";
 export const widgetConfig = {
   configureValue: {
     ...boxConfig.configureValue,
-    styleBoxShadowX: 0,
-    styleBoxShadowY: 0,
-    styleBoxShadowF: 10,
     styleBoxShadowC: "rgba(15, 32, 212, 0.5)",
     styleBorderStyle: "solid",
     styleBorderWidth: 1,
@@ -16,11 +13,6 @@ export const widgetConfig = {
     styleBorderBottomLeftRadius: 10,
     styleBorderBottomRightRadius: 10,
     styleBackgroundColor: "#090548",
-    styleBackgroundImage: "",
-    headerStyleBackgroundImage: "",
-    headerStyleBackgroundColor: "",
-    bodyStyleBackgroundImage: "",
-    bodyStyleBackgroundColor: "",
     headerStyleHeight: 40,
     isShowAuxiliaryLine: true,
     auxiliaryLineBorderColor: "rgba(255, 255, 255, 0.2)",

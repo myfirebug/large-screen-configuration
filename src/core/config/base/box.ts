@@ -1,21 +1,7 @@
 export const boxConfig = {
   configureValue: {
     styleBoxInset: false,
-    styleBoxShadowX: 0,
-    styleBoxShadowY: 0,
-    styleBoxShadowF: 0,
-    styleBoxShadowC: "",
     styleBorderStyle: "none",
-    styleBorderWidth: 0,
-    styleBorderColor: "",
-    styleBorderTopLeftRadius: 0,
-    styleBorderTopRightRadius: 0,
-    styleBorderBottomLeftRadius: 0,
-    styleBorderBottomRightRadius: 0,
-    stylePaddingLeft: 0,
-    stylePaddingRight: 0,
-    stylePaddingTop: 0,
-    stylePaddingBottom: 0,
   },
   configure: [
     {

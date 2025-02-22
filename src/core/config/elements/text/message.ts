@@ -4,10 +4,6 @@ export const messageText: IAnyObject = {
   code: "messageText",
   // 配置项值
   configureValue: {
-    styleTextShadowX: 0,
-    styleTextShadowY: 0,
-    styleTextShadowF: 0,
-    styleTextShadowC: "",
     iconStyleFontSize: 14,
     iconStyleColor: "rgba(255,255,255,.5)",
     ...boxConfig.configureValue,

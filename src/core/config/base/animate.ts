@@ -2,7 +2,6 @@ export const animateConfig = {
   configureValue: {
     styleAnimateInfinite: false,
     styleAnimationDelay: 0,
-    styleAnimationName: "",
     styleAnimationDuration: 1,
     styleAnimationTimingFunction: "linear",
   },

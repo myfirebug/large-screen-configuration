@@ -6,7 +6,6 @@ export const dataConfig = {
     mock: {
       value: "文本框",
     },
-    url: "",
     method: "get",
     field: "value",
   },
