@@ -14,11 +14,11 @@ export const dataConfig = {
   configure: [
     {
       componentName: "Switch",
-      label: "使用组数据",
+      label: "使用微件数据",
       name: "useInterface",
       required: false,
       placeholder: "",
-      tooltip: "该组件使用组的接口数据",
+      tooltip: "该组件使用微件的接口数据",
     },
     {
       componentName: "Select",
