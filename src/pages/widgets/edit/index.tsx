@@ -11,7 +11,10 @@ import {
   ConfigLayoutRightAsideLayer,
   ConfigLayoutRightAsideWidget,
   ConfigLayoutRightAsideElement,
+  ConfigLayoutRightAsideData,
 } from "@src/layout/configLayout";
+
+import { widgetConfig } from "@src/core/config/base";
 
 import "@src/layout/configLayout/index.scss";
 import WidgetLayout from "@src/layout/widgetLayout";
@@ -45,7 +48,10 @@ const ConfigLayout: FC<IConfigLayout> = () => {
           column: 1,
           row: 1,
           widgetId: guid(),
-          configuration: {},
+          configuration: {
+            configureValue: widgetConfig.configureValue,
+            dataValue: widgetConfig.dataValue,
+          },
           elements: [],
         },
       });
@@ -110,9 +116,9 @@ const ConfigLayout: FC<IConfigLayout> = () => {
     let arr: PageType[] = [];
     if (layout?.widgetId) {
       if (layout?.elementId) {
-        arr = ["layer", "element", "widget", "data", "linkage"];
+        arr = ["layer", "element", "widget", "data"];
       } else {
-        arr = ["layer", "widget", "data", "linkage"];
+        arr = ["layer", "widget", "data"];
       }
     } else {
       arr = ["layer"];
@@ -298,6 +304,54 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                             ...currentElement.configuration,
                             configureValue: {
                               ...currentElement.configuration.configureValue,
+                              ...data,
+                            },
+                          },
+                        },
+                      });
+                    }
+                  }}
+                />
+              );
+            } else if (data === "data") {
+              return (
+                <ConfigLayoutRightAsideData
+                  widgetDataValue={layout?.widget?.configuration?.dataValue}
+                  widgetOnFinish={(data: IAnyObject) => {
+                    const widget = layout?.widget;
+                    console.log(widget, "123");
+                    dispatch({
+                      type: "MODIFY_WIDGET",
+                      data: {
+                        ...widget,
+                        configuration: {
+                          ...widget?.configuration,
+                          dataValue: {
+                            ...widget?.configuration?.dataValue,
+                            ...data,
+                          },
+                        },
+                      },
+                    });
+                  }}
+                  elementDataValue={currentElement?.configuration.dataValue}
+                  elementOnFinish={(data: IAnyObject) => {
+                    const currentElement = JSON.parse(
+                      JSON.stringify(
+                        layout?.widget?.elements.find(
+                          (item) => item.elementId === layout.elementId
+                        )
+                      )
+                    );
+                    if (currentElement) {
+                      dispatch({
+                        type: "MODIFY_ELEMENT",
+                        data: {
+                          ...currentElement,
+                          configuration: {
+                            ...currentElement.configuration,
+                            dataValue: {
+                              ...currentElement.configuration.dataValue,
                               ...data,
                             },
                           },
