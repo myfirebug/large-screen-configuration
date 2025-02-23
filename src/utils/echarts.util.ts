@@ -97,6 +97,7 @@ export function handleEchartsOption(style: any): any {
         show: style?.xAxisSplitLineShow,
         lineStyle: {
           color: style?.splitLineColor,
+          type: style?.yAxisSplitLineType,
         },
       },
       splitArea: {
@@ -151,6 +152,7 @@ export function handleEchartsOption(style: any): any {
         show: style?.yAxisSplitLineShow,
         lineStyle: {
           color: style?.splitLineColor,
+          type: style?.yAxisSplitLineType,
         },
       },
       splitArea: {
