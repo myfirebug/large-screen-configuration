@@ -24,12 +24,15 @@ export const ConfigLayoutRightAsideWidget: FC<
           datas={widgetConfig.configure || []}
           form={form}
           callback={(field: string, value: any) => {
-            onFinish({
-              [field]:
-                !isNaN(value) && typeof value !== "boolean"
-                  ? Number(value)
-                  : value,
-            });
+            const val =
+              value && !isNaN(value) && typeof value !== "boolean"
+                ? Number(value)
+                : value;
+            if (configureValue[field] !== val) {
+              onFinish({
+                [field]: val,
+              });
+            }
           }}
         />
       </Form>

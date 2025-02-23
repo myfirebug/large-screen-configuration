@@ -43,12 +43,15 @@ export const ConfigLayoutRightAsideElement: FC<
           datas={elements?.[element as elementsNameType]?.configure || []}
           form={form}
           callback={(field: string, value: any) => {
-            onFinish({
-              [field]:
-                !isNaN(value) && typeof value !== "boolean"
-                  ? Number(value)
-                  : value,
-            });
+            const val =
+              value && !isNaN(value) && typeof value !== "boolean"
+                ? Number(value)
+                : value;
+            if (configureValue[field] !== val) {
+              onFinish({
+                [field]: val,
+              });
+            }
           }}
         />
       </Form>

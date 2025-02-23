@@ -87,7 +87,11 @@ const BaseForm: FC<IBaseForm> = ({ item, form, callback }) => {
           valuePropName="checked"
           rules={[{ required: item.require }]}
         >
-          <Switch size="small" onChange={(e) => callback(item.name, e)} />
+          <Switch
+            size="small"
+            disabled={item.disabled}
+            onChange={(e) => callback(item.name, e)}
+          />
         </Form.Item>
       )}
       {item.componentName === "Slider" && (
@@ -140,6 +144,7 @@ const BaseForm: FC<IBaseForm> = ({ item, form, callback }) => {
             //allowClear
             format="hex"
             showText
+            disabled={item.disabled}
             onChangeComplete={(e) => callback(item.name, `#${e.toHex()}`)}
           />
         </Form.Item>
