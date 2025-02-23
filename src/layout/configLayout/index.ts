@@ -6,3 +6,4 @@ export * from "./components/rightAside";
 export * from "./components/rightAside/components/layer";
 export * from "./components/rightAside/components/widget";
 export * from "./components/rightAside/components/element";
+export * from "./components/rightAside/components/data";
