@@ -1,5 +1,5 @@
 import { boxConfig } from "./box";
-import { dataConfig } from "./data";
+import { widgetDataConfig } from "./widgetData";
 
 export const widgetConfig = {
   configureValue: {
@@ -164,5 +164,5 @@ export const widgetConfig = {
       },
     ],
   ],
-  dataValue: dataConfig.configureValue,
+  dataValue: widgetDataConfig.configureValue,
 };

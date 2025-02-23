@@ -1,4 +1,4 @@
-import { echartsConfig, animateConfig, dataConfig } from "../../base";
+import { echartsConfig, animateConfig, elementDataConfig } from "../../base";
 
 const bar = {
   type: "bar",
@@ -27,7 +27,7 @@ const bar = {
   },
   // 数据值
   dataValue: {
-    ...dataConfig.configureValue,
+    ...elementDataConfig.configureValue,
     field: "series",
     mock: {
       series: [

@@ -1,4 +1,4 @@
-import { echartsConfig, animateConfig, dataConfig } from "../../base";
+import { echartsConfig, animateConfig, elementDataConfig } from "../../base";
 
 const pieConfig = {
   type: "pie",
@@ -22,7 +22,7 @@ const pieConfig = {
   },
   // 数据值
   dataValue: {
-    ...dataConfig.configureValue,
+    ...elementDataConfig.configureValue,
     field: "series",
     mock: {
       series: [

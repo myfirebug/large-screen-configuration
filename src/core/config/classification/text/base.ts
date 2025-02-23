@@ -1,4 +1,4 @@
-import { boxConfig, fontConfig, dataConfig } from "../../base";
+import { boxConfig, fontConfig } from "../../base";
 
 export const baseText = {
   // 配置名称
@@ -94,5 +94,4 @@ export const baseText = {
       },
     ],
   ],
-  data: dataConfig.configure,
 };

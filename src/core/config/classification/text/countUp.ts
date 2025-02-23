@@ -1,5 +1,3 @@
-import { dataConfig } from "../../base";
-
 export const countUp = {
   // 配置名称
   code: "countUp",
@@ -155,5 +153,4 @@ export const countUp = {
       },
     ],
   ],
-  data: dataConfig.configure,
 };

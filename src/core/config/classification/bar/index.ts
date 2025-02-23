@@ -1,4 +1,4 @@
-import { echartsConfig, animateConfig, dataConfig } from "../../base";
+import { echartsConfig, animateConfig } from "../../base";
 
 export const bar = {
   configure: [
@@ -38,5 +38,4 @@ export const bar = {
       ...animateConfig.configure,
     ],
   ],
-  data: dataConfig.configure,
 };

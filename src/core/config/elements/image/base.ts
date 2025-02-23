@@ -1,4 +1,4 @@
-import { dataConfig, boxConfig } from "@src/core/config/base";
+import { elementDataConfig, boxConfig } from "@src/core/config/base";
 
 export const baseImage: IAnyObject = {
   code: "baseImage",
@@ -9,7 +9,7 @@ export const baseImage: IAnyObject = {
   },
   // 数据值
   dataValue: {
-    ...dataConfig.configureValue,
+    ...elementDataConfig.configureValue,
     mock: {
       value:
         "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",

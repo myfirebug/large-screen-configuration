@@ -1,4 +1,4 @@
-import { echartsConfig, animateConfig, dataConfig } from "../../base";
+import { echartsConfig, animateConfig } from "../../base";
 
 export const pie = {
   configure: [
@@ -45,5 +45,4 @@ export const pie = {
       ...animateConfig.configure,
     ],
   ],
-  data: [...dataConfig.configure],
 };

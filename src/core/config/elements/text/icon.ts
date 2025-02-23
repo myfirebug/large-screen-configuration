@@ -1,4 +1,8 @@
-import { fontConfig, dataConfig, boxConfig } from "@src/core/config/base";
+import {
+  fontConfig,
+  elementDataConfig,
+  boxConfig,
+} from "@src/core/config/base";
 
 export const iconText: IAnyObject = {
   code: "iconText",
@@ -10,5 +14,5 @@ export const iconText: IAnyObject = {
     ...fontConfig.configureValue,
   },
   // 数据值
-  dataValue: dataConfig.configureValue,
+  dataValue: elementDataConfig.configureValue,
 };

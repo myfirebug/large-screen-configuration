@@ -1,4 +1,8 @@
-import { dataConfig, boxConfig, swiperConfig } from "@src/core/config/base";
+import {
+  elementDataConfig,
+  boxConfig,
+  swiperConfig,
+} from "@src/core/config/base";
 
 export const baseBanner: IAnyObject = {
   code: "baseBanner",
@@ -9,7 +13,7 @@ export const baseBanner: IAnyObject = {
   },
   // 数据值
   dataValue: {
-    ...dataConfig.configureValue,
+    ...elementDataConfig.configureValue,
     field: "list",
     mock: {
       list: [

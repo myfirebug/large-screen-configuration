@@ -1,4 +1,4 @@
-import { dataConfig } from "@src/core/config/base";
+import { elementDataConfig } from "@src/core/config/base";
 
 export const countUp: IAnyObject = {
   code: "countUp",
@@ -18,7 +18,7 @@ export const countUp: IAnyObject = {
   },
   // 数据值
   dataValue: {
-    ...dataConfig.configureValue,
+    ...elementDataConfig.configureValue,
     mock: {
       value: 1000.12,
     },
