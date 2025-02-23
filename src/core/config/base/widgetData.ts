@@ -1,4 +1,4 @@
-export const dataConfig = {
+export const widgetDataConfig = {
   // 数据项默认值
   configureValue: {
     useInterface: false,
@@ -6,6 +6,7 @@ export const dataConfig = {
     mock: {
       value: "文本框",
     },
+    params: {},
     method: "get",
     field: "value",
   },
@@ -20,26 +21,13 @@ export const dataConfig = {
       tooltip: "该组件使用微件的接口数据",
     },
     {
-      componentName: "Select",
-      label: "请求类型",
-      name: "dataType",
-      required: false,
-      placeholder: "",
-      relationFields: "useInterface",
-      relationValues: "false",
-      options: [
-        { code: "mock", name: "mock数据" },
-        { code: "dynamic", name: "接口数据" },
-      ],
-    },
-    {
       componentName: "JsonEdit",
-      label: "mock数据",
+      label: "模拟数据",
       name: "mock",
       required: false,
       placeholder: "请输入mock数据",
-      relationFields: "dataType,useInterface",
-      relationValues: "mock,false",
+      relationFields: "useInterface",
+      relationValues: "false",
     },
     {
       componentName: "TextArea",
@@ -47,8 +35,8 @@ export const dataConfig = {
       name: "url",
       required: false,
       placeholder: "请输入接口地址",
-      relationFields: "dataType,useInterface",
-      relationValues: "dynamic,false",
+      relationFields: "useInterface",
+      relationValues: "true",
     },
     {
       componentName: "Select",
@@ -56,12 +44,21 @@ export const dataConfig = {
       name: "method",
       required: false,
       placeholder: "",
-      relationFields: "dataType,useInterface",
-      relationValues: "dynamic,false",
+      relationFields: "useInterface",
+      relationValues: "true",
       options: [
         { code: "get", name: "GET" },
         { code: "post", name: "post" },
       ],
+    },
+    {
+      componentName: "JsonEdit",
+      label: "请求参数",
+      name: "params",
+      required: false,
+      placeholder: "请输入请求参数",
+      relationFields: "useInterface",
+      relationValues: "true",
     },
     {
       componentName: "Input",
