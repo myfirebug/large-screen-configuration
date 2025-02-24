@@ -19,9 +19,10 @@ interface IBaseForm {
   item: IAnyObject;
   form: FormInstance<any>;
   callback: Function;
+  formSubmit?: boolean;
 }
 
-const BaseForm: FC<IBaseForm> = ({ item, form, callback }) => {
+const BaseForm: FC<IBaseForm> = ({ item, form, callback, formSubmit }) => {
   return (
     <>
       {item.componentName === "Input" && (
@@ -29,7 +30,7 @@ const BaseForm: FC<IBaseForm> = ({ item, form, callback }) => {
           label={item.label}
           name={item.name}
           tooltip={item.tooltip}
-          rules={[{ required: item.require }]}
+          rules={[{ required: item.required }]}
           validateTrigger="onBlur"
         >
           <Input
@@ -37,7 +38,7 @@ const BaseForm: FC<IBaseForm> = ({ item, form, callback }) => {
             allowClear
             disabled={item.disabled}
             placeholder={item.placeholder}
-            onBlur={(e) => callback(item.name, e.target.value)}
+            onBlur={(e) => !formSubmit && callback(item.name, e.target.value)}
           />
         </Form.Item>
       )}
@@ -47,7 +48,7 @@ const BaseForm: FC<IBaseForm> = ({ item, form, callback }) => {
           name={item.name}
           tooltip={item.tooltip}
           validateTrigger="onBlur"
-          rules={[{ required: item.require }]}
+          rules={[{ required: item.required }]}
         >
           <InputNumber
             size="small"
@@ -57,7 +58,7 @@ const BaseForm: FC<IBaseForm> = ({ item, form, callback }) => {
             style={{ width: "100%" }}
             addonAfter={item.addonAfter || ""}
             placeholder={item.placeholder}
-            onBlur={(e) => callback(item.name, e.target.value)}
+            onBlur={(e) => !formSubmit && callback(item.name, e.target.value)}
           />
         </Form.Item>
       )}
@@ -66,7 +67,7 @@ const BaseForm: FC<IBaseForm> = ({ item, form, callback }) => {
           label={item.label}
           name={item.name}
           tooltip={item.tooltip}
-          rules={[{ required: item.require }]}
+          rules={[{ required: item.required }]}
           validateTrigger="onBlur"
         >
           <TextArea
@@ -75,7 +76,7 @@ const BaseForm: FC<IBaseForm> = ({ item, form, callback }) => {
             disabled={item.disabled}
             rows={8}
             placeholder={item.placeholder}
-            onBlur={(e) => callback(item.name, e.target.value)}
+            onBlur={(e) => !formSubmit && callback(item.name, e.target.value)}
           />
         </Form.Item>
       )}
@@ -85,12 +86,12 @@ const BaseForm: FC<IBaseForm> = ({ item, form, callback }) => {
           name={item.name}
           tooltip={item.tooltip}
           valuePropName="checked"
-          rules={[{ required: item.require }]}
+          rules={[{ required: item.required }]}
         >
           <Switch
             size="small"
             disabled={item.disabled}
-            onChange={(e) => callback(item.name, e)}
+            onChange={(e) => !formSubmit && callback(item.name, e)}
           />
         </Form.Item>
       )}
@@ -99,14 +100,14 @@ const BaseForm: FC<IBaseForm> = ({ item, form, callback }) => {
           label={item.label}
           name={item.name}
           tooltip={item.tooltip}
-          rules={[{ required: item.require }]}
+          rules={[{ required: item.required }]}
         >
           <Slider
             min={item.min || 0}
             max={item.max || 100}
             disabled={item.disabled}
             step={item.step || 1}
-            onChangeComplete={(e) => callback(item.name, e)}
+            onChangeComplete={(e) => !formSubmit && callback(item.name, e)}
           />
         </Form.Item>
       )}
@@ -115,14 +116,14 @@ const BaseForm: FC<IBaseForm> = ({ item, form, callback }) => {
           label={item.label}
           name={item.name}
           tooltip={item.tooltip}
-          rules={[{ required: item.require }]}
+          rules={[{ required: item.required }]}
         >
           <Select
             size="small"
             allowClear
             disabled={item.disabled}
             placeholder={item.placeholder}
-            onChange={(e) => callback(item.name, e)}
+            onChange={(e) => !formSubmit && callback(item.name, e)}
           >
             {item.options.map((subItem: any) => (
               <Option key={subItem.code} value={subItem.code}>
@@ -138,14 +139,22 @@ const BaseForm: FC<IBaseForm> = ({ item, form, callback }) => {
         </Form.Item>
       )}
       {item.componentName === "SketchPicker" && (
-        <Form.Item label={item.label} name={item.name}>
+        <Form.Item
+          label={item.label}
+          name={item.name}
+          rules={[{ required: item.required }]}
+        >
           <ColorPicker
             size="small"
             //allowClear
             format="hex"
             showText
             disabled={item.disabled}
-            onChangeComplete={(e) => callback(item.name, `#${e.toHex()}`)}
+            onChangeComplete={(e) =>
+              !formSubmit
+                ? callback(item.name, `#${e.toHex()}`)
+                : form.setFieldValue(item.name, `#${e.toHex()}`)
+            }
           />
         </Form.Item>
       )}
@@ -154,12 +163,16 @@ const BaseForm: FC<IBaseForm> = ({ item, form, callback }) => {
           label={item.label}
           name={item.name}
           tooltip={item.tooltip}
-          rules={[{ required: item.require }]}
+          rules={[{ required: item.required }]}
         >
           <Form.Item shouldUpdate noStyle>
             <JsonEditor
               value={form.getFieldValue(item.name)}
-              onChange={(e) => callback(item.name, e)}
+              onChange={(e) =>
+                !formSubmit
+                  ? callback(item.name, e)
+                  : form.setFieldValue(item.name, e)
+              }
             />
           </Form.Item>
         </Form.Item>

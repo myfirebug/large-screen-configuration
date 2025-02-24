@@ -8,6 +8,7 @@ interface IDynamicForm {
   datas: IAnyObject;
   form: FormInstance<any>;
   callback: Function;
+  formSubmit?: boolean;
 }
 
 // 判断数据是Array 或者 object
@@ -15,7 +16,12 @@ const judgeType = (data: any, type: string) => {
   return Object.prototype.toString.call(data) === type;
 };
 
-const DynamicForm: FC<IDynamicForm> = ({ datas, form, callback }) => {
+const DynamicForm: FC<IDynamicForm> = ({
+  datas,
+  form,
+  callback,
+  formSubmit,
+}) => {
   return datas.map((item: any, index: number) => {
     if (judgeType(item, "[object Object]")) {
       const relationFields =
@@ -23,7 +29,12 @@ const DynamicForm: FC<IDynamicForm> = ({ datas, form, callback }) => {
       return (
         <div key={index}>
           {!relationFields.length ? (
-            <BaseForm item={item} form={form} callback={callback} />
+            <BaseForm
+              item={item}
+              form={form}
+              callback={callback}
+              formSubmit={formSubmit}
+            />
           ) : (
             <Form.Item noStyle shouldUpdate>
               {({ getFieldValue }) => {
@@ -33,7 +44,12 @@ const DynamicForm: FC<IDynamicForm> = ({ datas, form, callback }) => {
                   )
                 ) {
                   return (
-                    <BaseForm item={item} form={form} callback={callback} />
+                    <BaseForm
+                      item={item}
+                      form={form}
+                      callback={callback}
+                      formSubmit={formSubmit}
+                    />
                   );
                 }
               }}
@@ -60,6 +76,7 @@ const DynamicForm: FC<IDynamicForm> = ({ datas, form, callback }) => {
                 {subItem.relationFields === undefined ? (
                   <Panel header={subItem.name} key={`${index}-${subIndex}`}>
                     <DynamicForm
+                      formSubmit={formSubmit}
                       datas={subItem.list}
                       form={form}
                       callback={callback}
@@ -86,6 +103,7 @@ const DynamicForm: FC<IDynamicForm> = ({ datas, form, callback }) => {
                               key={`${index}-${subIndex}`}
                             >
                               <DynamicForm
+                                formSubmit={formSubmit}
                                 datas={subItem.list}
                                 form={form}
                                 callback={callback}
