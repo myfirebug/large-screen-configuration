@@ -15,14 +15,14 @@ export const widgetDataConfig = {
       componentName: "TextArea",
       label: "接口地址",
       name: "url",
-      required: false,
+      required: true,
       placeholder: "请输入接口地址",
     },
     {
       componentName: "Select",
       label: "请求方式",
       name: "method",
-      required: false,
+      required: true,
       placeholder: "",
       options: [
         { code: "get", name: "GET" },

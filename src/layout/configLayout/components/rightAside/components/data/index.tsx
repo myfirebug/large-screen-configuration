@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useEffect, useState } from "react";
-import { Form } from "antd";
+import { Button, Form } from "antd";
 import DynamicForm from "../dynamicForm";
 import { elementDataConfig, widgetDataConfig } from "@src/core/config/base";
 import { Tabs } from "antd";
@@ -57,8 +57,14 @@ export const ConfigLayoutRightAsideData: FC<IConfigLayoutRightAsideData> = ({
           key="1"
           disabled={!Boolean(elementDataValue)}
         >
-          <Form layout="vertical" labelAlign="left" form={elementForm}>
+          <Form
+            layout="vertical"
+            labelAlign="left"
+            form={elementForm}
+            onFinish={elementOnFinish}
+          >
             <DynamicForm
+              formSubmit
               datas={elementDataConfig.configure || []}
               form={elementForm}
               callback={(field: string, value: any) => {
@@ -73,6 +79,11 @@ export const ConfigLayoutRightAsideData: FC<IConfigLayoutRightAsideData> = ({
                 }
               }}
             />
+            <Form.Item>
+              <Button type="primary" htmlType="submit" block>
+                保存
+              </Button>
+            </Form.Item>
           </Form>
         </TabPane>
         <TabPane
@@ -81,8 +92,14 @@ export const ConfigLayoutRightAsideData: FC<IConfigLayoutRightAsideData> = ({
           key="2"
           disabled={!Boolean(widgetDataValue)}
         >
-          <Form layout="vertical" labelAlign="left" form={widgetForm}>
+          <Form
+            layout="vertical"
+            labelAlign="left"
+            form={widgetForm}
+            onFinish={widgetOnFinish}
+          >
             <DynamicForm
+              formSubmit
               datas={widgetDataConfig.configure || []}
               form={widgetForm}
               callback={(field: string, value: any) => {
@@ -97,6 +114,11 @@ export const ConfigLayoutRightAsideData: FC<IConfigLayoutRightAsideData> = ({
                 }
               }}
             />
+            <Form.Item>
+              <Button type="primary" htmlType="submit" block>
+                保存
+              </Button>
+            </Form.Item>
           </Form>
         </TabPane>
       </Tabs>

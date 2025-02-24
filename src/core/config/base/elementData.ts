@@ -30,8 +30,8 @@ export const elementDataConfig = {
       componentName: "Input",
       label: "对应字段",
       name: "field",
-      required: false,
-      placeholder: "",
+      required: true,
+      placeholder: "请输入对应字段",
     },
   ],
 };
