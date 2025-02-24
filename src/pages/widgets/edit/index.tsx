@@ -104,8 +104,8 @@ const ConfigLayout: FC<IConfigLayout> = () => {
         elements[capitalizeFirstLetter(data.element)],
         {
           options: data.configuration.configureValue,
-          data: data.configuration.dataValue.mock,
-          field: data.configuration.dataValue.field,
+          data: data.configuration?.dataValue?.mock,
+          field: data.configuration?.dataValue?.field,
         }
       );
     }
