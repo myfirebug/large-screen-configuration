@@ -15,8 +15,8 @@ export const BaseBanner = memo((option: IBaseBanner) => {
   return (
     <div className="cms-banner" style={baseTextStyle}>
       <CustomSwiper
-        loop={options.loop || true}
-        autoplay={options.autoplay || true}
+        loop={options.loop || false}
+        autoplay={options.autoplay || false}
         datas={data[field] || []}
         rows={options.rows || 1}
         slidesPerView={options.slidesPerView || 1}
