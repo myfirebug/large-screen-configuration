@@ -61,6 +61,7 @@ export const baseText = {
             required: false,
             placeholder: "",
             options: [
+              { code: "&#xe621", name: "&#xe621" },
               { code: "&#xe62e", name: "&#xe62e" },
               { code: "&#xeb04", name: "&#xeb04" },
               { code: "&#xec89", name: "&#xec89" },

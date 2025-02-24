@@ -1,4 +1,4 @@
-import { baseText, countUp, messageText } from "./text";
+import { baseText, countUp, messageText, dateText } from "./text";
 import { line } from "./line";
 import { bar } from "./bar";
 import { pie } from "./pie";
@@ -13,6 +13,7 @@ const elementsConfig: any = {
   messageText,
   baseImage,
   baseBanner,
+  dateText,
 };
 
 export default elementsConfig;

@@ -1,4 +1,4 @@
-import { baseText, iconText, countUp, messageText } from "./text";
+import { baseText, iconText, countUp, messageText, dateText } from "./text";
 import {
   baseLine,
   baseSmoothLine,
@@ -52,6 +52,7 @@ const elementsConfig: any = {
   gradationBar,
   baseImage,
   baseBanner,
+  dateText,
 };
 
 export default elementsConfig;
