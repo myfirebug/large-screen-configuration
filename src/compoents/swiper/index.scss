@@ -1,10 +1,18 @@
 @include b(swiper) {
   width: 100%;
   height: 100%;
+  .swiper {
+    width: 100%;
+    height: 100%;
+  }
   .swiper-horizontal {
     height: 100%;
     .swiper-slide {
       height: 100%;
+      img {
+        width: 100%;
+        height: auto;
+      }
     }
   }
 }

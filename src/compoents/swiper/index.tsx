@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useMemo } from "react";
+import React, { FC, ReactNode, useEffect, useMemo, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
@@ -8,6 +8,7 @@ import "swiper/css/navigation";
 import "./index.scss";
 import { SwiperModule } from "swiper/types";
 interface ICustomSwiper {
+  direction?: "vertical" | "horizontal";
   datas?: IAnyObject[];
   loop?: boolean;
   spaceBetween?: number;
@@ -27,6 +28,7 @@ export const CustomSwiper: FC<ICustomSwiper> = ({
   navigation = false,
   autoplay = false,
   datas = [],
+  direction = "horizontal",
   render,
 }) => {
   const modules = useMemo(() => {
@@ -37,17 +39,26 @@ export const CustomSwiper: FC<ICustomSwiper> = ({
     return arr;
   }, [autoplay, navigation, pagination]);
 
-  console.log(modules, "modules");
+  const swiperRef = useRef<any>(null);
+
+  useEffect(() => {
+    if (autoplay) {
+      swiperRef.current?.swiper?.autoplay?.start();
+    } else {
+      swiperRef.current?.swiper?.autoplay?.stop();
+    }
+  }, [autoplay]);
   return (
     <div className="cms-swiper">
       <Swiper
+        ref={swiperRef}
         loop={loop}
-        autoplay={autoplay}
         spaceBetween={spaceBetween}
         slidesPerView={slidesPerView}
         modules={modules}
         navigation={navigation}
         pagination={pagination}
+        direction={direction}
       >
         {new Array(Math.ceil(datas.length / rows))
           .fill(null)
