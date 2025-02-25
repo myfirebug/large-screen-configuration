@@ -17,7 +17,7 @@ interface ICustomSwiper {
   pagination?: boolean;
   navigation?: boolean;
   autoplay?: boolean;
-  render?: (item: IAnyObject) => ReactNode;
+  render?: (item: IAnyObject, index?: number) => ReactNode;
 }
 export const CustomSwiper: FC<ICustomSwiper> = ({
   loop = false,
@@ -67,14 +67,19 @@ export const CustomSwiper: FC<ICustomSwiper> = ({
               {new Array(rows).fill(null).map((_, subIndex) => (
                 <div
                   style={{
+                    display: "flex",
+                    alignItems: "center",
                     height: `${100 / rows}%`,
-                    marginTop: subIndex ? `${spaceBetween}px` : 0,
+                    marginTop: `${spaceBetween}px`,
                   }}
                   key={subIndex}
                 >
                   {render &&
                     index * rows + subIndex < datas.length &&
-                    render(datas?.[index * rows + subIndex])}
+                    render(
+                      datas?.[index * rows + subIndex],
+                      index * rows + subIndex
+                    )}
                 </div>
               ))}
             </SwiperSlide>
