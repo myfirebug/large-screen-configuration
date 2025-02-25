@@ -26,18 +26,11 @@ export const ConfigLayoutRightAsideData: FC<IConfigLayoutRightAsideData> = ({
   const [activeKey, setActiveKey] = useState("1");
   useEffect(() => {
     if (elementDataValue) {
-      elementForm.setFieldsValue(elementDataValue);
       setActiveKey("1");
     } else {
       setActiveKey("2");
     }
-  }, [elementDataValue, elementForm]);
-
-  useEffect(() => {
-    if (widgetDataValue) {
-      widgetForm.setFieldsValue(widgetDataValue);
-    }
-  }, [widgetDataValue, widgetForm]);
+  }, [elementDataValue]);
 
   const onChange = useCallback(
     (key: string) => {
@@ -61,6 +54,7 @@ export const ConfigLayoutRightAsideData: FC<IConfigLayoutRightAsideData> = ({
             layout="vertical"
             labelAlign="left"
             form={elementForm}
+            initialValues={elementDataValue}
             onFinish={elementOnFinish}
           >
             <DynamicForm
@@ -96,6 +90,7 @@ export const ConfigLayoutRightAsideData: FC<IConfigLayoutRightAsideData> = ({
             layout="vertical"
             labelAlign="left"
             form={widgetForm}
+            initialValues={widgetDataValue}
             onFinish={widgetOnFinish}
           >
             <DynamicForm

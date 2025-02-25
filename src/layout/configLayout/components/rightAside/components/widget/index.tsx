@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import { Form } from "antd";
 import DynamicForm from "../dynamicForm";
 import { widgetConfig } from "@src/core/config/base";
@@ -13,13 +13,14 @@ export const ConfigLayoutRightAsideWidget: FC<
 > = ({ configureValue, onFinish }) => {
   const [form] = Form.useForm();
 
-  useEffect(() => {
-    form.setFieldsValue(configureValue);
-  }, [configureValue, form]);
-
   return (
     <div className="cms-config-layout__widget">
-      <Form labelCol={{ flex: "110px" }} labelAlign="left" form={form}>
+      <Form
+        labelCol={{ flex: "110px" }}
+        labelAlign="left"
+        form={form}
+        initialValues={configureValue}
+      >
         <DynamicForm
           datas={widgetConfig.configure || []}
           form={form}
