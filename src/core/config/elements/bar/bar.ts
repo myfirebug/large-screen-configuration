@@ -4,7 +4,6 @@ const bar = {
   type: "bar",
   // 配置项值
   configureValue: {
-    styleDisplay: "block",
     ...animateConfig.configureValue,
     ...echartsConfig.titleValue,
     ...echartsConfig.legendValue,

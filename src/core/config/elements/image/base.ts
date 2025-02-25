@@ -4,7 +4,6 @@ export const baseImage: IAnyObject = {
   code: "baseImage",
   // 配置项值
   configureValue: {
-    styleDisplay: "block",
     ...boxConfig.configureValue,
   },
   // 数据值
