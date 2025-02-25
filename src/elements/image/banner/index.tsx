@@ -32,5 +32,3 @@ export const BaseBanner = memo((option: IBaseBanner) => {
     </div>
   );
 });
-
-export default BaseBanner;
