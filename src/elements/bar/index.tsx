@@ -73,7 +73,6 @@ const Bar = memo((props: IBar) => {
         : [],
     };
   }, [data, field, options]);
-  console.log(getOption, "getOption");
   const style = useMemo(() => {
     return getStyles(options);
   }, [options]);

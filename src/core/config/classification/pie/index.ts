@@ -1,6 +1,8 @@
 import { echartsConfig, animateConfig } from "../../base";
 
 export const pie = {
+  // 配置名称
+  code: "pie",
   configure: [
     [
       {

@@ -1,6 +1,8 @@
 import { echartsConfig, animateConfig } from "../../base";
 
 export const bar = {
+  // 配置名称
+  code: "bar",
   configure: [
     [
       {
