@@ -18,4 +18,10 @@
   .ant-table-thead .ant-table-cell {
     background: var(--cms-top-background-color);
   }
+  .option {
+    span {
+      padding-right: 10px;
+      color: var(--cms-primary-color);
+    }
+  }
 }

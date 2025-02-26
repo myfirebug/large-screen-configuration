@@ -1,12 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import type { ActionType, ProColumns } from "@ant-design/pro-components";
 import { ProTable } from "@ant-design/pro-components";
-import React, { useRef, FC } from "react";
-import { API, IWidget } from "@src/service";
+import React, { useRef, FC, useEffect } from "react";
+import { IWidget } from "@src/service";
 import "./index.scss";
 import { Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import { widgets } from "@src/core/hook";
 
 export const waitTimePromise = async (time: number = 100) => {
   return new Promise((resolve) => {
@@ -23,6 +24,12 @@ export const waitTime = async (time: number = 100) => {
 const Widgets: FC<any> = () => {
   const actionRef = useRef<ActionType>();
   const navigate = useNavigate();
+
+  const { filterWidgetsList, getWidgets, filterHandle } = widgets();
+
+  useEffect(() => {
+    getWidgets();
+  }, [getWidgets]);
 
   const columns: ProColumns<IWidget>[] = [
     {
@@ -44,10 +51,30 @@ const Widgets: FC<any> = () => {
       ellipsis: true,
       valueType: "select",
       valueEnum: {
-        all: { text: "全部" },
-        open: {
-          text: "基础文本",
-          status: "baseText",
+        all: { text: "全部", status: "" },
+        text: {
+          text: "文本",
+          status: "text",
+        },
+        image: {
+          text: "图片",
+          status: "image",
+        },
+        table: {
+          text: "表格",
+          status: "table",
+        },
+        line: {
+          text: "折线图",
+          status: "line",
+        },
+        bar: {
+          text: "柱状图",
+          status: "bar",
+        },
+        pie: {
+          text: "饼图",
+          status: "pie",
         },
       },
     },
@@ -72,24 +99,21 @@ const Widgets: FC<any> = () => {
       title: "操作",
       valueType: "option",
       key: "option",
-      render: (text, record, _, action) => [
-        <a
-          key="editable"
-          onClick={() => {
-            navigate(`/widgets/configuration?id=${record.id}`);
-          }}
-        >
-          编辑
-        </a>,
-        <a
-          href={record.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          key="view"
-        >
-          查看
-        </a>,
-      ],
+      render: (text, record, _, action) => (
+        <div className="option">
+          {record.count === 0 ? (
+            <span
+              key="editable"
+              onClick={() => {
+                navigate(`/widgets/configuration?widgetId=${record.widgetId}`);
+              }}
+            >
+              编辑
+            </span>
+          ) : null}
+          ,<span key="view">预览</span>
+        </div>
+      ),
     },
   ];
 
@@ -98,14 +122,17 @@ const Widgets: FC<any> = () => {
       <ProTable<IWidget>
         columns={columns}
         actionRef={actionRef}
-        request={async (params) => {
-          await waitTime(2000);
-          return API.widgetsService.widgets({ params }).then((res) => {
-            console.log(res, "res");
-            return res;
-          });
-        }}
-        rowKey="id"
+        // request={async (params) => {
+        //   await waitTime(2000);
+        //   return API.widgetsService.widgets({ params }).then((res) => {
+        //     console.log(res, "res");
+        //     return res;
+        //   });
+        // }}
+        rowKey="widgetId"
+        dataSource={filterWidgetsList}
+        onSubmit={filterHandle}
+        onReset={filterHandle}
         options={{
           setting: {
             listsHeight: 400,
