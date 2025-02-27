@@ -3,6 +3,8 @@
 large-screen-configuration 从零搭建基于 React 的大屏拖动配置管理系统，该平台是一个高效的拖拽式低代码数据可视化开发平台，将图表、页面元素、控件等封装为组件，由组件拼成微件，由微件拼成页面，由页面拼成项目，无需编写代码即可制作漂亮的大屏。
 项目纯前端-Demo 地址：[https://myfirebug.github.io/bigscreen/v2.0.0](https://myfirebug.github.io/bigscreen/v2.0.0)
 
+用户名：admin, 密码：123456
+
 **技术栈**
 
 ```
