@@ -23,3 +23,13 @@ export const ELEMETSTYPE = {
   bar: "柱状图",
   pie: "饼图",
 };
+
+// 微件头
+export const WIDGET_HEADER_COLUMN = 8;
+export const WIDGET_HEADER_ROW = 1;
+export const WIDGET_HEADER_GAP = 4;
+
+// 微件体
+export const WIDGET_BODY_COLUMN = 8;
+export const WIDGET_BODY_ROW = 8;
+export const WIDGET_BODY_GAP = 4;

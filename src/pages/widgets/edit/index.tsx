@@ -1,4 +1,11 @@
-import React, { FC, useCallback, useEffect, useMemo, useReducer } from "react";
+import React, {
+  FC,
+  useCallback,
+  useEffect,
+  useMemo,
+  useReducer,
+  useState,
+} from "react";
 import { useLocation } from "react-router-dom";
 import DragContent from "@src/compoents/dragdrop/dragContent";
 import elements from "@src/elements";
@@ -19,14 +26,24 @@ import { widgetConfig } from "@src/core/config/base";
 import "@src/layout/configLayout/index.scss";
 import WidgetLayout from "@src/layout/widgetLayout";
 import { initialState, widgetReducer } from "./store/reducers";
-import { IElement } from "@src/service";
+import { IElement, IWidget } from "@src/service";
 import { capitalizeFirstLetter, guid, getStyles } from "@src/utils";
 import "animate.css";
+import {
+  WIDGET_BODY_COLUMN,
+  WIDGET_BODY_GAP,
+  WIDGET_BODY_ROW,
+  WIDGET_HEADER_COLUMN,
+  WIDGET_HEADER_GAP,
+  WIDGET_HEADER_ROW,
+} from "@src/core/enums/access.enums";
+import WidgetPreviewDialog from "@src/compoents/widgetPreviewDialog";
 interface IConfigLayout {}
 
 const ConfigLayout: FC<IConfigLayout> = () => {
   let location = useLocation();
   const [layout, dispatch] = useReducer(widgetReducer, initialState);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
@@ -157,6 +174,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
             },
           });
         }}
+        previewHandler={() => setShow(true)}
       />
       <div className="cms-config-layout__content">
         <ConfigLayoutLeftAside
@@ -195,9 +213,9 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                     layout?.widget?.configuration?.configureValue
                       ?.auxiliaryLineBorderColor,
                 }}
-                column={8}
-                row={1}
-                gap={4}
+                column={WIDGET_HEADER_COLUMN}
+                row={WIDGET_HEADER_ROW}
+                gap={WIDGET_HEADER_GAP}
                 groupName="elements"
                 field="elementId"
                 datas={
@@ -222,9 +240,9 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                     layout?.widget?.configuration?.configureValue
                       ?.auxiliaryLineBorderColor,
                 }}
-                column={8}
-                row={8}
-                gap={4}
+                column={WIDGET_BODY_COLUMN}
+                row={WIDGET_BODY_ROW}
+                gap={WIDGET_BODY_GAP}
                 groupName="elements"
                 field="elementId"
                 datas={
@@ -366,6 +384,12 @@ const ConfigLayout: FC<IConfigLayout> = () => {
           }}
         />
       </div>
+
+      <WidgetPreviewDialog
+        open={show}
+        onClose={() => setShow(false)}
+        data={layout?.widget as IWidget}
+      />
     </div>
   );
 };
