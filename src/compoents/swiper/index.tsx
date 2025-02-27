@@ -42,11 +42,13 @@ export const CustomSwiper: FC<ICustomSwiper> = ({
   const swiperRef = useRef<any>(null);
 
   useEffect(() => {
-    if (autoplay) {
-      swiperRef.current?.swiper?.autoplay?.start();
-    } else {
-      swiperRef.current?.swiper?.autoplay?.stop();
-    }
+    setTimeout(() => {
+      if (autoplay) {
+        swiperRef.current?.swiper?.autoplay?.start();
+      } else {
+        swiperRef.current?.swiper?.autoplay?.stop();
+      }
+    }, 100);
   }, [autoplay]);
   return (
     <div className="cms-swiper">
