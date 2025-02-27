@@ -7,5 +7,30 @@
     .ant-menu-inline-collapsed {
       width: 50px;
     }
+    :where(.css-dev-only-do-not-override-nh1k6v).ant-menu-inline-collapsed
+      > .ant-menu-item,
+    :where(.css-dev-only-do-not-override-nh1k6v).ant-menu-inline-collapsed
+      > .ant-menu-item-group
+      > .ant-menu-item-group-list
+      > .ant-menu-item,
+    :where(.css-dev-only-do-not-override-nh1k6v).ant-menu-inline-collapsed
+      > .ant-menu-item-group
+      > .ant-menu-item-group-list
+      > .ant-menu-submenu
+      > .ant-menu-submenu-title,
+    :where(.css-dev-only-do-not-override-nh1k6v).ant-menu-inline-collapsed
+      > .ant-menu-submenu
+      > .ant-menu-submenu-title {
+      padding-inline: 0;
+      text-align: center;
+      .cms-icon {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+    .ant-menu .ant-menu-submenu-selected .ant-menu-submenu-title {
+      background: var(--cms-primary-color);
+      color: var(--cms-text-color-primary);
+    }
   }
 }
