@@ -27,6 +27,14 @@ import {
 
 import { baseImage, baseBanner } from "./image";
 
+import {
+  baseTable,
+  interlacingTable,
+  borderTable,
+  rankingTable,
+  progressTable,
+} from "./table";
+
 const elementsConfig: any = {
   baseText,
   iconText,
@@ -53,6 +61,11 @@ const elementsConfig: any = {
   baseImage,
   baseBanner,
   dateText,
+  baseTable,
+  interlacingTable,
+  borderTable,
+  rankingTable,
+  progressTable,
 };
 
 export default elementsConfig;

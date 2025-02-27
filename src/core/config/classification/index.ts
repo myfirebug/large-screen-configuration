@@ -3,6 +3,7 @@ import { line } from "./line";
 import { bar } from "./bar";
 import { pie } from "./pie";
 import { baseImage, baseBanner } from "./image";
+import { table } from "./table";
 
 const elementsConfig: any = {
   baseText,
@@ -14,6 +15,7 @@ const elementsConfig: any = {
   baseImage,
   baseBanner,
   dateText,
+  table,
 };
 
 export default elementsConfig;
