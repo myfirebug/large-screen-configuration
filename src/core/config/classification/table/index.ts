@@ -1,0 +1,345 @@
+export const table = {
+  // 配置名称
+  code: "table",
+  // 基础配置项
+  configure: [
+    [
+      {
+        name: "滚动设置",
+        list: [
+          {
+            componentName: "Switch",
+            label: "循环播放",
+            name: "loop",
+            required: false,
+            placeholder: "",
+          },
+          {
+            componentName: "Switch",
+            label: "自动播放",
+            name: "autoplay",
+            required: false,
+            placeholder: "",
+          },
+          {
+            componentName: "InputNumber",
+            label: "间距",
+            name: "spaceBetween",
+            required: false,
+            min: 0,
+            placeholder: "请输入间距",
+            addonAfter: "px",
+          },
+          {
+            componentName: "InputNumber",
+            label: "一屏幻灯片数量",
+            name: "slidesPerView",
+            required: false,
+            min: 1,
+            placeholder: "请输入一屏幻灯片数量",
+            addonAfter: "个",
+          },
+          {
+            componentName: "JsonEdit",
+            label: "Column数据",
+            name: "tableColumn",
+            required: false,
+            placeholder: "请输入Column数据",
+          },
+        ],
+      },
+    ],
+    [
+      {
+        name: "进度条",
+        list: [
+          {
+            componentName: "SketchPicker",
+            label: "前景颜色",
+            name: "progressForegroundColor",
+            required: false,
+            placeholder: "",
+          },
+          {
+            componentName: "SketchPicker",
+            label: "背景颜色",
+            name: "progressBackgroundColor",
+            required: false,
+            placeholder: "",
+          },
+        ],
+      },
+      {
+        name: "序号",
+        list: [
+          {
+            componentName: "Switch",
+            label: "使用排名图标",
+            name: "serialNumberRank",
+            required: false,
+            placeholder: "",
+          },
+          {
+            componentName: "InputNumber",
+            label: "字体大小",
+            name: "serialNumberFontSize",
+            required: false,
+            min: 12,
+            placeholder: "",
+            addonAfter: "px",
+          },
+          {
+            componentName: "SketchPicker",
+            label: "字体颜色",
+            name: "serialNumberColor",
+            required: false,
+            placeholder: "请选择字体颜色",
+          },
+          {
+            componentName: "SketchPicker",
+            label: "背景颜色",
+            name: "serialNumberBackgroundColor",
+            required: false,
+            placeholder: "请选择背景颜色",
+          },
+        ],
+      },
+      {
+        name: "表头",
+        list: [
+          {
+            componentName: "Switch",
+            label: "是否显示",
+            name: "tableShowHeader",
+            required: false,
+            placeholder: "",
+          },
+          {
+            componentName: "SketchPicker",
+            label: "背景颜色",
+            name: "tableHeaderBackgroudColor",
+            required: false,
+            placeholder: "请选择背景颜色",
+            relationFields: "tableShowHeader",
+            relationValues: "true",
+          },
+          {
+            componentName: "SketchPicker",
+            label: "字体颜色",
+            name: "tableHeaderColor",
+            required: false,
+            placeholder: "请选择字体颜色",
+            relationFields: "tableShowHeader",
+            relationValues: "true",
+          },
+        ],
+      },
+      {
+        name: "表体",
+        list: [
+          {
+            componentName: "SketchPicker",
+            label: "字体颜色",
+            name: "tableTbodyColor",
+            required: false,
+            placeholder: "请选择字体颜色",
+          },
+          [
+            {
+              name: "奇数行配置",
+              list: [
+                {
+                  componentName: "SketchPicker",
+                  label: "背景颜色",
+                  name: "tableTbodyOddBackgroudColor",
+                  required: false,
+                  placeholder: "",
+                },
+                [
+                  {
+                    name: "盒子阴影",
+                    list: [
+                      {
+                        componentName: "Switch",
+                        label: "内阴影",
+                        name: "tableTbodyOddBoxInset",
+                        required: false,
+                        placeholder: "",
+                      },
+                      {
+                        componentName: "InputNumber",
+                        label: "X轴偏移",
+                        name: "tableTbodyOddBoxShadowX",
+                        required: false,
+                        placeholder: "请输入X轴偏移",
+                        addonAfter: "px",
+                      },
+                      {
+                        componentName: "InputNumber",
+                        label: "Y轴偏移",
+                        name: "tableTbodyOddBoxShadowY",
+                        required: false,
+                        placeholder: "请输入Y轴偏移",
+                        addonAfter: "px",
+                      },
+                      {
+                        componentName: "InputNumber",
+                        label: "模糊值",
+                        name: "tableTbodyOddBoxShadowF",
+                        required: false,
+                        placeholder: "请输入模糊值",
+                        addonAfter: "px",
+                      },
+                      {
+                        componentName: "SketchPicker",
+                        label: "颜色",
+                        name: "tableTbodyOddBoxShadowC",
+                        required: false,
+                        placeholder: "请选择颜色",
+                      },
+                    ],
+                  },
+                  {
+                    name: "边框",
+                    list: [
+                      {
+                        componentName: "Select",
+                        label: "边框样式",
+                        name: "tableTbodyOddBorderStyle",
+                        required: false,
+                        placeholder: "请选择边框样式",
+                        options: [
+                          { code: "none", name: "无" },
+                          { code: "solid", name: "直线" },
+                          { code: "dashed", name: "破折线" },
+                          { code: "dotted", name: "点状线" },
+                          { code: "double", name: "双划线" },
+                          { code: "groove", name: "3D凹槽" },
+                          { code: "ridge", name: "3D垄状" },
+                          { code: "inset", name: "3D内嵌" },
+                          { code: "outset", name: "3D外嵌" },
+                        ],
+                      },
+                      {
+                        componentName: "InputNumber",
+                        label: "边框尺寸",
+                        name: "tableTbodyOddBorderWidth",
+                        required: false,
+                        placeholder: "请输入尺寸",
+                        addonAfter: "px",
+                      },
+                      {
+                        componentName: "SketchPicker",
+                        label: "颜色",
+                        name: "tableTbodyOddBorderColor",
+                        required: false,
+                        placeholder: "请选择边框颜色",
+                      },
+                    ],
+                  },
+                ],
+              ],
+            },
+          ],
+          [
+            {
+              name: "偶数行配置",
+              list: [
+                {
+                  componentName: "SketchPicker",
+                  label: "背景颜色",
+                  name: "tableTbodyEvenBackgroudColor",
+                  required: false,
+                  placeholder: "",
+                },
+                [
+                  {
+                    name: "盒子阴影",
+                    list: [
+                      {
+                        componentName: "Switch",
+                        label: "内阴影",
+                        name: "tableTbodyEvenBoxInset",
+                        required: false,
+                        placeholder: "",
+                      },
+                      {
+                        componentName: "InputNumber",
+                        label: "X轴偏移",
+                        name: "tableTbodyEvenBoxShadowX",
+                        required: false,
+                        placeholder: "请输入X轴偏移",
+                        addonAfter: "px",
+                      },
+                      {
+                        componentName: "InputNumber",
+                        label: "Y轴偏移",
+                        name: "tableTbodyEvenBoxShadowY",
+                        required: false,
+                        placeholder: "请输入Y轴偏移",
+                        addonAfter: "px",
+                      },
+                      {
+                        componentName: "InputNumber",
+                        label: "模糊值",
+                        name: "tableTbodyEvenBoxShadowF",
+                        required: false,
+                        placeholder: "请输入模糊值",
+                        addonAfter: "px",
+                      },
+                      {
+                        componentName: "SketchPicker",
+                        label: "颜色",
+                        name: "tableTbodyEvenBoxShadowC",
+                        required: false,
+                        placeholder: "请选择颜色",
+                      },
+                    ],
+                  },
+                  {
+                    name: "边框",
+                    list: [
+                      {
+                        componentName: "Select",
+                        label: "边框样式",
+                        name: "tableTbodyEvenBorderStyle",
+                        required: false,
+                        placeholder: "请选择边框样式",
+                        options: [
+                          { code: "none", name: "无" },
+                          { code: "solid", name: "直线" },
+                          { code: "dashed", name: "破折线" },
+                          { code: "dotted", name: "点状线" },
+                          { code: "double", name: "双划线" },
+                          { code: "groove", name: "3D凹槽" },
+                          { code: "ridge", name: "3D垄状" },
+                          { code: "inset", name: "3D内嵌" },
+                          { code: "outset", name: "3D外嵌" },
+                        ],
+                      },
+                      {
+                        componentName: "InputNumber",
+                        label: "边框尺寸",
+                        name: "tableTbodyEvenBorderWidth",
+                        required: false,
+                        placeholder: "请输入尺寸",
+                        addonAfter: "px",
+                      },
+                      {
+                        componentName: "SketchPicker",
+                        label: "颜色",
+                        name: "tableTbodyEvenBorderColor",
+                        required: false,
+                        placeholder: "请选择边框颜色",
+                      },
+                    ],
+                  },
+                ],
+              ],
+            },
+          ],
+        ],
+      },
+    ],
+  ],
+};
