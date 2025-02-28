@@ -30,6 +30,7 @@ import { IElement, IWidget } from "@src/service";
 import { capitalizeFirstLetter, guid, getStyles } from "@src/utils";
 import "animate.css";
 import {
+  CACHE_WIDGETS,
   WIDGET_BODY_COLUMN,
   WIDGET_BODY_GAP,
   WIDGET_BODY_ROW,
@@ -38,6 +39,7 @@ import {
   WIDGET_HEADER_ROW,
 } from "@src/core/enums/access.enums";
 import WidgetPreviewDialog from "@src/compoents/widgetPreviewDialog";
+import localforage from "localforage";
 interface IConfigLayout {}
 
 const ConfigLayout: FC<IConfigLayout> = () => {
@@ -49,6 +51,24 @@ const ConfigLayout: FC<IConfigLayout> = () => {
     const queryParams = new URLSearchParams(location.search);
     // 编辑
     if (queryParams.size) {
+      const widgetId = queryParams.get("widgetId");
+      if (widgetId) {
+        localforage.getItem(CACHE_WIDGETS, (err, value) => {
+          if (value) {
+            const curr = (value as IWidget[]).find(
+              (item) => item.widgetId === widgetId
+            );
+            if (curr) {
+              dispatch({
+                type: "WIDGET",
+                data: curr,
+              });
+            } else {
+              console.log("找不到微件ID");
+            }
+          }
+        });
+      }
     } else {
       // 新增
       dispatch({

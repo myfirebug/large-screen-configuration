@@ -1,5 +1,7 @@
 import { useState, useCallback } from "react";
 import { API, IWidget } from "@service/index";
+import localforage from "localforage";
+import { CACHE_WIDGETS } from "../enums/access.enums";
 export function widgets() {
   // 是否处理loading状态
   const [widgetsLoading, setWidgetsLoading] = useState<boolean>(false);
@@ -13,6 +15,8 @@ export function widgets() {
         setWidgetsLoading(false);
         setWidgetsList(res.data);
         setFilterWidgetsList(res.data);
+        // 缓存数据到indexdb
+        localforage.setItem(CACHE_WIDGETS, res.data);
       })
       .catch(() => {
         setWidgetsLoading(false);

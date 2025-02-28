@@ -33,3 +33,6 @@ export const WIDGET_HEADER_GAP = 4;
 export const WIDGET_BODY_COLUMN = 8;
 export const WIDGET_BODY_ROW = 8;
 export const WIDGET_BODY_GAP = 4;
+
+// 缓存微件列表
+export const CACHE_WIDGETS = "CACHE_WIDGETS";
