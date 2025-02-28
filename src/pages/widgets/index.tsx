@@ -1,13 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import type { ActionType, ProColumns } from "@ant-design/pro-components";
 import { ProTable } from "@ant-design/pro-components";
-import React, { useRef, FC, useEffect } from "react";
+import React, { useRef, FC, useEffect, useState } from "react";
 import { IWidget } from "@src/service";
 import "./index.scss";
 import { Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { widgets } from "@src/core/hook";
+import WidgetPreviewDialog from "@src/compoents/widgetPreviewDialog";
 
 export const waitTimePromise = async (time: number = 100) => {
   return new Promise((resolve) => {
@@ -24,6 +25,9 @@ export const waitTime = async (time: number = 100) => {
 const Widgets: FC<any> = () => {
   const actionRef = useRef<ActionType>();
   const navigate = useNavigate();
+
+  const [show, setShow] = useState(false);
+  const [widget, setWidget] = useState<IWidget>();
 
   const { filterWidgetsList, getWidgets, filterHandle } = widgets();
 
@@ -50,6 +54,7 @@ const Widgets: FC<any> = () => {
       onFilter: true,
       ellipsis: true,
       valueType: "select",
+      width: 100,
       valueEnum: {
         all: { text: "全部", status: "" },
         text: {
@@ -82,12 +87,14 @@ const Widgets: FC<any> = () => {
       title: "使用次数",
       dataIndex: "count",
       search: false,
+      width: 100,
     },
     {
       title: "创建时间",
       dataIndex: "createTime",
       valueType: "date",
       hideInSearch: true,
+      width: 150,
     },
     {
       title: "创建时间",
@@ -99,19 +106,33 @@ const Widgets: FC<any> = () => {
       title: "操作",
       valueType: "option",
       key: "option",
+      width: 120,
       render: (text, record, _, action) => (
         <div className="option">
+          <span
+            key="view"
+            onClick={() => {
+              setShow(true);
+              setWidget(record);
+            }}
+          >
+            预览
+          </span>
           {record.count === 0 ? (
-            <span
-              key="editable"
-              onClick={() => {
-                navigate(`/widgets/configuration?widgetId=${record.widgetId}`);
-              }}
-            >
-              编辑
-            </span>
+            <>
+              <span
+                key="editable"
+                onClick={() => {
+                  navigate(
+                    `/widgets/configuration?widgetId=${record.widgetId}`
+                  );
+                }}
+              >
+                编辑
+              </span>
+              <span key="delete">删除</span>
+            </>
           ) : null}
-          ,<span key="view">预览</span>
         </div>
       ),
     },
@@ -154,6 +175,11 @@ const Widgets: FC<any> = () => {
             新建
           </Button>,
         ]}
+      />
+      <WidgetPreviewDialog
+        open={show}
+        onClose={() => setShow(false)}
+        data={widget as IWidget}
       />
     </div>
   );
