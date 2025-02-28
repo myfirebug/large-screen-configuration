@@ -160,12 +160,12 @@ const BaseForm: FC<IBaseForm> = ({ item, form, callback, formSubmit }) => {
       )}
       {item.componentName === "JsonEdit" && (
         <Form.Item
-          label={item.label}
           name={item.name}
           tooltip={item.tooltip}
           rules={[{ required: item.required }]}
         >
           <Form.Item shouldUpdate noStyle>
+            <div style={{ paddingBottom: 10 }}>{item.label}:</div>
             <JsonEditor
               value={form.getFieldValue(item.name)}
               onChange={(e) =>
