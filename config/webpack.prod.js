@@ -73,6 +73,11 @@ module.exports = merge.merge(baseConfig, {
           priority: 40, // 权重（越大越高）
           name: "chunk-mock",
         },
+        jsoneditor: {
+          test: /[\\/]node_modules[\\/]jsoneditor(.*)?[\\/]/, // 需要打包到一起的模块
+          priority: 40, // 权重（越大越高）
+          name: "chunk-jsoneditor",
+        },
         zrender: {
           test: /[\\/]node_modules[\\/]zrender(.*)?[\\/]/, // 需要打包到一起的模块
           priority: 40, // 权重（越大越高）
