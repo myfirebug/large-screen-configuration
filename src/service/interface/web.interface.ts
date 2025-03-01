@@ -1,0 +1,19 @@
+import { IWidget } from "./widgets.interface";
+
+export interface IPage {
+  name: string;
+  id: string;
+  createTime: string;
+  count: number;
+  pageId: string;
+  screenRatio: string;
+  widgets: IWidget[];
+}
+
+// 用户信息结果
+export interface IPagesResult {
+  // 结果
+  result: boolean;
+  data: IPage[];
+  message: string;
+}
