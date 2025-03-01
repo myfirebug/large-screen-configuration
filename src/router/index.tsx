@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import routes, { IRoute, IMeta } from "./routes";
 import lazyLoad from "@src/compoents/lazyLoad";
 import { useFrameLayout } from "@src/layout/frameLayout/frameLayoutContext";
+import { Spin } from "antd";
 
 interface IPrivateRoute {
   children: JSX.Element | null;
@@ -81,7 +82,21 @@ const routeTree = (datas: IRoute[]) => {
 const RoutesView = memo(
   () => {
     return (
-      <Suspense>
+      <Suspense
+        fallback={
+          <Spin
+            tip="Loading"
+            size="large"
+            style={{
+              position: "fixed",
+              left: "50%",
+              top: "50%",
+              transform: "translate(-50%, -50%)",
+              zIndex: 100,
+            }}
+          ></Spin>
+        }
+      >
         <Routes>{routeTree(routes)}</Routes>
       </Suspense>
     );
