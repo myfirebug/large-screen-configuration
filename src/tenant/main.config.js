@@ -8,9 +8,9 @@ module.exports = {
   // 站点关键词
   keywords: "我是站点关键词",
   // 开发环境接口地址
-  developmentApi: "a",
+  developmentApi: "http://127.0.0.1:3000",
   // 正式环境接口地址
-  productionApi: "b",
+  productionApi: "https://myfirebug.github.io",
   // 主题
   theme: "themeBlue",
 };

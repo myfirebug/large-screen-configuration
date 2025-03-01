@@ -14,8 +14,8 @@ console.log(NODE_ENV);
 
 axios.defaults.baseURL =
   NODE_ENV === "development"
-    ? "http://127.0.0.1:3000"
-    : "https://myfirebug.github.io";
+    ? window.CONFIG.developmentApi
+    : window.CONFIG.productionApi;
 
 // 正在进行中的请求列表
 const requestList: string[] = [];
