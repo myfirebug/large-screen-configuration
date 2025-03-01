@@ -4,8 +4,12 @@ const WebpackBar = require("webpackbar");
 const path = require("path");
 const { tools } = require("./utils");
 const { getStyleLoader, isDev, fmtDate } = tools;
-const config = require(`../src/config.js`);
-
+let TENANT = process.env.TENANT;
+// 容错处理
+if (!TENANT) {
+  TENANT = "main";
+}
+const config = require(`../src/tenant/${TENANT}.config.js`);
 module.exports = {
   // stats: "errors-only",
   // 入口相对路径
