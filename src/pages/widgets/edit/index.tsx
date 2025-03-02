@@ -6,7 +6,7 @@ import React, {
   useReducer,
   useState,
 } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import DragContent from "@src/compoents/dragdrop/dragContent";
 import elements from "@src/elements";
 import {
@@ -31,6 +31,7 @@ import { capitalizeFirstLetter, guid, getStyles } from "@src/utils";
 import "animate.css";
 import {
   CACHE_WIDGETS,
+  ELEMETSTYPE,
   WIDGET_BODY_COLUMN,
   WIDGET_BODY_GAP,
   WIDGET_BODY_ROW,
@@ -40,12 +41,16 @@ import {
 } from "@src/core/enums/access.enums";
 import WidgetPreviewDialog from "@src/compoents/widgetPreviewDialog";
 import localforage from "localforage";
+import html2canvas from "html2canvas";
+import { Button, Form, message, Modal, Select } from "antd";
 interface IConfigLayout {}
 
 const ConfigLayout: FC<IConfigLayout> = () => {
   let location = useLocation();
+  const navigate = useNavigate();
   const [layout, dispatch] = useReducer(widgetReducer, initialState);
   const [show, setShow] = useState(false);
+  const [isShowAuxiliaryLine, setIsShowAuxiliaryLine] = useState(true);
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
@@ -174,6 +179,26 @@ const ConfigLayout: FC<IConfigLayout> = () => {
     },
     [layout?.elementId]
   );
+  const types = useMemo(() => {
+    let arr: any[] = [];
+    for (let field in ELEMETSTYPE) {
+      arr.push({
+        label: ELEMETSTYPE[field],
+        value: field,
+      });
+    }
+    return arr;
+  }, []);
+  const onFinish = (values: any) => {
+    message.success("发布成功");
+    navigate(-1);
+    console.log(
+      JSON.stringify({
+        ...layout?.widget,
+        ...values,
+      })
+    );
+  };
 
   const currentElement = useMemo(() => {
     return layout?.widget.elements.find(
@@ -195,6 +220,27 @@ const ConfigLayout: FC<IConfigLayout> = () => {
           });
         }}
         previewHandler={() => setShow(true)}
+        publishHandler={() => {
+          setIsShowAuxiliaryLine(false);
+          setTimeout(() => {
+            html2canvas(document.getElementById("js_widget") as HTMLElement, {
+              allowTaint: true,
+              scale: 0.5,
+              backgroundColor: "rgb(9, 5, 72)",
+            }).then((canvas) => {
+              try {
+                dispatch({
+                  type: "MODIFY_WIDGET",
+                  data: {
+                    url: canvas?.toDataURL(),
+                  },
+                });
+              } catch (e) {
+                message.error("存在跨域资源，缩略图获取失败");
+              }
+            });
+          }, 10);
+        }}
       />
       <div className="cms-config-layout__content">
         <ConfigLayoutLeftAside
@@ -208,6 +254,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
         />
         <ConfigLayoutMain>
           <WidgetLayout
+            id="js_widget"
             style={getStyles(
               layout?.widget?.configuration?.configureValue || {}
             )}
@@ -227,8 +274,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
             header={
               <DragContent
                 auxiliaryLineConfig={{
-                  show: layout?.widget?.configuration?.configureValue
-                    ?.isShowAuxiliaryLine,
+                  show: isShowAuxiliaryLine,
                   borderColor:
                     layout?.widget?.configuration?.configureValue
                       ?.auxiliaryLineBorderColor,
@@ -254,8 +300,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
             body={
               <DragContent
                 auxiliaryLineConfig={{
-                  show: layout?.widget?.configuration?.configureValue
-                    ?.isShowAuxiliaryLine,
+                  show: isShowAuxiliaryLine,
                   borderColor:
                     layout?.widget?.configuration?.configureValue
                       ?.auxiliaryLineBorderColor,
@@ -410,6 +455,46 @@ const ConfigLayout: FC<IConfigLayout> = () => {
         onClose={() => setShow(false)}
         data={layout?.widget as IWidget}
       />
+      <Modal
+        open={!isShowAuxiliaryLine}
+        title="发布微件"
+        footer={null}
+        width={400}
+        maskClosable={false}
+        onCancel={() => setIsShowAuxiliaryLine(true)}
+      >
+        <Form
+          autoComplete="off"
+          initialValues={layout?.widget}
+          labelCol={{ flex: "60px" }}
+          onFinish={onFinish}
+        >
+          <Form.Item<any> name="name" label="微件名称">
+            <Form.Item<any> noStyle>{layout?.widget?.name}</Form.Item>
+          </Form.Item>
+          <Form.Item<any> name="url" label="缩略图">
+            <Form.Item<any> noStyle>
+              <img
+                src={layout?.widget?.url as string}
+                alt="缩略图"
+                style={{ borderRadius: "5px", width: "100%" }}
+              />
+            </Form.Item>
+          </Form.Item>
+          <Form.Item<any>
+            name="type"
+            label="类型"
+            rules={[{ required: true, message: "请选择类型" }]}
+          >
+            <Select showSearch placeholder="请选择类型" options={types} />
+          </Form.Item>
+          <Form.Item>
+            <Button type="primary" htmlType="submit" block>
+              发布
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
     </div>
   );
 };
