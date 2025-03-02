@@ -7,11 +7,16 @@ interface IConfigLayoutRightAsideLayer {
   pageId?: string;
   widgetId?: string;
   elementId?: string;
-  onSelected: (type: "page" | "widget" | "element", id: string) => void;
+  pid?: string;
+  onSelected: (
+    type: "page" | "widget" | "element",
+    id: string,
+    pid?: string
+  ) => void;
 }
 
 const renderTree = (props: IConfigLayoutRightAsideLayer) => {
-  const { datas, pageId, widgetId, elementId, onSelected } = props;
+  const { datas, pageId, widgetId, elementId, onSelected, pid } = props;
   return datas.map((item, index) => {
     return (
       <div className="cms-config-layout__layer--item" key={index}>
@@ -19,7 +24,8 @@ const renderTree = (props: IConfigLayoutRightAsideLayer) => {
           onClick={() =>
             onSelected?.(
               item.pageId ? "page" : item.widgetId ? "widget" : "element",
-              item.pageId || item.widgetId || item.elementId
+              item.pageId || item.widgetId || item.elementId,
+              pid
             )
           }
           className={`name ${
@@ -49,6 +55,7 @@ const renderTree = (props: IConfigLayoutRightAsideLayer) => {
               widgetId,
               elementId,
               onSelected,
+              pid: item.pageId || item.widgetId || item.elementId,
             })}
           </>
         ) : null}
