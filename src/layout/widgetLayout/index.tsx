@@ -13,9 +13,10 @@ const WidgetLayout: FC<IWidgetLayout> = ({
   style,
   headerStyles,
   bodyStyles,
+  id,
 }) => {
   return (
-    <div className="cms-widget" style={style}>
+    <div className="cms-widget" style={style} id={id}>
       <div className="cms-widget__header" style={headerStyles}>
         {header}
       </div>
