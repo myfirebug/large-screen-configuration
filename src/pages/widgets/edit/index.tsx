@@ -169,11 +169,11 @@ const ConfigLayout: FC<IConfigLayout> = () => {
   }, [layout?.elementId, layout?.widgetId]);
 
   const onSelected = useCallback(
-    (widgetId: string, elementId: string | undefined) => {
-      if (elementId && layout?.elementId !== elementId) {
+    (type: "page" | "widget" | "element", id: string) => {
+      if (type === "element" && id && layout?.elementId !== id) {
         dispatch({
           type: "SELECT_ELEMENT",
-          id: elementId,
+          id: id,
         });
       }
     },
