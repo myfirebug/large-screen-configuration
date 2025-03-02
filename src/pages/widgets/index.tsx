@@ -39,13 +39,14 @@ const Widgets: FC<any> = () => {
     {
       title: "名称",
       dataIndex: "name",
+      width: 250,
     },
     {
       title: "图片",
       dataIndex: "url",
       search: false,
       render: (text, record, _, action) => {
-        return <img src={text as string} alt="" />;
+        return <img src={text as string} alt="" width={150} />;
       },
     },
     {
