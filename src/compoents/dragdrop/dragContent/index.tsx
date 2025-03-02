@@ -8,7 +8,7 @@ import React, {
   useState,
 } from "react";
 import "./index.scss";
-import { booleanIntersects, booleanWithin, dragStore } from "../drag";
+import { booleanWithin, dragStore } from "../drag";
 import MoveMask from "../moveMask";
 import { guid } from "@src/utils";
 import PreviewItem from "../previewItem";
@@ -111,18 +111,19 @@ const DragContent = memo((props: IDragContent) => {
       current.x + current.column - 1,
       current.y + current.row - 1,
     ];
-    return (
-      booleanWithin([0, 0, column, row], currentXy) &&
-      datas.every(
-        (item) =>
-          item[field] === current[field] ||
-          !booleanIntersects(
-            [item.x - 1, item.y - 1, item.x + item.column, item.y + item.row],
-            currentXy
-          )
-      )
-    );
-  }, [column, current, datas, field, row]);
+    return booleanWithin([0, 0, column, row], currentXy);
+    // return (
+    //   booleanWithin([0, 0, column, row], currentXy) &&
+    //   datas.every(
+    //     (item) =>
+    //       item[field] === current[field] ||
+    //       !booleanIntersects(
+    //         [item.x - 1, item.y - 1, item.x + item.column, item.y + item.row],
+    //         currentXy
+    //       )
+    //   )
+    // );
+  }, [column, current, row]);
 
   // 计算 x 坐标
   const getX = useCallback(
