@@ -23,7 +23,7 @@ const ALLTABS: ITabItem[] = [
     type: "widget",
   },
   {
-    icon: "&#xe652;",
+    icon: "&#xe625;",
     type: "page",
   },
 ];
