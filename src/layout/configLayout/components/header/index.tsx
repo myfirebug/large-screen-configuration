@@ -23,7 +23,10 @@ export const ConfigLayoutHeader: FC<IConfigLayoutHeader> = ({
   logo,
   pageType,
   modifyNameSuccessHander,
+  previewHandler,
+  publishHandler,
 }) => {
+  console.log(name, "namenamename");
   const navigate = useNavigate();
   const [isModalNameOpen, setIsModalNameOpen] = useState(false);
   return (
@@ -43,10 +46,10 @@ export const ConfigLayoutHeader: FC<IConfigLayoutHeader> = ({
           </span>
         </div>
         <div className="cms-config-layout__header--right">
-          <div className="preview">
+          <div className="preview" onClick={previewHandler}>
             <i className="cms-icon">&#xe668;</i>预览
           </div>
-          <div className="publish">
+          <div className="publish" onClick={publishHandler}>
             <i className="cms-icon">&#xe620;</i>发布
           </div>
           <div className="preview" onClick={() => navigate(-1)}>
