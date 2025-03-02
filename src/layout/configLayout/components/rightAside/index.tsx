@@ -31,7 +31,7 @@ const ALLTABS: ITabItem[] = [
     type: "data",
   },
   {
-    icon: "&#xe652;",
+    icon: "&#xe625;",
     type: "page",
   },
   {
