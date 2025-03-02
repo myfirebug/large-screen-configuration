@@ -9,25 +9,20 @@
     .anticon {
       margin-right: 5px;
     }
-    .name {
-      padding: 0 10px;
-      border-bottom: 1px solid var(--cms-divider-color);
-      transition: all 0.25s ease 0s;
-      &:hover,
-      &.is-active {
-        font-weight: bold;
-        color: var(--cms-primary-color);
-      }
-    }
-    .content {
+    @include m(item) {
       > div {
-        padding: 0 10px 0 26px;
+        padding-left: 10px;
+      }
+      .name {
+        padding: 0 10px;
         border-bottom: 1px solid var(--cms-divider-color);
+        transition: all 0.25s ease 0s;
+        overflow: hidden;
+        text-overflow: ellipsis;
         transition: all 0.25s ease 0s;
         &:hover,
         &.is-active {
           color: var(--cms-primary-color);
-          background: var(--cms-background-color-primary);
         }
       }
     }
