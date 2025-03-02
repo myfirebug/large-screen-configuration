@@ -8,6 +8,7 @@ export interface IPage {
   pageId: string;
   screenRatio: string;
   widgets: IWidget[];
+  configuration: IAnyObject | null;
 }
 
 // 用户信息结果

@@ -15,7 +15,7 @@ export const PAGETYPENAME = {
   data: "数据",
 };
 // 组件类型
-export const ELEMETSTYPE = {
+export const ELEMETSTYPE: IAnyObject = {
   text: "文本",
   image: "图片",
   table: "表格",
