@@ -96,11 +96,20 @@ const routerDatas: IRoute[] = [
         children: [
           {
             path: "/web/page-list",
-            title: "页面模版",
+            title: "页面模版列表",
             modulePath: "web/pageList",
             meta: {
               auth: true,
               menu: true,
+            },
+          },
+          {
+            path: "/web/page/configuration",
+            title: "页面模版配置",
+            modulePath: "web/pageList/edit",
+            meta: {
+              fullScreen: true,
+              auth: true,
             },
           },
         ],
