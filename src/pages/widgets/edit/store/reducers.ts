@@ -34,9 +34,9 @@ export const initialState: ALL_STATE = {
 
 export const widgetReducer = (state = initialState, action: ModifyActions) => {
   const copy: ALL_STATE = JSON.parse(JSON.stringify(state));
-  console.log(state, action);
+  console.log(JSON.stringify(state.widget), action);
   switch (action.type) {
-    // 获取微件
+    // 获取微件x
     case WIDGET: {
       copy.widget = {
         ...action.data,

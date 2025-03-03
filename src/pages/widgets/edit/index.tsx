@@ -209,6 +209,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
   return (
     <div className="cms-config-layout">
       <ConfigLayoutHeader
+        logo="&#xe634;"
         name={layout?.widget.name}
         pageType="widget"
         modifyNameSuccessHander={(name) => {
