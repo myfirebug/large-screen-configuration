@@ -1,0 +1,39 @@
+@include b(config-layout) {
+  @include e(widgets) {
+    height: 100%;
+    display: flex;
+    overflow: hidden;
+    @include m(left) {
+      text-align: center;
+      background: var(--cms-top-background-color);
+      > div {
+        padding: 10px 5px;
+        font-size: 12px;
+        cursor: pointer;
+        color: var(--cms-text-color-secondary);
+        transition: all 0.25s ease 0s;
+        &:hover {
+          color: var(--cms-text-color-primary);
+        }
+        @include when(active) {
+          color: var(--cms-text-color-primary);
+          font-weight: bold;
+          background: var(--cms-background-color-secondary);
+        }
+      }
+    }
+    @include m(right) {
+      flex: 1;
+      overflow: hidden;
+      overflow-y: auto;
+    }
+    @include m(item) {
+      margin-top: 15px;
+      text-align: center;
+      cursor: pointer;
+      .name {
+        line-height: 40px;
+      }
+    }
+  }
+}
