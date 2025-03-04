@@ -36,6 +36,7 @@ export const getStyles = (
       config[prefix + `BoxShadowC`] || 0
     } ${config[prefix + `BoxInset`] ? "inset" : ""}`,
   };
+
   for (let filed in config) {
     if (filed.indexOf(prefix) === 0 && typeof config[filed] !== "object") {
       let newField = filed.substring(prefix.length);
@@ -63,6 +64,10 @@ export const getStyles = (
         }
         case "height": {
           result.height = `${config[filed]}px`;
+          break;
+        }
+        case "width": {
+          result.width = `${config[filed]}px`;
           break;
         }
         case "lineHeight": {
