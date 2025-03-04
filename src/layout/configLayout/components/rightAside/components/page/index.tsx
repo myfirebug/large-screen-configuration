@@ -16,7 +16,6 @@ export const ConfigLayoutRightAsidePage: FC<IConfigLayoutRightAsidePage> = ({
   return (
     <div className="cms-config-layout__element">
       <Form
-        disabled
         labelCol={{ flex: "80px" }}
         labelAlign="left"
         form={form}

@@ -6,6 +6,7 @@ import "./index.scss";
 interface IConfigLayoutRightAside {
   render: (data: PageType | "") => ReactNode;
   navs: PageType[];
+  onChange?: (data: PageType | "") => void;
 }
 
 interface ITabItem {
@@ -43,6 +44,7 @@ const ALLTABS: ITabItem[] = [
 export const ConfigLayoutRightAside: FC<IConfigLayoutRightAside> = ({
   render,
   navs,
+  onChange,
 }) => {
   const [current, setCurrent] = useState<PageType | "">("element");
   const [tabs, setTabs] = useState<ITabItem[]>([]);
@@ -52,7 +54,8 @@ export const ConfigLayoutRightAside: FC<IConfigLayoutRightAside> = ({
       return ALLTABS.filter((item) => navs.includes(item.type));
     });
     setCurrent(navs[0]);
-  }, [navs, setTabs, setCurrent]);
+    onChange?.(navs[0]);
+  }, [navs, setTabs, setCurrent, onChange]);
   return (
     <div className="cms-config-layout__rightAside">
       <div
@@ -63,7 +66,10 @@ export const ConfigLayoutRightAside: FC<IConfigLayoutRightAside> = ({
       >
         <Box
           title={`${current ? PAGETYPENAME[current] + "配置" : ""}`}
-          onClose={() => setCurrent("")}
+          onClose={() => {
+            setCurrent("");
+            onChange?.("");
+          }}
         >
           {render(current)}
         </Box>
@@ -74,7 +80,10 @@ export const ConfigLayoutRightAside: FC<IConfigLayoutRightAside> = ({
             className={`cms-config-layout__rightAside--tabItem ${
               current === item.type ? "is-active" : ""
             }`}
-            onClick={() => setCurrent(item.type)}
+            onClick={() => {
+              setCurrent(item.type);
+              onChange?.(item.type);
+            }}
             key={item.type}
           >
             <Tooltip placement="left" title={`${PAGETYPENAME[item.type]}配置`}>
