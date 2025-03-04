@@ -26,7 +26,6 @@ export const ConfigLayoutHeader: FC<IConfigLayoutHeader> = ({
   previewHandler,
   publishHandler,
 }) => {
-  console.log(name, "namenamename");
   const navigate = useNavigate();
   const [isModalNameOpen, setIsModalNameOpen] = useState(false);
   return (
