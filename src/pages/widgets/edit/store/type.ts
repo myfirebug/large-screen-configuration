@@ -24,8 +24,13 @@ export type SELECT_ELEMENT_TYPE = typeof SELECT_ELEMENT;
 export const MODIFY_ELEMENT = "MODIFY_ELEMENT";
 export type MODIFY_ELEMENT_TYPE = typeof MODIFY_ELEMENT;
 
+// 修改选中类型
+export const SELECTED_TYPE = "SELECTED_TYPE";
+export type SELECTED_TYPE_TYPE = typeof SELECTED_TYPE;
+
 export interface ALL_STATE {
   widget: IWidget;
   elementId: string | undefined;
   widgetId: string | undefined;
+  selectedType: PageType | "";
 }
