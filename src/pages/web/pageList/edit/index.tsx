@@ -326,7 +326,21 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                     (currentWidget?.configuration
                       ?.configureValue as IAnyObject) || {}
                   }
-                  onFinish={(data: IAnyObject) => {}}
+                  onFinish={(data: IAnyObject) => {
+                    dispatch({
+                      type: "MODIFY_WIDGET",
+                      data: {
+                        ...(currentWidget as IWidget),
+                        configuration: {
+                          ...currentWidget?.configuration,
+                          configureValue: {
+                            ...currentWidget?.configuration?.configureValue,
+                            ...data,
+                          },
+                        },
+                      },
+                    });
+                  }}
                 />
               );
             } else if (data === "element") {
