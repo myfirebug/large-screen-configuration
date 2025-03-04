@@ -74,7 +74,7 @@ const Widgets: FC<any> = () => {
             <span
               key="editable"
               onClick={() => {
-                navigate(`/widgets/configuration?widgetId=${record.pageId}`);
+                navigate(`/web/page/configuration?pageId=${record.pageId}`);
               }}
             >
               编辑
@@ -125,7 +125,7 @@ const Widgets: FC<any> = () => {
           <Button
             key="button"
             icon={<PlusOutlined />}
-            onClick={() => navigate("/widgets/configuration")}
+            onClick={() => navigate("/web/page/configuration")}
             type="primary"
           >
             新建
