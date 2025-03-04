@@ -4,12 +4,19 @@ import {
   SELECT_ELEMENT_TYPE,
   SELECT_WIDGET_TYPE,
   ADD_WIDGET_TYPE,
+  MODIFY_WIDGET_TYPE,
+  MODIFY_PAGE_TYPE,
 } from "./type";
 
 // 获取页面
-export interface widgetAction {
+export interface pageAction {
   type: PAGE_TYPE;
   data: IPage;
+}
+
+export interface modifyPageAction {
+  type: MODIFY_PAGE_TYPE;
+  data: IAnyObject;
 }
 
 export interface selectWidgetAction {
@@ -22,6 +29,11 @@ export interface addWidgetAction {
   data: IWidget;
 }
 
+export interface modifyWidgetAction {
+  type: MODIFY_WIDGET_TYPE;
+  data: IWidget;
+}
+
 export interface selectElementAction {
   type: SELECT_ELEMENT_TYPE;
   widgetId: string;
@@ -29,7 +41,9 @@ export interface selectElementAction {
 }
 
 export type ModifyActions =
-  | widgetAction
+  | pageAction
+  | modifyPageAction
   | selectWidgetAction
+  | modifyWidgetAction
   | addWidgetAction
   | selectElementAction;

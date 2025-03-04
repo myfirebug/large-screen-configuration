@@ -95,7 +95,8 @@ const ConfigLayout: FC<IConfigLayout> = () => {
     return arr;
   }, [layout?.elementId, layout?.pageId, layout?.widgetId]);
 
-  const onSelected = useCallback(
+  // 图层选择
+  const layerSelectedHandle = useCallback(
     (type: "page" | "widget" | "element", id: string, pid?: string) => {
       switch (type) {
         case "widget": {
@@ -154,7 +155,6 @@ const ConfigLayout: FC<IConfigLayout> = () => {
   // 渲染微件
   const renderWidget = useCallback(
     (data: IAnyObject) => {
-      console.log(data);
       return (
         <WidgetLayout
           style={{
@@ -206,7 +206,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
     [renderElement]
   );
 
-  const onDropHander = useCallback((item: Layout, data: IWidget) => {
+  const onDrop = useCallback((item: Layout, data: IWidget) => {
     dispatch({
       type: "ADD_WIDGET",
       data: {
@@ -222,12 +222,36 @@ const ConfigLayout: FC<IConfigLayout> = () => {
     });
   }, []);
 
+  const onDragStop = useCallback(
+    (item: Layout) => {
+      const currentWidget = layout?.page?.widgets?.find(
+        (widget) => item.i === widget.widgetId
+      );
+      dispatch({
+        type: "MODIFY_WIDGET",
+        data: {
+          ...(currentWidget as IWidget),
+          x: item.x,
+          y: item.y,
+        },
+      });
+    },
+    [layout?.page?.widgets]
+  );
+
   return (
     <div className="cms-config-layout">
       <ConfigLayoutHeader
         name={layout?.page?.name}
         pageType="page"
-        modifyNameSuccessHander={(name) => {}}
+        modifyNameSuccessHander={(name) => {
+          dispatch({
+            type: "MODIFY_PAGE",
+            data: {
+              name,
+            },
+          });
+        }}
         previewHandler={() => setShow(true)}
         publishHandler={() => {
           setIsShowAuxiliaryLine(false);
@@ -275,7 +299,8 @@ const ConfigLayout: FC<IConfigLayout> = () => {
               column={
                 layout?.page?.configuration?.configureValue?.horizontalNumber
               }
-              onDrop={onDropHander}
+              onDrop={onDrop}
+              onDragStop={onDragStop}
             />
           </div>
         </ConfigLayoutMain>
@@ -290,7 +315,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                     pageId={layout?.pageId}
                     widgetId={layout?.widgetId}
                     elementId={layout?.elementId}
-                    onSelected={onSelected}
+                    onSelected={layerSelectedHandle}
                   />
                 </div>
               );
@@ -328,7 +353,19 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                 <ConfigLayoutRightAsidePage
                   configureValue={layout?.page?.configuration?.configureValue}
                   onFinish={(data) => {
-                    console.log(data);
+                    const configuration = layout?.page?.configuration;
+                    dispatch({
+                      type: "MODIFY_PAGE",
+                      data: {
+                        configuration: {
+                          ...configuration,
+                          configureValue: {
+                            ...configuration?.configureValue,
+                            ...data,
+                          },
+                        },
+                      },
+                    });
                   }}
                 />
               );

@@ -2,9 +2,11 @@ import { ModifyActions } from "./action";
 import {
   ALL_STATE,
   PAGE,
+  MODIFY_PAGE,
   SELECT_WIDGET,
   SELECT_ELEMENT,
   ADD_WIDGET,
+  MODIFY_WIDGET,
 } from "./type";
 
 export const initialState: ALL_STATE = {
@@ -33,6 +35,13 @@ export const pageReducer = (state = initialState, action: ModifyActions) => {
       copy.pageId = action.data.pageId;
       return copy;
     }
+    case MODIFY_PAGE: {
+      copy.page = {
+        ...state.page,
+        ...action.data,
+      };
+      return copy;
+    }
     case SELECT_WIDGET: {
       copy.widgetId = action.widgetId;
       copy.elementId = "";
@@ -40,6 +49,15 @@ export const pageReducer = (state = initialState, action: ModifyActions) => {
     }
     case ADD_WIDGET: {
       copy.page.widgets = [...copy.page.widgets, action.data];
+      return copy;
+    }
+    case MODIFY_WIDGET: {
+      const index = copy.page.widgets.findIndex(
+        (item) => item.widgetId === action.data.widgetId
+      );
+      if (index !== -1) {
+        copy.page.widgets[index] = action.data;
+      }
       return copy;
     }
     case SELECT_ELEMENT: {
