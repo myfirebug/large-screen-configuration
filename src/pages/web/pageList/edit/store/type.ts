@@ -4,9 +4,13 @@ import { IPage } from "@src/service";
 export const PAGE = "PAGE";
 export type PAGE_TYPE = typeof PAGE;
 
-// 选中组件
+// 选中微件
 export const SELECT_WIDGET = "SELECT_WIDGET";
 export type SELECT_WIDGET_TYPE = typeof SELECT_WIDGET;
+
+// 添加微件
+export const ADD_WIDGET = "ADD_WIDGET";
+export type ADD_WIDGET_TYPE = typeof ADD_WIDGET;
 
 // 选中组件
 export const SELECT_ELEMENT = "SELECT_ELEMENT";

@@ -1,5 +1,10 @@
-import { IPage } from "@src/service";
-import { PAGE_TYPE, SELECT_ELEMENT_TYPE, SELECT_WIDGET_TYPE } from "./type";
+import { IPage, IWidget } from "@src/service";
+import {
+  PAGE_TYPE,
+  SELECT_ELEMENT_TYPE,
+  SELECT_WIDGET_TYPE,
+  ADD_WIDGET_TYPE,
+} from "./type";
 
 // 获取页面
 export interface widgetAction {
@@ -12,6 +17,11 @@ export interface selectWidgetAction {
   widgetId: string;
 }
 
+export interface addWidgetAction {
+  type: ADD_WIDGET_TYPE;
+  data: IWidget;
+}
+
 export interface selectElementAction {
   type: SELECT_ELEMENT_TYPE;
   widgetId: string;
@@ -21,4 +31,5 @@ export interface selectElementAction {
 export type ModifyActions =
   | widgetAction
   | selectWidgetAction
+  | addWidgetAction
   | selectElementAction;

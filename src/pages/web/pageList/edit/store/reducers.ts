@@ -1,5 +1,11 @@
 import { ModifyActions } from "./action";
-import { ALL_STATE, PAGE, SELECT_WIDGET, SELECT_ELEMENT } from "./type";
+import {
+  ALL_STATE,
+  PAGE,
+  SELECT_WIDGET,
+  SELECT_ELEMENT,
+  ADD_WIDGET,
+} from "./type";
 
 export const initialState: ALL_STATE = {
   page: {
@@ -29,6 +35,11 @@ export const pageReducer = (state = initialState, action: ModifyActions) => {
     }
     case SELECT_WIDGET: {
       copy.widgetId = action.widgetId;
+      copy.elementId = "";
+      return copy;
+    }
+    case ADD_WIDGET: {
+      copy.page.widgets = [...copy.page.widgets, action.data];
       return copy;
     }
     case SELECT_ELEMENT: {

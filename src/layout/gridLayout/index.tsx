@@ -17,6 +17,8 @@ interface IGridLayout {
   isDroppable?: boolean;
   isResizable?: boolean;
   render?: (data: IAnyObject) => ReactNode;
+  onDrop?: (item: Layout, data: any) => void;
+  onDragStop?: (item: Layout) => void;
 }
 
 const GridLayout: FC<IGridLayout> = ({
@@ -31,6 +33,8 @@ const GridLayout: FC<IGridLayout> = ({
   isDroppable = true,
   isResizable = true,
   render,
+  onDrop,
+  onDragStop,
 }) => {
   const layout = useMemo(() => {
     let arr: Layout[] = [];
@@ -75,12 +79,18 @@ const GridLayout: FC<IGridLayout> = ({
         margin={[gap, gap]}
         onDrop={(data, item, e) => {
           const dragData = dragStore.get(groupName as string);
+          console.log("onDrop");
           if (item.x <= row && item.y <= column) {
-            console.log(data, item, e, dragData, "drop");
+            onDrop?.(item, dragData);
           }
         }}
         onResizeStop={(data, item, e) => {
           console.log(data, item, e, "resize");
+        }}
+        onDragStop={(data, oldItem, newItem) => {
+          if (oldItem.x !== newItem.x || oldItem.y !== newItem.y) {
+            onDragStop?.(newItem);
+          }
         }}
       >
         {datas?.map((item, index) => (
