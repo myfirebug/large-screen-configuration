@@ -19,6 +19,7 @@ import {
   ConfigLayoutRightAsideWidget,
   ConfigLayoutRightAsideElement,
   ConfigLayoutRightAsideData,
+  Mask,
 } from "@src/layout/configLayout";
 
 import { widgetConfig } from "@src/core/config/base";
@@ -140,27 +141,39 @@ const ConfigLayout: FC<IConfigLayout> = () => {
     });
   }, []);
 
-  const renderPreview = useCallback((data: IAnyObject) => {
-    if (data.element && elements[capitalizeFirstLetter(data.element)]) {
-      return React.createElement(
-        elements[capitalizeFirstLetter(data.element)],
-        {
-          options: data.configuration.configureValue,
-          data: data.configuration?.dataValue?.mock,
-          field: data.configuration?.dataValue?.field,
-        }
-      );
-    }
-    return <div>你访问的组件不存在请联系售后人员</div>;
-  }, []);
+  const renderPreview = useCallback(
+    (data: IAnyObject) => {
+      if (data.element && elements[capitalizeFirstLetter(data.element)]) {
+        return (
+          <>
+            {layout?.elementId === data.elementId &&
+            layout?.selectedType === "element" ? (
+              <Mask />
+            ) : null}
+
+            {React.createElement(
+              elements[capitalizeFirstLetter(data.element)],
+              {
+                options: data.configuration.configureValue,
+                data: data.configuration?.dataValue?.mock,
+                field: data.configuration?.dataValue?.field,
+              }
+            )}
+          </>
+        );
+      }
+      return <div>你访问的组件不存在请联系售后人员</div>;
+    },
+    [layout?.elementId, layout?.selectedType]
+  );
   // 判断右侧边栏所需模块
   const rightAside = useMemo(() => {
     let arr: PageType[] = [];
     if (layout?.widgetId) {
       if (layout?.elementId) {
-        arr = ["layer", "element", "widget", "data"];
+        arr = ["layer", "element", "data"];
       } else {
-        arr = ["layer", "widget", "data"];
+        arr = ["layer", "data"];
       }
     } else {
       arr = ["layer"];
@@ -205,6 +218,13 @@ const ConfigLayout: FC<IConfigLayout> = () => {
       (item) => item.elementId === layout?.elementId
     );
   }, [layout?.elementId, layout?.widget.elements]);
+
+  const onChnage = useCallback((data: PageType | "") => {
+    dispatch({
+      type: "SELECTED_TYPE",
+      data,
+    });
+  }, []);
 
   return (
     <div className="cms-config-layout">
@@ -448,6 +468,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
             }
             return <div>{data}</div>;
           }}
+          onChange={onChnage}
         />
       </div>
 
