@@ -1,0 +1,32 @@
+@include b(grid-layout) {
+  position: relative;
+  z-index: 10;
+  width: 100% !important;
+  height: 100% !important;
+
+  @include e(main) {
+    position: relative;
+    overflow: hidden;
+  }
+  @include e(auxiliaryLine) {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    > div {
+      border: 1px dashed rgba(255, 255, 255, 0.2);
+    }
+  }
+  .react-resizable-handle {
+    z-index: 1000;
+    width: 30px;
+    height: 30px;
+    &:after {
+      right: 6px;
+      bottom: 6px;
+      border-right-color: #fff;
+      border-bottom-color: #fff;
+    }
+  }
+}
