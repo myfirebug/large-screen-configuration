@@ -7,6 +7,7 @@ import {
   SELECT_ELEMENT,
   ADD_WIDGET,
   MODIFY_WIDGET,
+  MODIFY_ELEMENT,
 } from "./type";
 
 export const initialState: ALL_STATE = {
@@ -49,6 +50,7 @@ export const pageReducer = (state = initialState, action: ModifyActions) => {
     }
     case ADD_WIDGET: {
       copy.page.widgets = [...copy.page.widgets, action.data];
+      copy.widgetId = action.data.widgetId;
       return copy;
     }
     case MODIFY_WIDGET: {
@@ -63,6 +65,21 @@ export const pageReducer = (state = initialState, action: ModifyActions) => {
     case SELECT_ELEMENT: {
       copy.widgetId = action.widgetId;
       copy.elementId = action.elementId;
+      return copy;
+    }
+    case MODIFY_ELEMENT: {
+      const currentWidgetIndex = copy.page.widgets.findIndex(
+        (item) => item.widgetId === copy.widgetId
+      );
+      if (currentWidgetIndex !== -1) {
+        const currentElementIndex = copy.page.widgets[
+          currentWidgetIndex
+        ].elements.findIndex((item) => item.elementId === copy.elementId);
+        if (currentElementIndex !== -1) {
+          copy.page.widgets[currentWidgetIndex].elements[currentElementIndex] =
+            action.data;
+        }
+      }
       return copy;
     }
     default: {

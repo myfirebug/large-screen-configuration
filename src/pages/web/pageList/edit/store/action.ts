@@ -1,4 +1,4 @@
-import { IPage, IWidget } from "@src/service";
+import { IElement, IPage, IWidget } from "@src/service";
 import {
   PAGE_TYPE,
   SELECT_ELEMENT_TYPE,
@@ -6,6 +6,7 @@ import {
   ADD_WIDGET_TYPE,
   MODIFY_WIDGET_TYPE,
   MODIFY_PAGE_TYPE,
+  MODIFY_ELEMENT_TYPE,
 } from "./type";
 
 // 获取页面
@@ -40,10 +41,16 @@ export interface selectElementAction {
   elementId: string;
 }
 
+export interface modifyElementAction {
+  type: MODIFY_ELEMENT_TYPE;
+  data: IElement;
+}
+
 export type ModifyActions =
   | pageAction
   | modifyPageAction
   | selectWidgetAction
   | modifyWidgetAction
   | addWidgetAction
-  | selectElementAction;
+  | selectElementAction
+  | modifyElementAction;

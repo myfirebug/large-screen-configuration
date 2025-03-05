@@ -350,16 +350,58 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                   configureValue={
                     currentElement?.configuration.configureValue || {}
                   }
-                  onFinish={(data: IAnyObject) => {}}
+                  onFinish={(data: IAnyObject) => {
+                    dispatch({
+                      type: "MODIFY_ELEMENT",
+                      data: {
+                        ...(currentElement as IElement),
+                        configuration: {
+                          ...currentElement?.configuration,
+                          configureValue: {
+                            ...currentElement?.configuration?.configureValue,
+                            ...data,
+                          },
+                        },
+                      },
+                    });
+                  }}
                 />
               );
             } else if (data === "data") {
               return (
                 <ConfigLayoutRightAsideData
                   widgetDataValue={currentWidget?.configuration?.dataValue}
-                  widgetOnFinish={(data: IAnyObject) => {}}
+                  widgetOnFinish={(data: IAnyObject) => {
+                    dispatch({
+                      type: "MODIFY_WIDGET",
+                      data: {
+                        ...(currentWidget as IWidget),
+                        configuration: {
+                          ...currentWidget?.configuration,
+                          dataValue: {
+                            ...currentWidget?.configuration?.dataValue,
+                            ...data,
+                          },
+                        },
+                      },
+                    });
+                  }}
                   elementDataValue={currentElement?.configuration.dataValue}
-                  elementOnFinish={(data: IAnyObject) => {}}
+                  elementOnFinish={(data: IAnyObject) => {
+                    dispatch({
+                      type: "MODIFY_ELEMENT",
+                      data: {
+                        ...(currentElement as IElement),
+                        configuration: {
+                          ...currentElement?.configuration,
+                          dataValue: {
+                            ...currentElement?.configuration?.dataValue,
+                            ...data,
+                          },
+                        },
+                      },
+                    });
+                  }}
                 />
               );
             } else if (data === "page") {
