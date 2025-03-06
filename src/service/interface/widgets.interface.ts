@@ -14,6 +14,7 @@ export interface IWidget {
   row: number;
   configuration: IAnyObject | null;
   elements: IElement[];
+  position?: "header" | "body";
 }
 
 // 用户信息结果
