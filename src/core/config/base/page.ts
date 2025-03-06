@@ -2,11 +2,13 @@ export const pageConfig = {
   type: "page",
   label: "页面配置",
   configureValue: {
-    pageWidth: 1366,
-    pageHeight: 768,
+    pageConfigWidth: 1366,
+    pageConfigHeight: 768,
     horizontalNumber: 4,
     verticalNumber: 3,
-    pageBackgroundColor: "#090548",
+    styleBackgroundColor: "#090548",
+    headerStyleHeight: 80,
+    headerShow: true,
   },
   configure: [
     [
@@ -16,19 +18,21 @@ export const pageConfig = {
           {
             componentName: "InputNumber",
             label: "宽度",
-            name: "pageWidth",
+            name: "pageConfigWidth",
             required: false,
             min: 1366,
             max: 5000,
+            tooltip: "只有配置页面有用，预览页面是全屏",
             placeholder: "请输入宽度",
           },
           {
             componentName: "InputNumber",
             label: "高度",
-            name: "pageHeight",
+            name: "pageConfigHeight",
             required: false,
             min: 768,
             max: 3000,
+            tooltip: "只有配置页面有用，预览页面是全屏",
             placeholder: "请输入高度",
           },
           {
@@ -52,16 +56,130 @@ export const pageConfig = {
           {
             componentName: "SketchPicker",
             label: "背景颜色",
-            name: "pageBackgroundColor",
+            name: "styleBackgroundColor",
             required: false,
             placeholder: "请选择背景颜色",
           },
           {
             componentName: "Input",
             label: "背景图片",
-            name: "PageBackgroundImage",
+            name: "styleBackgroundImage",
             required: false,
             placeholder: "请输入背景图片地址",
+          },
+        ],
+      },
+    ],
+
+    [
+      {
+        name: "头部",
+        list: [
+          {
+            componentName: "Switch",
+            label: "是否显示",
+            name: "headerShow",
+            required: false,
+            placeholder: "",
+          },
+          {
+            componentName: "Input",
+            label: "背景图",
+            name: "headerStyleBackgroundImage",
+            required: false,
+            placeholder: "请输入背景图地址",
+          },
+          {
+            componentName: "SketchPicker",
+            label: "背景颜色",
+            name: "headerStyleBackgroundColor",
+            required: false,
+            placeholder: "",
+          },
+          {
+            componentName: "InputNumber",
+            label: "高度",
+            name: "headerStyleHeight",
+            required: false,
+            placeholder: "请输入高度",
+            addonAfter: "px",
+          },
+        ],
+      },
+      {
+        name: "主体",
+        list: [
+          {
+            componentName: "Input",
+            label: "背景图",
+            name: "bodyStyleBackgroundImage",
+            required: false,
+            placeholder: "请输入背景图地址",
+          },
+          {
+            componentName: "SketchPicker",
+            label: "背景颜色",
+            name: "bodyStyleBackgroundColor",
+            required: false,
+            placeholder: "",
+          },
+          [
+            {
+              name: "内边距",
+              list: [
+                {
+                  componentName: "InputNumber",
+                  label: "左边距",
+                  name: "bodyStylePaddingLeft",
+                  required: false,
+                  placeholder: "请输入左边距",
+                  addonAfter: "px",
+                },
+                {
+                  componentName: "InputNumber",
+                  label: "右边距",
+                  name: "bodyStylePaddingRight",
+                  required: false,
+                  placeholder: "请输入右边距",
+                  addonAfter: "px",
+                },
+                {
+                  componentName: "InputNumber",
+                  label: "上边距",
+                  name: "bodyStylePaddingTop",
+                  required: false,
+                  placeholder: "请输入上边距",
+                  addonAfter: "px",
+                },
+                {
+                  componentName: "InputNumber",
+                  label: "下边距",
+                  name: "bodyStylePaddingBottom",
+                  required: false,
+                  placeholder: "请输入下边距",
+                  addonAfter: "px",
+                },
+              ],
+            },
+          ],
+        ],
+      },
+      {
+        name: "辅助线",
+        list: [
+          {
+            componentName: "Switch",
+            label: "是否显示",
+            name: "isShowAuxiliaryLine",
+            required: false,
+            placeholder: "",
+          },
+          {
+            componentName: "SketchPicker",
+            label: "边框颜色",
+            name: "auxiliaryLineBorderColor",
+            required: false,
+            placeholder: "",
           },
         ],
       },
