@@ -1,0 +1,15 @@
+@include b(preview-layout) {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  // overflow: hidden;
+  box-sizing: border-box;
+  @include e(header) {
+    height: 80px;
+  }
+  @include e(body) {
+    flex: 1;
+    // overflow: hidden;
+  }
+}
