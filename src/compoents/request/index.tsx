@@ -22,35 +22,38 @@ interface IRequestProps {
 }
 
 const Request: FC<IRequestProps> = ({ method, url, params, render }) => {
-  // 获取数据
-  const { data, error } = useRequest(
-    async () => {
-      return await new Promise(
-        (resolve: (data: IResult) => void, reject: (data: any) => void) => {
-          axios({
-            url:
-              process.env.REACT_APP_ENV === "production" &&
-              url === "http://localhost:3000/configuration"
-                ? "https://myfirebug.github.io/bigscreen/configuration"
-                : url,
-            method: method,
-            params: JSON.parse(params),
-          })
-            .then((res: any) => {
-              resolve(res);
+  if (url && method) {
+    // 获取数据
+    const { data, error } = useRequest(
+      async () => {
+        return await new Promise(
+          (resolve: (data: IResult) => void, reject: (data: any) => void) => {
+            axios({
+              url:
+                process.env.REACT_APP_ENV === "production" &&
+                url === "http://localhost:3000/configuration"
+                  ? "https://myfirebug.github.io/bigscreen/configuration"
+                  : url,
+              method: method,
+              params: JSON.parse(params),
             })
-            .catch((res) => {
-              reject(res);
-            });
-        }
-      );
-    },
-    {
-      refreshDeps: [params, url],
-      ready: Boolean(url),
-    }
-  );
+              .then((res: any) => {
+                resolve(res);
+              })
+              .catch((res) => {
+                reject(res);
+              });
+          }
+        );
+      },
+      {
+        refreshDeps: [params, url],
+        ready: Boolean(url),
+      }
+    );
 
-  return <>{render(url ? data : null, url ? !error : true)}</>;
+    return <>{render(data, !error)}</>;
+  }
+  return <>{render(null, false)}</>;
 };
 export default Request;
