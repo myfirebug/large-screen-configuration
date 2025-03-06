@@ -16,6 +16,10 @@ export type SELECT_WIDGET_TYPE = typeof SELECT_WIDGET;
 export const ADD_WIDGET = "ADD_WIDGET";
 export type ADD_WIDGET_TYPE = typeof ADD_WIDGET;
 
+// 删除微件
+export const DELETE_WIDGET = "DELETE_WIDGET";
+export type DELETE_WIDGET_TYPE = typeof DELETE_WIDGET;
+
 // 修改微件
 export const MODIFY_WIDGET = "MODIFY_WIDGET";
 export type MODIFY_WIDGET_TYPE = typeof MODIFY_WIDGET;

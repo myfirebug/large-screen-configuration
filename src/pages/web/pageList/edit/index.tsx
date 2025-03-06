@@ -25,15 +25,14 @@ import { initialState, pageReducer } from "./store/reducers";
 import "animate.css";
 import html2canvas from "html2canvas";
 import { message } from "antd";
-import { capitalizeFirstLetter, getStyles, guid } from "@src/utils";
+import { capitalizeFirstLetter, guid } from "@src/utils";
 import { pageConfig } from "@src/core/config/base";
 import "./index.scss";
 import elements from "@src/elements";
 
 import GridLayout from "@src/layout/gridLayout";
 import { IElement, IWidget } from "@src/service";
-import WidgetLayout from "@src/layout/widgetLayout";
-import PreviewLayout from "@src/compoents/dragdrop/previewLayout";
+import PreviewLayout from "@src/layout/previewLayout";
 import {
   WIDGET_BODY_COLUMN,
   WIDGET_BODY_GAP,
@@ -156,26 +155,10 @@ const ConfigLayout: FC<IConfigLayout> = () => {
   const renderWidget = useCallback(
     (data: IAnyObject) => {
       return (
-        <WidgetLayout
-          style={{
-            ...getStyles(data?.configuration?.configureValue || {}),
-            height: "400px",
-          }}
-          headerStyles={{
-            ...getStyles(
-              data?.configuration?.configureValue || {},
-              "headerStyle"
-            ),
-            display: data?.configuration?.configureValue?.headerShow
-              ? "block"
-              : "none",
-          }}
-          bodyStyles={getStyles(
-            data?.configuration?.configureValue || {},
-            "bodyStyle"
-          )}
+        <PreviewLayout
+          data={data}
           header={
-            <PreviewLayout
+            <GridLayout
               datas={
                 data?.elements.filter(
                   (item: IElement) => item.position === "header"
@@ -185,10 +168,13 @@ const ConfigLayout: FC<IConfigLayout> = () => {
               row={WIDGET_HEADER_ROW}
               gap={WIDGET_HEADER_GAP}
               render={renderElement}
-            ></PreviewLayout>
+              isDroppable
+              isResizable
+              staticed
+            />
           }
           body={
-            <PreviewLayout
+            <GridLayout
               datas={
                 data?.elements.filter(
                   (item: IElement) => item.position === "body"
@@ -198,46 +184,66 @@ const ConfigLayout: FC<IConfigLayout> = () => {
               row={WIDGET_BODY_ROW}
               gap={WIDGET_BODY_GAP}
               render={renderElement}
-            ></PreviewLayout>
+              isDroppable
+              isResizable
+              staticed
+            />
           }
-        ></WidgetLayout>
+        />
       );
     },
     [renderElement]
   );
-
-  const onDrop = useCallback((item: Layout, data: IWidget) => {
+  // 新增微件
+  const onDrop = useCallback(
+    (item: Layout, data: IWidget, type: "header" | "body") => {
+      dispatch({
+        type: "ADD_WIDGET",
+        data: {
+          ...data,
+          widgetId: guid(),
+          x: item.x,
+          y: item.y,
+          position: type,
+          elements: data?.elements?.map((element) => ({
+            ...element,
+            elementId: guid(),
+          })),
+        },
+      });
+    },
+    []
+  );
+  // 修改微件
+  const onDragStop = useCallback((item: Layout) => {
     dispatch({
-      type: "ADD_WIDGET",
+      type: "MODIFY_WIDGET",
       data: {
-        ...data,
-        widgetId: guid(),
         x: item.x,
         y: item.y,
-        elements: data?.elements?.map((element) => ({
-          ...element,
-          elementId: guid(),
-        })),
+        widgetId: item.i,
+      },
+    });
+  }, []);
+  // 改变大小
+  const onResizeStop = useCallback((item: Layout) => {
+    dispatch({
+      type: "MODIFY_WIDGET",
+      data: {
+        row: item.w,
+        column: item.h,
+        widgetId: item.i,
       },
     });
   }, []);
 
-  const onDragStop = useCallback(
-    (item: Layout) => {
-      const currentWidget = layout?.page?.widgets?.find(
-        (widget) => item.i === widget.widgetId
-      );
-      dispatch({
-        type: "MODIFY_WIDGET",
-        data: {
-          ...(currentWidget as IWidget),
-          x: item.x,
-          y: item.y,
-        },
-      });
-    },
-    [layout?.page?.widgets]
-  );
+  // 删除微件
+  const onClose = useCallback((item: IAnyObject) => {
+    dispatch({
+      type: "DELETE_WIDGET",
+      id: item.widgetId,
+    });
+  }, []);
 
   return (
     <div className="cms-config-layout">
@@ -282,25 +288,57 @@ const ConfigLayout: FC<IConfigLayout> = () => {
         />
         <ConfigLayoutMain>
           <div
-            style={{ position: "relative", width: "100%", height: "100%" }}
+            style={{
+              position: "relative",
+              width: `${layout?.page?.configuration?.configureValue?.pageConfigWidth}px`,
+              height: `${layout?.page?.configuration?.configureValue?.pageConfigHeight}px`,
+            }}
             id="js_page"
           >
-            <GridLayout
-              datas={layout?.page?.widgets || []}
-              render={renderWidget}
-              configureValue={layout?.page?.configuration?.configureValue}
-              width={
-                layout?.page?.configuration?.configureValue?.pageWidth || 1366
+            <PreviewLayout
+              data={layout?.page || {}}
+              header={
+                <GridLayout
+                  datas={
+                    layout?.page?.widgets?.filter(
+                      (item) => item.position === "header"
+                    ) || []
+                  }
+                  render={renderWidget}
+                  configureValue={layout?.page?.configuration?.configureValue}
+                  row={1}
+                  column={
+                    layout?.page?.configuration?.configureValue
+                      ?.horizontalNumber
+                  }
+                  onDrop={(item, data) => onDrop(item, data, "header")}
+                  onDragStop={onDragStop}
+                  onResizeStop={onResizeStop}
+                  onClose={onClose}
+                />
               }
-              height={
-                layout?.page?.configuration?.configureValue?.pageHeight || 768
+              body={
+                <GridLayout
+                  datas={
+                    layout?.page?.widgets?.filter(
+                      (item) => item.position === "body"
+                    ) || []
+                  }
+                  render={renderWidget}
+                  configureValue={layout?.page?.configuration?.configureValue}
+                  row={
+                    layout?.page?.configuration?.configureValue?.verticalNumber
+                  }
+                  column={
+                    layout?.page?.configuration?.configureValue
+                      ?.horizontalNumber
+                  }
+                  onDrop={(item, data) => onDrop(item, data, "body")}
+                  onDragStop={onDragStop}
+                  onResizeStop={onResizeStop}
+                  onClose={onClose}
+                />
               }
-              row={layout?.page?.configuration?.configureValue?.verticalNumber}
-              column={
-                layout?.page?.configuration?.configureValue?.horizontalNumber
-              }
-              onDrop={onDrop}
-              onDragStop={onDragStop}
             />
           </div>
         </ConfigLayoutMain>

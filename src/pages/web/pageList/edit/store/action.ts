@@ -7,6 +7,7 @@ import {
   MODIFY_WIDGET_TYPE,
   MODIFY_PAGE_TYPE,
   MODIFY_ELEMENT_TYPE,
+  DELETE_WIDGET_TYPE,
 } from "./type";
 
 // 获取页面
@@ -32,7 +33,12 @@ export interface addWidgetAction {
 
 export interface modifyWidgetAction {
   type: MODIFY_WIDGET_TYPE;
-  data: IWidget;
+  data: IAnyObject;
+}
+
+export interface deleteWidgetAction {
+  type: DELETE_WIDGET_TYPE;
+  id: string;
 }
 
 export interface selectElementAction {
@@ -52,5 +58,6 @@ export type ModifyActions =
   | selectWidgetAction
   | modifyWidgetAction
   | addWidgetAction
+  | deleteWidgetAction
   | selectElementAction
   | modifyElementAction;

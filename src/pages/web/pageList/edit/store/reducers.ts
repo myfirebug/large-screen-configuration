@@ -8,6 +8,7 @@ import {
   ADD_WIDGET,
   MODIFY_WIDGET,
   MODIFY_ELEMENT,
+  DELETE_WIDGET,
 } from "./type";
 
 export const initialState: ALL_STATE = {
@@ -58,7 +59,19 @@ export const pageReducer = (state = initialState, action: ModifyActions) => {
         (item) => item.widgetId === action.data.widgetId
       );
       if (index !== -1) {
-        copy.page.widgets[index] = action.data;
+        copy.page.widgets[index] = {
+          ...copy.page.widgets[index],
+          ...action.data,
+        };
+      }
+      return copy;
+    }
+    case DELETE_WIDGET: {
+      copy.page.widgets = copy.page.widgets.filter(
+        (item) => item.widgetId !== action.id
+      );
+      if (action.id === copy.widgetId) {
+        copy.widgetId = "";
       }
       return copy;
     }
