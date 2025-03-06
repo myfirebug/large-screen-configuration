@@ -17,14 +17,35 @@ export const widgetConfig = {
     isShowAuxiliaryLine: true,
     auxiliaryLineBorderColor: "rgba(255, 255, 255, 0.2)",
     headerStyleBorderBottomColor: "rgb(15, 32, 212)",
-    bodyStylePaddingTop: 4,
     headerShow: true,
+    widgetConfigWidth: 600,
+    widgetConfigHeight: 400,
   },
   configure: [
     [
       {
         name: "基础配置",
         list: [
+          {
+            componentName: "InputNumber",
+            label: "宽度",
+            name: "widgetConfigWidth",
+            required: false,
+            min: 160,
+            max: 1000,
+            tooltip: "只有配置页面有用，预览页面是全屏",
+            placeholder: "请输入宽度",
+          },
+          {
+            componentName: "InputNumber",
+            label: "高度",
+            name: "widgetConfigHeight",
+            required: false,
+            min: 100,
+            max: 600,
+            tooltip: "只有配置页面有用，预览页面是全屏",
+            placeholder: "请输入高度",
+          },
           {
             componentName: "Input",
             label: "背景图",
