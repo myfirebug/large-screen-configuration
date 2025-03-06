@@ -8,6 +8,7 @@ import {
   MODIFY_PAGE_TYPE,
   MODIFY_ELEMENT_TYPE,
   DELETE_WIDGET_TYPE,
+  SELECTED_TYPE_TYPE,
 } from "./type";
 
 // 获取页面
@@ -52,6 +53,11 @@ export interface modifyElementAction {
   data: IElement;
 }
 
+export interface selectedTypeAction {
+  type: SELECTED_TYPE_TYPE;
+  data: PageType | "";
+}
+
 export type ModifyActions =
   | pageAction
   | modifyPageAction
@@ -60,4 +66,5 @@ export type ModifyActions =
   | addWidgetAction
   | deleteWidgetAction
   | selectElementAction
-  | modifyElementAction;
+  | modifyElementAction
+  | selectedTypeAction;

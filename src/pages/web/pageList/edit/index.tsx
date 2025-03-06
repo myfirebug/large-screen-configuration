@@ -18,6 +18,7 @@ import {
   ConfigLayoutRightAsideElement,
   ConfigLayoutRightAsideData,
   ConfigLayoutRightAsidePage,
+  ConfigLayoutMask,
 } from "@src/layout/configLayout";
 
 import "@src/layout/configLayout/index.scss";
@@ -137,62 +138,79 @@ const ConfigLayout: FC<IConfigLayout> = () => {
   }, [currentWidget?.elements, layout?.elementId]);
 
   // 渲染组件
-  const renderElement = useCallback((data: IAnyObject) => {
-    if (data.element && elements[capitalizeFirstLetter(data.element)]) {
-      return (
-        <>
-          {React.createElement(elements[capitalizeFirstLetter(data.element)], {
-            options: data.configuration.configureValue,
-            data: data.configuration?.dataValue?.mock,
-            field: data.configuration?.dataValue?.field,
-          })}
-        </>
-      );
-    }
-    return <div>你访问的组件不存在请联系售后人员</div>;
-  }, []);
+  const renderElement = useCallback(
+    (data: IAnyObject) => {
+      if (data.element && elements[capitalizeFirstLetter(data.element)]) {
+        return (
+          <>
+            {layout?.elementId === data.elementId &&
+            layout?.selectedType === "element" ? (
+              <ConfigLayoutMask />
+            ) : null}
+            {React.createElement(
+              elements[capitalizeFirstLetter(data.element)],
+              {
+                options: data.configuration.configureValue,
+                data: data.configuration?.dataValue?.mock,
+                field: data.configuration?.dataValue?.field,
+              }
+            )}
+          </>
+        );
+      }
+      return <div>你访问的组件不存在请联系售后人员</div>;
+    },
+    [layout?.elementId, layout?.selectedType]
+  );
   // 渲染微件
   const renderWidget = useCallback(
     (data: IAnyObject) => {
       return (
-        <PreviewLayout
-          data={data}
-          header={
-            <GridLayout
-              datas={
-                data?.elements.filter(
-                  (item: IElement) => item.position === "header"
-                ) || []
-              }
-              column={WIDGET_HEADER_COLUMN}
-              row={WIDGET_HEADER_ROW}
-              gap={WIDGET_HEADER_GAP}
-              render={renderElement}
-              isDroppable
-              isResizable
-              staticed
-            />
-          }
-          body={
-            <GridLayout
-              datas={
-                data?.elements.filter(
-                  (item: IElement) => item.position === "body"
-                ) || []
-              }
-              column={WIDGET_BODY_COLUMN}
-              row={WIDGET_BODY_ROW}
-              gap={WIDGET_BODY_GAP}
-              render={renderElement}
-              isDroppable
-              isResizable
-              staticed
-            />
-          }
-        />
+        <>
+          {layout?.widgetId === data.widgetId &&
+          layout?.selectedType &&
+          ["widget", "data"].includes(layout?.selectedType) ? (
+            <ConfigLayoutMask />
+          ) : null}
+          <PreviewLayout
+            data={data}
+            header={
+              <GridLayout
+                datas={
+                  data?.elements.filter(
+                    (item: IElement) => item.position === "header"
+                  ) || []
+                }
+                column={WIDGET_HEADER_COLUMN}
+                row={WIDGET_HEADER_ROW}
+                gap={WIDGET_HEADER_GAP}
+                render={renderElement}
+                isDroppable
+                isResizable
+                staticed
+              />
+            }
+            body={
+              <GridLayout
+                datas={
+                  data?.elements.filter(
+                    (item: IElement) => item.position === "body"
+                  ) || []
+                }
+                column={WIDGET_BODY_COLUMN}
+                row={WIDGET_BODY_ROW}
+                gap={WIDGET_BODY_GAP}
+                render={renderElement}
+                isDroppable
+                isResizable
+                staticed
+              />
+            }
+          />
+        </>
       );
     },
-    [renderElement]
+    [layout?.selectedType, layout?.widgetId, renderElement]
   );
   // 新增微件
   const onDrop = useCallback(
@@ -242,6 +260,14 @@ const ConfigLayout: FC<IConfigLayout> = () => {
     dispatch({
       type: "DELETE_WIDGET",
       id: item.widgetId,
+    });
+  }, []);
+
+  // 改变
+  const onChange = useCallback((data: PageType | "") => {
+    dispatch({
+      type: "SELECTED_TYPE",
+      data,
     });
   }, []);
 
@@ -344,6 +370,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
         </ConfigLayoutMain>
         <ConfigLayoutRightAside
           navs={rightAside}
+          onChange={onChange}
           render={(data) => {
             if (data === "layer") {
               return (

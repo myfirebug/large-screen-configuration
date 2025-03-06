@@ -9,6 +9,7 @@ import {
   MODIFY_WIDGET,
   MODIFY_ELEMENT,
   DELETE_WIDGET,
+  SELECTED_TYPE,
 } from "./type";
 
 export const initialState: ALL_STATE = {
@@ -25,6 +26,7 @@ export const initialState: ALL_STATE = {
   elementId: undefined,
   widgetId: undefined,
   pageId: undefined,
+  selectedType: "",
 };
 
 export const pageReducer = (state = initialState, action: ModifyActions) => {
@@ -52,6 +54,7 @@ export const pageReducer = (state = initialState, action: ModifyActions) => {
     case ADD_WIDGET: {
       copy.page.widgets = [...copy.page.widgets, action.data];
       copy.widgetId = action.data.widgetId;
+      copy.elementId = "";
       return copy;
     }
     case MODIFY_WIDGET: {
@@ -93,6 +96,10 @@ export const pageReducer = (state = initialState, action: ModifyActions) => {
             action.data;
         }
       }
+      return copy;
+    }
+    case SELECTED_TYPE: {
+      copy.selectedType = action.data;
       return copy;
     }
     default: {
