@@ -9,3 +9,4 @@ export * from "./components/rightAside/components/widget";
 export * from "./components/rightAside/components/element";
 export * from "./components/rightAside/components/data";
 export * from "./components/rightAside/components/page";
+export * from "./components/mask";
