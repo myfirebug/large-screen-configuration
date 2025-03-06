@@ -9,6 +9,7 @@
   // border-radius: 8px;
   // box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   overflow: hidden;
+  box-sizing: border-box;
   @include e(header) {
     height: 40px;
     // border-bottom: 1px solid var(--cms-divider-color);
