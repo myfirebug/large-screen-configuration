@@ -1,18 +1,7 @@
 import React, { FC } from "react";
+import "./index.scss";
+interface IConfigLayoutMask {}
 
-interface IMask {}
-
-export const Mask: FC<IMask> = () => {
-  return (
-    <div
-      style={{
-        position: "absolute",
-        left: 0,
-        top: 0,
-        bottom: 0,
-        right: 0,
-        background: "rgba(255,255,255,0.5)",
-      }}
-    ></div>
-  );
+export const ConfigLayoutMask: FC<IConfigLayoutMask> = () => {
+  return <div className="cms-config-layout__mask"></div>;
 };
