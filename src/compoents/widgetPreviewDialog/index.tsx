@@ -1,9 +1,8 @@
 import React, { FC, useCallback } from "react";
 import { Modal, ModalProps } from "antd";
-import { IWidget } from "@src/service";
-import WidgetLayout from "@src/layout/widgetLayout";
-import { getStyles, capitalizeFirstLetter } from "@src/utils";
-import PreviewLayout from "@src/compoents/dragdrop/previewLayout";
+import { IElement, IWidget } from "@src/service";
+import PreviewLayout from "@src/layout/previewLayout";
+import { capitalizeFirstLetter } from "@src/utils";
 import {
   WIDGET_BODY_COLUMN,
   WIDGET_BODY_GAP,
@@ -13,6 +12,7 @@ import {
   WIDGET_HEADER_ROW,
 } from "@src/core/enums/access.enums";
 import elements from "@src/elements";
+import GridLayout from "@src/layout/gridLayout";
 
 interface IWidgetPreviewDialog extends ModalProps {
   onClose: () => void;
@@ -22,7 +22,6 @@ interface IWidgetPreviewDialog extends ModalProps {
 const WidgetPreviewDialog: FC<IWidgetPreviewDialog> = ({
   open,
   onClose,
-  height,
   data,
 }) => {
   const renderPreview = useCallback((data: IAnyObject) => {
@@ -46,49 +45,44 @@ const WidgetPreviewDialog: FC<IWidgetPreviewDialog> = ({
       footer={null}
       title={`微件预览`}
       destroyOnClose
-      width={600}
+      width={630}
     >
-      <WidgetLayout
-        style={{
-          ...getStyles(data?.configuration?.configureValue || {}),
-          height: "400px",
-        }}
-        headerStyles={{
-          ...getStyles(
-            data?.configuration?.configureValue || {},
-            "headerStyle"
-          ),
-          display: data?.configuration?.configureValue?.headerShow
-            ? "block"
-            : "none",
-        }}
-        bodyStyles={getStyles(
-          data?.configuration?.configureValue || {},
-          "bodyStyle"
-        )}
+      <PreviewLayout
+        data={data}
+        style={{ width: "600px", height: "400px" }}
         header={
-          <PreviewLayout
+          <GridLayout
             datas={
-              data?.elements.filter((item) => item.position === "header") || []
+              data?.elements.filter(
+                (item: IElement) => item.position === "header"
+              ) || []
             }
+            isDroppable={false}
+            isResizable={false}
             column={WIDGET_HEADER_COLUMN}
             row={WIDGET_HEADER_ROW}
             gap={WIDGET_HEADER_GAP}
             render={renderPreview}
-          ></PreviewLayout>
+            staticed
+          />
         }
         body={
-          <PreviewLayout
+          <GridLayout
             datas={
-              data?.elements.filter((item) => item.position === "body") || []
+              data?.elements.filter(
+                (item: IElement) => item.position === "body"
+              ) || []
             }
+            isDroppable={false}
+            isResizable={false}
             column={WIDGET_BODY_COLUMN}
             row={WIDGET_BODY_ROW}
             gap={WIDGET_BODY_GAP}
             render={renderPreview}
-          ></PreviewLayout>
+            staticed
+          />
         }
-      ></WidgetLayout>
+      />
     </Modal>
   );
 };
