@@ -146,7 +146,7 @@ const BaseForm: FC<IBaseForm> = ({ item, form, callback, formSubmit }) => {
         >
           <ColorPicker
             size="small"
-            //allowClear
+            allowClear
             format="hex"
             showText
             disabled={item.disabled}
