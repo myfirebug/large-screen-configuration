@@ -7,7 +7,6 @@ import React, {
   useState,
 } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import DragContent from "@src/compoents/dragdrop/dragContent";
 import elements from "@src/elements";
 import {
   ConfigLayoutHeader,
@@ -19,16 +18,16 @@ import {
   ConfigLayoutRightAsideWidget,
   ConfigLayoutRightAsideElement,
   ConfigLayoutRightAsideData,
-  Mask,
+  ConfigLayoutMask,
 } from "@src/layout/configLayout";
 
 import { widgetConfig } from "@src/core/config/base";
 
 import "@src/layout/configLayout/index.scss";
-import WidgetLayout from "@src/layout/widgetLayout";
+import PreviewLayout from "@src/layout/previewLayout";
 import { initialState, widgetReducer } from "./store/reducers";
 import { IElement, IWidget } from "@src/service";
-import { capitalizeFirstLetter, guid, getStyles } from "@src/utils";
+import { capitalizeFirstLetter, guid } from "@src/utils";
 import "animate.css";
 import {
   CACHE_WIDGETS,
@@ -44,6 +43,8 @@ import WidgetPreviewDialog from "@src/compoents/widgetPreviewDialog";
 import localforage from "localforage";
 import html2canvas from "html2canvas";
 import { Button, Form, message, Modal, Select } from "antd";
+import GridLayout from "@src/layout/gridLayout";
+import { Layout } from "react-grid-layout";
 interface IConfigLayout {}
 
 const ConfigLayout: FC<IConfigLayout> = () => {
@@ -101,46 +102,45 @@ const ConfigLayout: FC<IConfigLayout> = () => {
     }
   }, [location]);
 
-  const onDropHandler = (
-    position: "header" | "body",
-    isAdd: boolean,
-    data: IAnyObject
-  ) => {
-    // 新增
-    if (isAdd) {
+  // 编辑组件
+  const onDragStop = useCallback((item: Layout) => {
+    dispatch({
+      type: "MODIFY_ELEMENT",
+      data: {
+        x: item.x,
+        y: item.y,
+        elementId: item.i,
+      },
+    });
+  }, []);
+  // 改变组件大小
+  const onResizeStop = useCallback((item: Layout) => {
+    dispatch({
+      type: "MODIFY_ELEMENT",
+      data: {
+        row: item.w,
+        column: item.h,
+        elementId: item.i,
+      },
+    });
+  }, []);
+  // 新增组件
+  const onDrop = useCallback(
+    (item: Layout, data: IAnyObject, position: "header" | "body") => {
       dispatch({
         type: "ADD_ELEMENT",
         data: {
           ...data,
+          x: item.x,
+          y: item.y,
           position: position,
+          elementId: guid(),
         } as IElement,
       });
-    } else {
-      dispatch({
-        type: "MODIFY_ELEMENT",
-        data: {
-          ...data,
-          position: position,
-        } as IElement,
-      });
-    }
-  };
-
-  const onResizeEndHandler = useCallback((data: IAnyObject) => {
-    dispatch({
-      type: "MODIFY_ELEMENT",
-      data: { ...data },
-    });
-  }, []);
-
-  const onCloseHander = useCallback((id: string) => {
-    console.log(id, "onCloseHander");
-    dispatch({
-      type: "DELETE_ELEMENT",
-      id,
-    });
-  }, []);
-
+    },
+    []
+  );
+  // 渲染组件
   const renderPreview = useCallback(
     (data: IAnyObject) => {
       if (data.element && elements[capitalizeFirstLetter(data.element)]) {
@@ -148,7 +148,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
           <>
             {layout?.elementId === data.elementId &&
             layout?.selectedType === "element" ? (
-              <Mask />
+              <ConfigLayoutMask />
             ) : null}
 
             {React.createElement(
@@ -171,16 +171,16 @@ const ConfigLayout: FC<IConfigLayout> = () => {
     let arr: PageType[] = [];
     if (layout?.widgetId) {
       if (layout?.elementId) {
-        arr = ["layer", "element", "data"];
+        arr = ["layer", "element", "widget", "data"];
       } else {
-        arr = ["layer", "data"];
+        arr = ["layer", "widget", "data"];
       }
     } else {
-      arr = ["layer"];
+      arr = ["layer", "widget"];
     }
     return arr;
   }, [layout?.elementId, layout?.widgetId]);
-
+  // 选中组件
   const onSelected = useCallback(
     (type: "page" | "widget" | "element", id: string) => {
       if (type === "element" && id && layout?.elementId !== id) {
@@ -192,6 +192,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
     },
     [layout?.elementId]
   );
+  // 组件类型
   const types = useMemo(() => {
     let arr: any[] = [];
     for (let field in ELEMETSTYPE) {
@@ -202,6 +203,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
     }
     return arr;
   }, []);
+  // 发布
   const onFinish = (values: any) => {
     message.success("发布成功");
     navigate(-1);
@@ -212,17 +214,29 @@ const ConfigLayout: FC<IConfigLayout> = () => {
       })
     );
   };
-
+  // 当前选中微件
+  const currentWidget = useMemo(() => {
+    return layout?.widget;
+  }, [layout?.widget]);
+  // 当前选中组件
   const currentElement = useMemo(() => {
-    return layout?.widget.elements.find(
+    return currentWidget?.elements.find(
       (item) => item.elementId === layout?.elementId
     );
-  }, [layout?.elementId, layout?.widget.elements]);
-
-  const onChnage = useCallback((data: PageType | "") => {
+  }, [layout?.elementId, currentWidget]);
+  // 改变
+  const onChange = useCallback((data: PageType | "") => {
     dispatch({
       type: "SELECTED_TYPE",
       data,
+    });
+  }, []);
+
+  // 删除组件
+  const onClose = useCallback((item: IAnyObject) => {
+    dispatch({
+      type: "DELETE_ELEMENT",
+      id: item.elementId,
     });
   }, []);
 
@@ -274,77 +288,64 @@ const ConfigLayout: FC<IConfigLayout> = () => {
           }}
         />
         <ConfigLayoutMain>
-          <WidgetLayout
-            id="js_widget"
-            style={getStyles(
-              layout?.widget?.configuration?.configureValue || {}
-            )}
-            headerStyles={{
-              ...getStyles(
-                layout?.widget?.configuration?.configureValue || {},
-                "headerStyle"
-              ),
-              display: layout?.widget?.configuration?.configureValue?.headerShow
-                ? "block"
-                : "none",
+          <div
+            style={{
+              position: "relative",
+              width: `${
+                currentWidget?.configuration?.configureValue
+                  ?.widgetConfigWidth || 600
+              }px`,
+              height: `${
+                currentWidget?.configuration?.configureValue
+                  ?.widgetConfigHeight || 400
+              }px`,
             }}
-            bodyStyles={getStyles(
-              layout?.widget?.configuration?.configureValue || {},
-              "bodyStyle"
-            )}
-            header={
-              <DragContent
-                auxiliaryLineConfig={{
-                  show: isShowAuxiliaryLine,
-                  borderColor:
-                    layout?.widget?.configuration?.configureValue
-                      ?.auxiliaryLineBorderColor,
-                }}
-                column={WIDGET_HEADER_COLUMN}
-                row={WIDGET_HEADER_ROW}
-                gap={WIDGET_HEADER_GAP}
-                groupName="elements"
-                field="elementId"
-                datas={
-                  layout?.widget.elements.filter(
-                    (item) => item.position === "header"
-                  ) || []
-                }
-                onDropHandler={(isAdd, data) =>
-                  onDropHandler("header", isAdd, data)
-                }
-                onResizeEndHandler={onResizeEndHandler}
-                onCloseHander={onCloseHander}
-                renderPreview={renderPreview}
-              />
-            }
-            body={
-              <DragContent
-                auxiliaryLineConfig={{
-                  show: isShowAuxiliaryLine,
-                  borderColor:
-                    layout?.widget?.configuration?.configureValue
-                      ?.auxiliaryLineBorderColor,
-                }}
-                column={WIDGET_BODY_COLUMN}
-                row={WIDGET_BODY_ROW}
-                gap={WIDGET_BODY_GAP}
-                groupName="elements"
-                field="elementId"
-                datas={
-                  layout?.widget.elements.filter(
-                    (item) => item.position === "body"
-                  ) || []
-                }
-                onDropHandler={(isAdd, data) =>
-                  onDropHandler("body", isAdd, data)
-                }
-                onResizeEndHandler={onResizeEndHandler}
-                onCloseHander={onCloseHander}
-                renderPreview={renderPreview}
-              />
-            }
-          />
+            id="js_widget"
+          >
+            <PreviewLayout
+              header={
+                <GridLayout
+                  column={WIDGET_HEADER_COLUMN}
+                  row={WIDGET_HEADER_ROW}
+                  gap={WIDGET_HEADER_GAP}
+                  datas={
+                    currentWidget?.elements.filter(
+                      (item) => item.position === "header"
+                    ) || []
+                  }
+                  render={renderPreview}
+                  onDrop={(item, data) => onDrop(item, data, "header")}
+                  onDragStop={onDragStop}
+                  onResizeStop={onResizeStop}
+                  isDroppable={isShowAuxiliaryLine}
+                  isResizable={isShowAuxiliaryLine}
+                  staticed={!isShowAuxiliaryLine}
+                  onClose={onClose}
+                />
+              }
+              body={
+                <GridLayout
+                  column={WIDGET_BODY_COLUMN}
+                  row={WIDGET_BODY_ROW}
+                  gap={WIDGET_BODY_GAP}
+                  datas={
+                    currentWidget?.elements.filter(
+                      (item) => item.position === "body"
+                    ) || []
+                  }
+                  render={renderPreview}
+                  onDrop={(item, data) => onDrop(item, data, "body")}
+                  onDragStop={onDragStop}
+                  onResizeStop={onResizeStop}
+                  isDroppable={isShowAuxiliaryLine}
+                  isResizable={isShowAuxiliaryLine}
+                  staticed={!isShowAuxiliaryLine}
+                  onClose={onClose}
+                />
+              }
+              data={layout?.widget || {}}
+            />
+          </div>
         </ConfigLayoutMain>
         <ConfigLayoutRightAside
           navs={rightAside}
@@ -423,7 +424,6 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                   widgetDataValue={layout?.widget?.configuration?.dataValue}
                   widgetOnFinish={(data: IAnyObject) => {
                     const widget = layout?.widget;
-                    console.log(widget, "123");
                     dispatch({
                       type: "MODIFY_WIDGET",
                       data: {
@@ -468,7 +468,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
             }
             return <div>{data}</div>;
           }}
-          onChange={onChnage}
+          onChange={onChange}
         />
       </div>
 

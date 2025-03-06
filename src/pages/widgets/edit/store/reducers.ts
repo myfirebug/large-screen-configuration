@@ -1,4 +1,3 @@
-import { IElement } from "@src/service";
 import { ModifyActions } from "./action";
 import {
   ALL_STATE,
@@ -89,7 +88,10 @@ export const widgetReducer = (state = initialState, action: ModifyActions) => {
         (item) => item.elementId === action.data.elementId
       );
       if (index !== -1) {
-        copy.widget.elements[index] = { ...action.data } as IElement;
+        copy.widget.elements[index] = {
+          ...copy.widget.elements[index],
+          ...action.data,
+        };
         copy.elementId = action.data.elementId;
       }
       return copy;
