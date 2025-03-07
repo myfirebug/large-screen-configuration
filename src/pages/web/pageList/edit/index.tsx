@@ -50,7 +50,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
   let location = useLocation();
   const [layout, dispatch] = useReducer(pageReducer, initialState);
   const [, setShow] = useState(false);
-  const [, setIsShowAuxiliaryLine] = useState(true);
+  const [isShowAuxiliaryLine, setIsShowAuxiliaryLine] = useState(true);
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
@@ -345,6 +345,9 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                       ?.horizontalNumber
                   }
                   onDrop={(item, data) => onDrop(item, data, "header")}
+                  isDroppable={isShowAuxiliaryLine}
+                  isResizable={isShowAuxiliaryLine}
+                  staticed={!isShowAuxiliaryLine}
                   onDragStop={onDragStop}
                   onResizeStop={onResizeStop}
                   onClose={onClose}
@@ -367,6 +370,9 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                       ?.horizontalNumber
                   }
                   onDrop={(item, data) => onDrop(item, data, "body")}
+                  isDroppable={isShowAuxiliaryLine}
+                  isResizable={isShowAuxiliaryLine}
+                  staticed={!isShowAuxiliaryLine}
                   onDragStop={onDragStop}
                   onResizeStop={onResizeStop}
                   onClose={onClose}
