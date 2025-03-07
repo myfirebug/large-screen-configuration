@@ -37,10 +37,18 @@ large-screen-configuration 从零搭建基于 React 的大屏拖动配置管理�
 ![RUNOOB 图标](https://myfirebug.github.io/example-images/bigscreen/v2.0.1/elements.png)
 
 4. [x] 微件列表开发
+       ![RUNOOB 图标](https://myfirebug.github.io/example-images/bigscreen/v2.0.1/widget.png)
 
-5. [x] PC 微件配置开发
+5. [x] 微件配置开发
 
 ![RUNOOB 图标](https://myfirebug.github.io/example-images/bigscreen/v2.0.1/elementc-config.png)
+
+6. [x] 页面模版列表
+       ![RUNOOB 图标](https://myfirebug.github.io/example-images/bigscreen/v2.0.1/page.png)
+
+7. [x] 页面模版配置
+
+![RUNOOB 图标](https://myfirebug.github.io/example-images/bigscreen/v2.0.1/page-config.png)
 
 **已完成的组件**
 
