@@ -308,6 +308,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                   column={WIDGET_HEADER_COLUMN}
                   row={WIDGET_HEADER_ROW}
                   gap={WIDGET_HEADER_GAP}
+                  configureValue={currentWidget?.configuration?.configureValue}
                   datas={
                     currentWidget?.elements.filter(
                       (item) => item.position === "header"
@@ -328,6 +329,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                   column={WIDGET_BODY_COLUMN}
                   row={WIDGET_BODY_ROW}
                   gap={WIDGET_BODY_GAP}
+                  configureValue={currentWidget?.configuration?.configureValue}
                   datas={
                     currentWidget?.elements.filter(
                       (item) => item.position === "body"

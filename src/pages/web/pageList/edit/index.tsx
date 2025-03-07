@@ -181,6 +181,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                     (item: IElement) => item.position === "header"
                   ) || []
                 }
+                configureValue={layout?.page?.configuration?.configureValue}
                 column={WIDGET_HEADER_COLUMN}
                 row={WIDGET_HEADER_ROW}
                 gap={WIDGET_HEADER_GAP}
@@ -192,6 +193,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
             }
             body={
               <GridLayout
+                configureValue={layout?.page?.configuration?.configureValue}
                 datas={
                   data?.elements.filter(
                     (item: IElement) => item.position === "body"
@@ -210,7 +212,12 @@ const ConfigLayout: FC<IConfigLayout> = () => {
         </>
       );
     },
-    [layout?.selectedType, layout?.widgetId, renderElement]
+    [
+      layout?.page?.configuration?.configureValue,
+      layout?.selectedType,
+      layout?.widgetId,
+      renderElement,
+    ]
   );
   // 新增微件
   const onDrop = useCallback(
@@ -293,8 +300,8 @@ const ConfigLayout: FC<IConfigLayout> = () => {
               scale: 0.5,
               backgroundColor: "rgb(9, 5, 72)",
             }).then((canvas) => {
-              console.log(canvas.toDataURL());
               try {
+                console.log(canvas.toDataURL());
               } catch (e) {
                 message.error("存在跨域资源，缩略图获取失败");
               }
