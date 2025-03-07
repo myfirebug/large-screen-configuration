@@ -168,13 +168,6 @@ export const pageConfig = {
         name: "辅助线",
         list: [
           {
-            componentName: "Switch",
-            label: "是否显示",
-            name: "isShowAuxiliaryLine",
-            required: false,
-            placeholder: "",
-          },
-          {
             componentName: "SketchPicker",
             label: "边框颜色",
             name: "auxiliaryLineBorderColor",

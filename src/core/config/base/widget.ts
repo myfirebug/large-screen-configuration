@@ -18,6 +18,7 @@ export const widgetConfig = {
     auxiliaryLineBorderColor: "rgba(255, 255, 255, 0.2)",
     headerStyleBorderBottomColor: "rgb(15, 32, 212)",
     headerShow: true,
+    bodyShow: true,
     widgetConfigWidth: 600,
     widgetConfigHeight: 400,
   },
@@ -110,6 +111,13 @@ export const widgetConfig = {
         name: "主体",
         list: [
           {
+            componentName: "Switch",
+            label: "是否显示",
+            name: "bodyShow",
+            required: false,
+            placeholder: "",
+          },
+          {
             componentName: "Input",
             label: "背景图",
             name: "bodyStyleBackgroundImage",
@@ -167,13 +175,6 @@ export const widgetConfig = {
       {
         name: "辅助线",
         list: [
-          {
-            componentName: "Switch",
-            label: "是否显示",
-            name: "isShowAuxiliaryLine",
-            required: false,
-            placeholder: "",
-          },
           {
             componentName: "SketchPicker",
             label: "边框颜色",
