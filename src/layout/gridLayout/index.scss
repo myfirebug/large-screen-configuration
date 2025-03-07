@@ -23,8 +23,13 @@
   @include e(item) {
     width: 100%;
     height: 100%;
-    display: flex;
-    flexdirection: column;
+    @include m(content) {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flexdirection: column;
+      overflow: hidden;
+    }
   }
   @include e(close) {
     position: absolute;

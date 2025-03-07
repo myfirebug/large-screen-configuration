@@ -119,7 +119,9 @@ const GridLayout = memo((props: IGridLayout) => {
                       }}
                     ></div>
                   ) : null}
-                  {render?.(item)}
+                  <div className="cms-grid-layout__item--content">
+                    {render?.(item)}
+                  </div>
                 </div>
               ))}
             </ReactGridLayout>
