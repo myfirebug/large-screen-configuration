@@ -26,10 +26,20 @@ const PreviewLayout: FC<IPreviewLayout> = ({
       {data?.configuration?.configureValue?.headerShow ? (
         <div
           className="cms-preview-layout__header"
-          style={getStyles(
-            data?.configuration?.configureValue || {},
-            "headerStyle"
-          )}
+          style={{
+            ...getStyles(
+              data?.configuration?.configureValue || {},
+              "headerStyle"
+            ),
+            height: !(
+              data?.configuration?.configureValue?.bodyShow ||
+              data?.configuration?.configureValue?.bodyShow === undefined
+            )
+              ? "100%"
+              : `${
+                  data?.configuration?.configureValue?.headerStyleHeight || 40
+                }px`,
+          }}
         >
           {header}
         </div>
