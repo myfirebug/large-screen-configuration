@@ -24,6 +24,7 @@ interface IGridLayout {
 
 const GridLayout = memo((props: IGridLayout) => {
   const {
+    configureValue,
     groupName = "elements",
     row = 3,
     column = 4,
@@ -54,6 +55,7 @@ const GridLayout = memo((props: IGridLayout) => {
       }) || [];
     return arr;
   }, [datas, staticed]);
+  console.log(configureValue, "configureValue");
   return (
     <BoundingClientRect
       render={(width, height) => {
@@ -66,6 +68,7 @@ const GridLayout = memo((props: IGridLayout) => {
                 width={width}
                 height={height}
                 row={row}
+                borderColor={configureValue?.auxiliaryLineBorderColor}
               />
             ) : null}
 
@@ -84,7 +87,7 @@ const GridLayout = memo((props: IGridLayout) => {
               onDrop={(data, item, e) => {
                 const dragData = dragStore.get(groupName as string);
                 console.log("onDrop");
-                if (item.x <= row && item.y <= column) {
+                if (item.x <= column && item.y <= row) {
                   onDrop?.(item, dragData);
                 }
               }}

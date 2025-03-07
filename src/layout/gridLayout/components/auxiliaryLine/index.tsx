@@ -6,6 +6,7 @@ interface IAuxiliaryLine {
   width: number;
   height: number;
   row: number;
+  borderColor?: string;
 }
 
 const AuxiliaryLine: FC<IAuxiliaryLine> = ({
@@ -14,6 +15,7 @@ const AuxiliaryLine: FC<IAuxiliaryLine> = ({
   width,
   height,
   row,
+  borderColor = "rgba(255, 255, 255, 0.2)",
 }) => {
   const style = useMemo(() => {
     return {
@@ -36,7 +38,7 @@ const AuxiliaryLine: FC<IAuxiliaryLine> = ({
         <div
           key={index}
           style={{
-            borderColor: "rgba(255, 255, 255, 0.2)",
+            borderColor: borderColor || "rgba(255, 255, 255, 0.2)",
           }}
         ></div>
       ))}
