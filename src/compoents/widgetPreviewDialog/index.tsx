@@ -45,11 +45,22 @@ const WidgetPreviewDialog: FC<IWidgetPreviewDialog> = ({
       footer={null}
       title={`微件预览`}
       destroyOnClose
-      width={630}
+      width={
+        data?.configuration?.configureValue?.widgetConfigWidth
+          ? data?.configuration?.configureValue?.widgetConfigWidth + 30
+          : 630
+      }
     >
       <PreviewLayout
         data={data}
-        style={{ width: "600px", height: "400px" }}
+        style={{
+          width: `${
+            data?.configuration?.configureValue?.widgetConfigWidth || 600
+          }px`,
+          height: `${
+            data?.configuration?.configureValue?.widgetConfigHeight || 400
+          }px`,
+        }}
         header={
           <GridLayout
             datas={
