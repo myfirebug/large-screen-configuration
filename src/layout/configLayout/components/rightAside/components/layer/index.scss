@@ -19,6 +19,7 @@
         transition: all 0.25s ease 0s;
         overflow: hidden;
         text-overflow: ellipsis;
+        white-space: nowrap;
         transition: all 0.25s ease 0s;
         &:hover,
         &.is-active {
