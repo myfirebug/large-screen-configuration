@@ -8,9 +8,11 @@ interface IConfigLayoutMain {
 export const ConfigLayoutMain: FC<IConfigLayoutMain> = ({ children }) => {
   return (
     <div className="cms-config-layout__main">
-      <div className="cms-config-layout__center">
-        <Rule />
-        {children}
+      <div className="cms-config-layout__body">
+        <div className="cms-config-layout__center">
+          <Rule />
+          {children}
+        </div>
       </div>
     </div>
   );
