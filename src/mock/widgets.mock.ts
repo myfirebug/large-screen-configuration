@@ -756,8 +756,6 @@ export const widgets = {
                         { name: "Wed", value: 101 },
                         { name: "Thu", value: 134 },
                         { name: "Fri", value: 90 },
-                        { name: "Sat", value: 230 },
-                        { name: "Sun", value: 210 },
                       ],
                     },
                   ],
