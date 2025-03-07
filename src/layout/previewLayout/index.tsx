@@ -34,15 +34,18 @@ const PreviewLayout: FC<IPreviewLayout> = ({
           {header}
         </div>
       ) : null}
-      <div
-        className="cms-preview-layout__body"
-        style={getStyles(
-          data?.configuration?.configureValue || {},
-          "bodyStyle"
-        )}
-      >
-        {body}
-      </div>
+      {data?.configuration?.configureValue?.bodyShow ||
+      data?.configuration?.configureValue?.bodyShow === undefined ? (
+        <div
+          className="cms-preview-layout__body"
+          style={getStyles(
+            data?.configuration?.configureValue || {},
+            "bodyStyle"
+          )}
+        >
+          {body}
+        </div>
+      ) : null}
     </div>
   );
 };
