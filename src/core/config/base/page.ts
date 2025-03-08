@@ -8,7 +8,7 @@ export const pageConfig = {
     verticalNumber: 3,
     styleBackgroundColor: "#090548",
     headerStyleHeight: 80,
-    headerShow: true,
+    headerShow: false,
   },
   configure: [
     [
@@ -72,40 +72,6 @@ export const pageConfig = {
     ],
 
     [
-      {
-        name: "头部",
-        list: [
-          {
-            componentName: "Switch",
-            label: "是否显示",
-            name: "headerShow",
-            required: false,
-            placeholder: "",
-          },
-          {
-            componentName: "Input",
-            label: "背景图",
-            name: "headerStyleBackgroundImage",
-            required: false,
-            placeholder: "请输入背景图地址",
-          },
-          {
-            componentName: "SketchPicker",
-            label: "背景颜色",
-            name: "headerStyleBackgroundColor",
-            required: false,
-            placeholder: "",
-          },
-          {
-            componentName: "InputNumber",
-            label: "高度",
-            name: "headerStyleHeight",
-            required: false,
-            placeholder: "请输入高度",
-            addonAfter: "px",
-          },
-        ],
-      },
       {
         name: "主体",
         list: [
