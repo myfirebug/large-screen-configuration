@@ -9,7 +9,6 @@ import {
   MODIFY_WIDGET,
   MODIFY_ELEMENT,
   DELETE_WIDGET,
-  SELECTED_TYPE,
 } from "./type";
 
 export const initialState: ALL_STATE = {
@@ -17,6 +16,7 @@ export const initialState: ALL_STATE = {
     name: "未命名页面",
     id: "",
     createTime: "",
+    url: "",
     count: 0,
     configuration: {},
     widgets: [],
@@ -26,12 +26,12 @@ export const initialState: ALL_STATE = {
   elementId: undefined,
   widgetId: undefined,
   pageId: undefined,
-  selectedType: "",
 };
 
 export const pageReducer = (state = initialState, action: ModifyActions) => {
   const copy: ALL_STATE = JSON.parse(JSON.stringify(state));
-  console.log(state, action);
+  console.log(JSON.stringify(state), action);
+  // console.log(state, action);
   switch (action.type) {
     // 获取页面
     case PAGE: {
@@ -96,10 +96,6 @@ export const pageReducer = (state = initialState, action: ModifyActions) => {
             action.data;
         }
       }
-      return copy;
-    }
-    case SELECTED_TYPE: {
-      copy.selectedType = action.data;
       return copy;
     }
     default: {

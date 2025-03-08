@@ -6,7 +6,7 @@ import React, {
   useReducer,
   useState,
 } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   ConfigLayoutHeader,
   ConfigLayoutMain,
@@ -32,9 +32,10 @@ import "./index.scss";
 import elements from "@src/elements";
 
 import GridLayout from "@src/layout/gridLayout";
-import { IElement, IWidget } from "@src/service";
+import { IElement, IPage, IWidget } from "@src/service";
 import PreviewLayout from "@src/layout/previewLayout";
 import {
+  CACHE_PAGES,
   WIDGET_BODY_COLUMN,
   WIDGET_BODY_GAP,
   WIDGET_BODY_ROW,
@@ -43,6 +44,7 @@ import {
   WIDGET_HEADER_ROW,
 } from "@src/core/enums/access.enums";
 import { Layout } from "react-grid-layout";
+import localforage from "localforage";
 
 interface IConfigLayout {}
 
@@ -51,17 +53,37 @@ const ConfigLayout: FC<IConfigLayout> = () => {
   const [layout, dispatch] = useReducer(pageReducer, initialState);
   const [, setShow] = useState(false);
   const [isShowAuxiliaryLine, setIsShowAuxiliaryLine] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     // 编辑
     if (queryParams.size) {
+      const pageId = queryParams.get("pageId");
+      if (pageId) {
+        localforage.getItem(CACHE_PAGES, (err, value) => {
+          if (value) {
+            const curr = (value as IPage[]).find(
+              (item) => item.pageId === pageId
+            );
+            if (curr) {
+              dispatch({
+                type: "PAGE",
+                data: curr,
+              });
+            } else {
+              console.log("找不到微件ID");
+            }
+          }
+        });
+      }
     } else {
       dispatch({
         type: "PAGE",
         data: {
           name: "未命名页面",
           id: "",
+          url: "",
           createTime: "",
           count: 0,
           pageId: guid(),
@@ -138,40 +160,25 @@ const ConfigLayout: FC<IConfigLayout> = () => {
   }, [currentWidget?.elements, layout?.elementId]);
 
   // 渲染组件
-  const renderElement = useCallback(
-    (data: IAnyObject) => {
-      if (data.element && elements[capitalizeFirstLetter(data.element)]) {
-        return (
-          <>
-            {layout?.elementId === data.elementId &&
-            layout?.selectedType === "element" ? (
-              <ConfigLayoutMask />
-            ) : null}
-            {React.createElement(
-              elements[capitalizeFirstLetter(data.element)],
-              {
-                options: data.configuration.configureValue,
-                data: data.configuration?.dataValue?.mock,
-                field: data.configuration?.dataValue?.field,
-              }
-            )}
-          </>
-        );
-      }
-      return <div>你访问的组件不存在请联系售后人员</div>;
-    },
-    [layout?.elementId, layout?.selectedType]
-  );
+  const renderElement = useCallback((data: IAnyObject) => {
+    if (data.element && elements[capitalizeFirstLetter(data.element)]) {
+      return React.createElement(
+        elements[capitalizeFirstLetter(data.element)],
+        {
+          options: data.configuration.configureValue,
+          data: data.configuration?.dataValue?.mock,
+          field: data.configuration?.dataValue?.field,
+        }
+      );
+    }
+    return <div>你访问的组件不存在请联系售后人员</div>;
+  }, []);
   // 渲染微件
   const renderWidget = useCallback(
     (data: IAnyObject) => {
       return (
         <>
-          {layout?.widgetId === data.widgetId &&
-          layout?.selectedType &&
-          ["widget", "data"].includes(layout?.selectedType) ? (
-            <ConfigLayoutMask />
-          ) : null}
+          {layout?.widgetId === data.widgetId ? <ConfigLayoutMask /> : null}
           <PreviewLayout
             data={data}
             header={
@@ -214,7 +221,6 @@ const ConfigLayout: FC<IConfigLayout> = () => {
     },
     [
       layout?.page?.configuration?.configureValue,
-      layout?.selectedType,
       layout?.widgetId,
       renderElement,
     ]
@@ -230,9 +236,11 @@ const ConfigLayout: FC<IConfigLayout> = () => {
           x: item.x,
           y: item.y,
           position: type,
+          url: "",
           elements: data?.elements?.map((element) => ({
             ...element,
             elementId: guid(),
+            url: "",
           })),
         },
       });
@@ -270,14 +278,6 @@ const ConfigLayout: FC<IConfigLayout> = () => {
     });
   }, []);
 
-  // 改变
-  const onChange = useCallback((data: PageType | "") => {
-    dispatch({
-      type: "SELECTED_TYPE",
-      data,
-    });
-  }, []);
-
   return (
     <div className="cms-config-layout">
       <ConfigLayoutHeader
@@ -293,6 +293,10 @@ const ConfigLayout: FC<IConfigLayout> = () => {
         }}
         previewHandler={() => setShow(true)}
         publishHandler={() => {
+          dispatch({
+            type: "SELECT_WIDGET",
+            widgetId: "",
+          });
           setIsShowAuxiliaryLine(false);
           setTimeout(() => {
             html2canvas(document.getElementById("js_page") as HTMLElement, {
@@ -301,7 +305,15 @@ const ConfigLayout: FC<IConfigLayout> = () => {
               backgroundColor: "rgb(9, 5, 72)",
             }).then((canvas) => {
               try {
-                console.log(canvas.toDataURL());
+                dispatch({
+                  type: "MODIFY_PAGE",
+                  data: {
+                    url: canvas?.toDataURL(),
+                  },
+                });
+                // navigate(-1);
+                console.log(navigate);
+                message.success("发布成功");
               } catch (e) {
                 message.error("存在跨域资源，缩略图获取失败");
               }
@@ -323,36 +335,20 @@ const ConfigLayout: FC<IConfigLayout> = () => {
           <div
             style={{
               position: "relative",
-              width: `${layout?.page?.configuration?.configureValue?.pageConfigWidth}px`,
-              height: `${layout?.page?.configuration?.configureValue?.pageConfigHeight}px`,
+              width: `${
+                layout?.page?.configuration?.configureValue?.pageConfigWidth ||
+                1366
+              }px`,
+              height: `${
+                layout?.page?.configuration?.configureValue?.pageConfigHeight ||
+                768
+              }px`,
             }}
             id="js_page"
           >
             <PreviewLayout
               data={layout?.page || {}}
-              header={
-                <GridLayout
-                  datas={
-                    layout?.page?.widgets?.filter(
-                      (item) => item.position === "header"
-                    ) || []
-                  }
-                  render={renderWidget}
-                  configureValue={layout?.page?.configuration?.configureValue}
-                  row={1}
-                  column={
-                    layout?.page?.configuration?.configureValue
-                      ?.horizontalNumber
-                  }
-                  onDrop={(item, data) => onDrop(item, data, "header")}
-                  isDroppable={isShowAuxiliaryLine}
-                  isResizable={isShowAuxiliaryLine}
-                  staticed={!isShowAuxiliaryLine}
-                  onDragStop={onDragStop}
-                  onResizeStop={onResizeStop}
-                  onClose={onClose}
-                />
-              }
+              header={null}
               body={
                 <GridLayout
                   datas={
@@ -383,7 +379,6 @@ const ConfigLayout: FC<IConfigLayout> = () => {
         </ConfigLayoutMain>
         <ConfigLayoutRightAside
           navs={rightAside}
-          onChange={onChange}
           render={(data) => {
             if (data === "layer") {
               return (
