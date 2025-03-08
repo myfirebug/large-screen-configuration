@@ -6,7 +6,6 @@ import {
   MODIFY_ELEMENT_TYPE,
   ADD_ELEMENT_TYPE,
   DELETE_ELEMENT_TYPE,
-  SELECTED_TYPE_TYPE,
 } from "./type";
 
 export interface widgetAction {
@@ -39,16 +38,10 @@ export interface modifyElementAction {
   data: IAnyObject;
 }
 
-export interface selectedTypeAction {
-  type: SELECTED_TYPE_TYPE;
-  data: PageType | "";
-}
-
 export type ModifyActions =
   | widgetAction
   | modifyWidgetAction
   | addElementAction
   | deleteElementAction
   | selectElementAction
-  | modifyElementAction
-  | selectedTypeAction;
+  | modifyElementAction;

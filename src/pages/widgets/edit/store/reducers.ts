@@ -7,7 +7,6 @@ import {
   SELECT_ELEMENT,
   ADD_ELEMENT,
   DELETE_ELEMENT,
-  SELECTED_TYPE,
 } from "./type";
 import elementsConfig from "@src/core/config/elements";
 import { widgetConfig } from "@src/core/config/base";
@@ -30,7 +29,6 @@ export const initialState: ALL_STATE = {
   },
   elementId: undefined,
   widgetId: undefined,
-  selectedType: "",
 };
 
 export const widgetReducer = (state = initialState, action: ModifyActions) => {
@@ -99,10 +97,6 @@ export const widgetReducer = (state = initialState, action: ModifyActions) => {
 
     case SELECT_ELEMENT: {
       copy.elementId = action.id;
-      return copy;
-    }
-    case SELECTED_TYPE: {
-      copy.selectedType = action.data;
       return copy;
     }
     default: {

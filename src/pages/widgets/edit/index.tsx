@@ -146,10 +146,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
       if (data.element && elements[capitalizeFirstLetter(data.element)]) {
         return (
           <>
-            {layout?.elementId === data.elementId &&
-            layout?.selectedType === "element" ? (
-              <ConfigLayoutMask />
-            ) : null}
+            {layout?.elementId === data.elementId ? <ConfigLayoutMask /> : null}
 
             {React.createElement(
               elements[capitalizeFirstLetter(data.element)],
@@ -164,7 +161,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
       }
       return <div>你访问的组件不存在请联系售后人员</div>;
     },
-    [layout?.elementId, layout?.selectedType]
+    [layout?.elementId]
   );
   // 判断右侧边栏所需模块
   const rightAside = useMemo(() => {
@@ -206,6 +203,10 @@ const ConfigLayout: FC<IConfigLayout> = () => {
   // 发布
   const onFinish = (values: any) => {
     message.success("发布成功");
+    dispatch({
+      type: "SELECT_ELEMENT",
+      id: "",
+    });
     navigate(-1);
     console.log(
       JSON.stringify({
@@ -224,13 +225,6 @@ const ConfigLayout: FC<IConfigLayout> = () => {
       (item) => item.elementId === layout?.elementId
     );
   }, [layout?.elementId, currentWidget]);
-  // 改变
-  const onChange = useCallback((data: PageType | "") => {
-    dispatch({
-      type: "SELECTED_TYPE",
-      data,
-    });
-  }, []);
 
   // 删除组件
   const onClose = useCallback((item: IAnyObject) => {
@@ -468,9 +462,8 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                 />
               );
             }
-            return <div>{data}</div>;
+            return null;
           }}
-          onChange={onChange}
         />
       </div>
 
