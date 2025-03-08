@@ -4,6 +4,7 @@ export interface IPage {
   name: string;
   id: string;
   createTime: string;
+  url: string;
   count: number;
   pageId: string;
   screenRatio: string;
