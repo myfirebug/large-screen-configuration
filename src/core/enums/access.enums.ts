@@ -36,3 +36,6 @@ export const WIDGET_BODY_GAP = 4;
 
 // 缓存微件列表
 export const CACHE_WIDGETS = "CACHE_WIDGETS";
+
+// 缓存页面列表
+export const CACHE_PAGES = "CACHE_PAGES";
