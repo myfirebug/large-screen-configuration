@@ -1,5 +1,7 @@
 import { useState, useCallback } from "react";
 import { API, IPage } from "@service/index";
+import localforage from "localforage";
+import { CACHE_PAGES } from "../enums/access.enums";
 export function web() {
   // 是否处理loading状态
   const [pagesLoading, setPagesLoading] = useState<boolean>(false);
@@ -13,6 +15,8 @@ export function web() {
         setPagesLoading(false);
         setPagesList(res.data);
         setFilterPagesList(res.data);
+        // 缓存数据到indexdb
+        localforage.setItem(CACHE_PAGES, res.data);
       })
       .catch(() => {
         setPagesLoading(false);
