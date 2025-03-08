@@ -55,7 +55,7 @@ const GridLayout = memo((props: IGridLayout) => {
       }) || [];
     return arr;
   }, [datas, staticed]);
-  console.log(configureValue, "configureValue");
+  console.log("update");
   return (
     <BoundingClientRect
       render={(width, height) => {
@@ -81,7 +81,8 @@ const GridLayout = memo((props: IGridLayout) => {
               maxRows={row}
               width={width}
               cols={column}
-              verticalCompact={false}
+              // verticalCompact={false}
+              compactType={null}
               preventCollision
               margin={[gap, gap]}
               onDrop={(data, item, e) => {
