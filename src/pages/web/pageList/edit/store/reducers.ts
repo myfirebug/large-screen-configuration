@@ -30,8 +30,6 @@ export const initialState: ALL_STATE = {
 
 export const pageReducer = (state = initialState, action: ModifyActions) => {
   const copy: ALL_STATE = JSON.parse(JSON.stringify(state));
-  console.log(JSON.stringify(state), action);
-  // console.log(state, action);
   switch (action.type) {
     // 获取页面
     case PAGE: {
