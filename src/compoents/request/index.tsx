@@ -1,16 +1,5 @@
-import React, { FC } from "react";
-import { useRequest } from "ahooks";
+import React, { memo, useEffect, useState } from "react";
 import axios from "axios";
-
-interface IResult {
-  code: string;
-  data: any;
-  msg: string;
-  success: boolean;
-
-  [propNames: string]: any;
-}
-
 interface IRequestProps {
   // 类型
   method: "get" | "post";
@@ -18,42 +7,35 @@ interface IRequestProps {
   url: string;
   // 接口参数
   params: string;
-  render: (data: any, success: boolean, setP?: React.Dispatch<any>) => any;
+  render: (loading: boolean, success: boolean, data: any) => any;
 }
 
-const Request: FC<IRequestProps> = ({ method, url, params, render }) => {
-  if (url && method) {
-    // 获取数据
-    const { data, error } = useRequest(
-      async () => {
-        return await new Promise(
-          (resolve: (data: IResult) => void, reject: (data: any) => void) => {
-            axios({
-              url:
-                process.env.REACT_APP_ENV === "production" &&
-                url === "http://localhost:3000/configuration"
-                  ? "https://myfirebug.github.io/bigscreen/configuration"
-                  : url,
-              method: method,
-              params: JSON.parse(params),
-            })
-              .then((res: any) => {
-                resolve(res);
-              })
-              .catch((res) => {
-                reject(res);
-              });
-          }
-        );
-      },
-      {
-        refreshDeps: [params, url],
-        ready: Boolean(url),
-      }
-    );
+const Request = memo((props: IRequestProps) => {
+  const { method, url, params, render } = props;
+  // 获取数据
+  const [data, setData] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
-    return <>{render(data, !error)}</>;
-  }
-  return <>{render(null, false)}</>;
-};
+  useEffect(() => {
+    if (url && method) {
+      setLoading(true);
+      axios({
+        url: url,
+        method: method,
+        params: JSON.parse(params),
+      })
+        .then((res: any) => {
+          setLoading(false);
+          setSuccess(true);
+          setData(res.data.data || res.data);
+        })
+        .catch((res) => {
+          setLoading(false);
+          setSuccess(false);
+        });
+    }
+  }, [url, params, method]);
+  return <>{render(loading, success, data)}</>;
+});
 export default Request;
