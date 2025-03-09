@@ -18,7 +18,6 @@ import {
   ConfigLayoutRightAsideWidget,
   ConfigLayoutRightAsideElement,
   ConfigLayoutRightAsideData,
-  ConfigLayoutMask,
 } from "@src/layout/configLayout";
 
 import { widgetConfig } from "@src/core/config/base";
@@ -141,27 +140,20 @@ const ConfigLayout: FC<IConfigLayout> = () => {
     []
   );
   // 渲染组件
-  const renderPreview = useCallback(
-    (data: IAnyObject) => {
-      if (data.element && elements[capitalizeFirstLetter(data.element)]) {
-        return (
-          <>
-            {layout?.elementId === data.elementId ? <ConfigLayoutMask /> : null}
-            {React.createElement(
-              elements[capitalizeFirstLetter(data.element)],
-              {
-                options: data.configuration.configureValue,
-                data: data.configuration?.dataValue?.mock,
-                field: data.configuration?.dataValue?.field,
-              }
-            )}
-          </>
-        );
-      }
-      return <div>你访问的组件不存在请联系售后人员</div>;
-    },
-    [layout?.elementId]
-  );
+  const renderPreview = useCallback((data: IAnyObject) => {
+    console.log("element update", data.elementId);
+    if (data.element && elements[capitalizeFirstLetter(data.element)]) {
+      return React.createElement(
+        elements[capitalizeFirstLetter(data.element)],
+        {
+          options: data.configuration.configureValue,
+          data: data.configuration?.dataValue?.mock,
+          field: data.configuration?.dataValue?.field,
+        }
+      );
+    }
+    return <div>你访问的组件不存在请联系售后人员</div>;
+  }, []);
   // 判断右侧边栏所需模块
   const rightAside = useMemo(() => {
     let arr: PageType[] = [];
@@ -298,6 +290,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
             <PreviewLayout
               header={
                 <GridLayout
+                  selectedId={layout?.elementId}
                   column={WIDGET_HEADER_COLUMN}
                   row={WIDGET_HEADER_ROW}
                   gap={WIDGET_HEADER_GAP}
@@ -319,6 +312,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
               }
               body={
                 <GridLayout
+                  selectedId={layout?.elementId}
                   column={WIDGET_BODY_COLUMN}
                   row={WIDGET_BODY_ROW}
                   gap={WIDGET_BODY_GAP}
