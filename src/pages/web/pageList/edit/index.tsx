@@ -19,7 +19,6 @@ import {
   ConfigLayoutRightAsideElement,
   ConfigLayoutRightAsideData,
   ConfigLayoutRightAsidePage,
-  ConfigLayoutMask,
 } from "@src/layout/configLayout";
 
 import "@src/layout/configLayout/index.scss";
@@ -162,6 +161,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
 
   // 渲染组件
   const renderElement = useCallback((data: IAnyObject) => {
+    console.log("element update", data.elementId);
     if (data.element && elements[capitalizeFirstLetter(data.element)]) {
       return React.createElement(
         elements[capitalizeFirstLetter(data.element)],
@@ -178,53 +178,46 @@ const ConfigLayout: FC<IConfigLayout> = () => {
   const renderWidget = useCallback(
     (data: IAnyObject) => {
       return (
-        <>
-          {layout?.widgetId === data.widgetId ? <ConfigLayoutMask /> : null}
-          <PreviewLayout
-            data={data}
-            header={
-              <GridLayout
-                datas={
-                  data?.elements.filter(
-                    (item: IElement) => item.position === "header"
-                  ) || []
-                }
-                configureValue={layout?.page?.configuration?.configureValue}
-                column={WIDGET_HEADER_COLUMN}
-                row={WIDGET_HEADER_ROW}
-                gap={WIDGET_HEADER_GAP}
-                render={renderElement}
-                isDroppable
-                isResizable
-                staticed
-              />
-            }
-            body={
-              <GridLayout
-                configureValue={layout?.page?.configuration?.configureValue}
-                datas={
-                  data?.elements.filter(
-                    (item: IElement) => item.position === "body"
-                  ) || []
-                }
-                column={WIDGET_BODY_COLUMN}
-                row={WIDGET_BODY_ROW}
-                gap={WIDGET_BODY_GAP}
-                render={renderElement}
-                isDroppable
-                isResizable
-                staticed
-              />
-            }
-          />
-        </>
+        <PreviewLayout
+          data={data}
+          header={
+            <GridLayout
+              datas={
+                data?.elements.filter(
+                  (item: IElement) => item.position === "header"
+                ) || []
+              }
+              configureValue={layout?.page?.configuration?.configureValue}
+              column={WIDGET_HEADER_COLUMN}
+              row={WIDGET_HEADER_ROW}
+              gap={WIDGET_HEADER_GAP}
+              render={renderElement}
+              isDroppable
+              isResizable
+              staticed
+            />
+          }
+          body={
+            <GridLayout
+              configureValue={layout?.page?.configuration?.configureValue}
+              datas={
+                data?.elements.filter(
+                  (item: IElement) => item.position === "body"
+                ) || []
+              }
+              column={WIDGET_BODY_COLUMN}
+              row={WIDGET_BODY_ROW}
+              gap={WIDGET_BODY_GAP}
+              render={renderElement}
+              isDroppable
+              isResizable
+              staticed
+            />
+          }
+        />
       );
     },
-    [
-      layout?.page?.configuration?.configureValue,
-      layout?.widgetId,
-      renderElement,
-    ]
+    [layout?.page?.configuration?.configureValue, renderElement]
   );
   // 新增微件
   const onDrop = useCallback(
@@ -357,6 +350,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                       (item) => item.position === "body"
                     ) || []
                   }
+                  selectedId={layout?.widgetId}
                   render={renderWidget}
                   configureValue={layout?.page?.configuration?.configureValue}
                   row={
