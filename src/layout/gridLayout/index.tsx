@@ -15,7 +15,7 @@ interface IGridLayout {
   isDroppable?: boolean;
   isResizable?: boolean;
   staticed?: boolean;
-  render?: (data: IAnyObject) => ReactNode;
+  render?: (data: IAnyObject, realDdata?: IAnyObject) => ReactNode;
   onDrop?: (item: Layout, data: any) => void;
   onDragStop?: (item: Layout) => void;
   onResizeStop?: (item: Layout) => void;
