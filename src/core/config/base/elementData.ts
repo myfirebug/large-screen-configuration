@@ -9,14 +9,14 @@ export const elementDataConfig = {
   },
   // 数据项配置
   configure: [
-    {
-      componentName: "Switch",
-      label: "使用微件数据",
-      name: "useInterface",
-      required: false,
-      placeholder: "",
-      tooltip: "该组件使用微件的接口数据",
-    },
+    // {
+    //   componentName: "Switch",
+    //   label: "使用微件数据",
+    //   name: "useInterface",
+    //   required: false,
+    //   placeholder: "",
+    //   tooltip: "该组件使用微件的接口数据",
+    // },
     {
       componentName: "JsonEdit",
       label: "模拟数据",

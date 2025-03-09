@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useEffect, useState } from "react";
-import { Button, Form } from "antd";
+import { Button, Form, Switch } from "antd";
 import DynamicForm from "../dynamicForm";
 import { elementDataConfig, widgetDataConfig } from "@src/core/config/base";
 import { Tabs } from "antd";
@@ -13,6 +13,7 @@ interface IConfigLayoutRightAsideData {
   elementDataValue: IAnyObject;
   widgetOnFinish: (data: IAnyObject) => void;
   elementOnFinish: (data: IAnyObject) => void;
+  isShowWidgetDataConfig?: boolean;
 }
 
 export const ConfigLayoutRightAsideData: FC<IConfigLayoutRightAsideData> = ({
@@ -20,6 +21,7 @@ export const ConfigLayoutRightAsideData: FC<IConfigLayoutRightAsideData> = ({
   elementDataValue,
   widgetOnFinish,
   elementOnFinish,
+  isShowWidgetDataConfig,
 }) => {
   const [elementForm] = Form.useForm();
   const [widgetForm] = Form.useForm();
@@ -57,6 +59,16 @@ export const ConfigLayoutRightAsideData: FC<IConfigLayoutRightAsideData> = ({
             initialValues={elementDataValue}
             onFinish={elementOnFinish}
           >
+            {isShowWidgetDataConfig ? (
+              <Form.Item
+                label="使用微件数据"
+                name="useInterface"
+                tooltip="该组件使用微件的接口数据"
+                valuePropName="checked"
+              >
+                <Switch size="small" />
+              </Form.Item>
+            ) : null}
             <DynamicForm
               formSubmit
               datas={elementDataConfig.configure || []}
@@ -80,42 +92,44 @@ export const ConfigLayoutRightAsideData: FC<IConfigLayoutRightAsideData> = ({
             </Form.Item>
           </Form>
         </TabPane>
-        <TabPane
-          tabKey="2"
-          tab="微件"
-          key="2"
-          disabled={!Boolean(widgetDataValue)}
-        >
-          <Form
-            layout="vertical"
-            labelAlign="left"
-            form={widgetForm}
-            initialValues={widgetDataValue}
-            onFinish={widgetOnFinish}
+        {isShowWidgetDataConfig ? (
+          <TabPane
+            tabKey="2"
+            tab="微件"
+            key="2"
+            disabled={!Boolean(widgetDataValue)}
           >
-            <DynamicForm
-              formSubmit
-              datas={widgetDataConfig.configure || []}
+            <Form
+              layout="vertical"
+              labelAlign="left"
               form={widgetForm}
-              callback={(field: string, value: any) => {
-                const val =
-                  value && !isNaN(value) && typeof value !== "boolean"
-                    ? Number(value)
-                    : value;
-                if (widgetDataValue[field] !== val) {
-                  widgetOnFinish({
-                    [field]: val,
-                  });
-                }
-              }}
-            />
-            <Form.Item>
-              <Button type="primary" htmlType="submit" block>
-                保存
-              </Button>
-            </Form.Item>
-          </Form>
-        </TabPane>
+              initialValues={widgetDataValue}
+              onFinish={widgetOnFinish}
+            >
+              <DynamicForm
+                formSubmit
+                datas={widgetDataConfig.configure || []}
+                form={widgetForm}
+                callback={(field: string, value: any) => {
+                  const val =
+                    value && !isNaN(value) && typeof value !== "boolean"
+                      ? Number(value)
+                      : value;
+                  if (widgetDataValue[field] !== val) {
+                    widgetOnFinish({
+                      [field]: val,
+                    });
+                  }
+                }}
+              />
+              <Form.Item>
+                <Button type="primary" htmlType="submit" block>
+                  保存
+                </Button>
+              </Form.Item>
+            </Form>
+          </TabPane>
+        ) : null}
       </Tabs>
     </div>
   );
