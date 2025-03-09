@@ -7,6 +7,7 @@ import React, {
   useState,
 } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+
 import {
   ConfigLayoutHeader,
   ConfigLayoutMain,
@@ -106,7 +107,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
         if (layout?.elementId) {
           arr = ["layer", "element", "widget", "page", "data"];
         } else {
-          arr = ["layer", "widget", "page", "data"];
+          arr = ["layer", "widget", "page"];
         }
       } else {
         arr = ["layer", "page"];

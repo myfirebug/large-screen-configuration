@@ -147,7 +147,6 @@ const ConfigLayout: FC<IConfigLayout> = () => {
         return (
           <>
             {layout?.elementId === data.elementId ? <ConfigLayoutMask /> : null}
-
             {React.createElement(
               elements[capitalizeFirstLetter(data.element)],
               {
@@ -170,7 +169,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
       if (layout?.elementId) {
         arr = ["layer", "element", "widget", "data"];
       } else {
-        arr = ["layer", "widget", "data"];
+        arr = ["layer", "widget"];
       }
     } else {
       arr = ["layer", "widget"];
