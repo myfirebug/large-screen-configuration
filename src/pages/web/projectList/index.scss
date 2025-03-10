@@ -1,0 +1,28 @@
+@include b(project) {
+  padding: 20px;
+  .ant-empty-normal {
+    color: var(--cms-background-color-secondary);
+    path {
+      fill: "red";
+    }
+  }
+  .ant-pro-card,
+  .ant-form {
+    background: var(--cms-background-color-secondary);
+  }
+  .ant-pro-table .ant-pro-table-search {
+    border: none;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  .ant-table-thead .ant-table-cell {
+    background: var(--cms-top-background-color);
+  }
+  .option {
+    span {
+      padding-right: 10px;
+      color: var(--cms-primary-color);
+      cursor: pointer;
+    }
+  }
+}
