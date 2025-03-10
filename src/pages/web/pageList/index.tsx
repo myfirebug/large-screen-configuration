@@ -21,7 +21,7 @@ export const waitTime = async (time: number = 100) => {
   await waitTimePromise(time);
 };
 
-const Widgets: FC<any> = () => {
+const PageList: FC<any> = () => {
   const actionRef = useRef<ActionType>();
   const navigate = useNavigate();
 
@@ -95,7 +95,7 @@ const Widgets: FC<any> = () => {
   ];
 
   return (
-    <div className="cms-widgets">
+    <div className="cms-page">
       <ProTable<IPage>
         columns={columns}
         actionRef={actionRef}
@@ -136,4 +136,4 @@ const Widgets: FC<any> = () => {
   );
 };
 
-export default Widgets;
+export default PageList;

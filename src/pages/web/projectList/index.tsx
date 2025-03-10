@@ -21,7 +21,7 @@ export const waitTime = async (time: number = 100) => {
   await waitTimePromise(time);
 };
 
-const Widgets: FC<any> = () => {
+const ProjectList: FC<any> = () => {
   const actionRef = useRef<ActionType>();
   const navigate = useNavigate();
 
@@ -115,4 +115,4 @@ const Widgets: FC<any> = () => {
   );
 };
 
-export default Widgets;
+export default ProjectList;
