@@ -220,7 +220,14 @@ const ConfigLayout: FC<IConfigLayout> = () => {
       <ConfigLayoutHeader
         name={layout?.project?.name}
         pageType="page"
-        modifyNameSuccessHander={(name) => {}}
+        modifyNameSuccessHander={(name) => {
+          dispatch({
+            type: "MODIFY_PROJECT",
+            data: {
+              name,
+            },
+          });
+        }}
         previewHandler={() => setShow(true)}
         publishHandler={() => {}}
         logo="&#xe628;"
@@ -240,15 +247,15 @@ const ConfigLayout: FC<IConfigLayout> = () => {
             style={{
               position: "relative",
               width: `${
-                currentPage?.configuration?.configureValue?.pageConfigWidth ||
-                1366
+                layout?.project?.configuration?.configureValue
+                  ?.pageConfigWidth || 1366
               }px`,
               height: `${
-                currentPage?.configuration?.configureValue?.pageConfigHeight ||
-                768
+                layout?.project?.configuration?.configureValue
+                  ?.pageConfigHeight || 768
               }px`,
             }}
-            id="js_page"
+            id="js_project"
           >
             <PreviewLayout
               data={layout?.project || {}}
@@ -364,7 +371,20 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                   configureValue={
                     layout?.project?.configuration?.configureValue
                   }
-                  onFinish={(data) => {}}
+                  onFinish={(data) => {
+                    dispatch({
+                      type: "MODIFY_PROJECT",
+                      data: {
+                        configuration: {
+                          ...layout?.project?.configuration,
+                          configureValue: {
+                            ...layout?.project?.configuration?.configureValue,
+                            ...data,
+                          },
+                        },
+                      },
+                    });
+                  }}
                 />
               );
             }

@@ -1,5 +1,5 @@
 import { ModifyActions } from "./action";
-import { ALL_STATE, PROJECT } from "./type";
+import { ALL_STATE, PROJECT, MODIFY_PROJECT } from "./type";
 
 export const initialState: ALL_STATE = {
   project: {
@@ -25,6 +25,13 @@ export const projectReducer = (state = initialState, action: ModifyActions) => {
       copy.project = action.data;
       copy.pageId = action.data.pages[0]?.pageId;
       copy.projectId = action.data.projectId;
+      return copy;
+    }
+    case MODIFY_PROJECT: {
+      copy.project = {
+        ...copy.project,
+        ...action.data,
+      };
       return copy;
     }
     default: {
