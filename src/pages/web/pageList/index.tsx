@@ -28,7 +28,7 @@ const Widgets: FC<any> = () => {
   const [, setShow] = useState(false);
   const [, setWidget] = useState<IPage>();
 
-  const { getPages, filterHandle, filterPagesList } = web();
+  const { getPages, pageFilterHandle, filterPagesList } = web();
   useEffect(() => {
     getPages();
   }, [getPages]);
@@ -108,8 +108,8 @@ const Widgets: FC<any> = () => {
         // }}
         rowKey="pageId"
         dataSource={filterPagesList}
-        onSubmit={filterHandle}
-        onReset={filterHandle}
+        onSubmit={pageFilterHandle}
+        onReset={pageFilterHandle}
         options={{
           setting: {
             listsHeight: 400,
