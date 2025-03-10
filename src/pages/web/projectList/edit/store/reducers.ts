@@ -1,5 +1,6 @@
+import { IPage } from "@src/service";
 import { ModifyActions } from "./action";
-import { ALL_STATE, PROJECT, MODIFY_PROJECT } from "./type";
+import { ALL_STATE, PROJECT, MODIFY_PROJECT, ADD_WIDGET } from "./type";
 
 export const initialState: ALL_STATE = {
   project: {
@@ -19,6 +20,10 @@ export const initialState: ALL_STATE = {
 
 export const projectReducer = (state = initialState, action: ModifyActions) => {
   const copy: ALL_STATE = JSON.parse(JSON.stringify(state));
+  // 当前页面
+  const currentPage = copy.project.pages.find(
+    (item) => item.pageId === copy.pageId
+  );
   switch (action.type) {
     // 获取页面
     case PROJECT: {
@@ -32,6 +37,16 @@ export const projectReducer = (state = initialState, action: ModifyActions) => {
         ...copy.project,
         ...action.data,
       };
+      return copy;
+    }
+    case ADD_WIDGET: {
+      (currentPage as IPage).widgets = [
+        ...(currentPage as IPage).widgets,
+        action.data,
+      ];
+      copy.widgetId = action.data.widgetId;
+      copy.elementId = "";
+      console.log(copy, "copy");
       return copy;
     }
     default: {

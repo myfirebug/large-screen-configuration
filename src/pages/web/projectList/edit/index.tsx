@@ -204,7 +204,24 @@ const ConfigLayout: FC<IConfigLayout> = () => {
   );
   // 新增微件
   const onDrop = useCallback(
-    (item: Layout, data: IWidget, type: "header" | "body") => {},
+    (item: Layout, data: IWidget, type: "header" | "body") => {
+      dispatch({
+        type: "ADD_WIDGET",
+        data: {
+          ...data,
+          widgetId: guid(),
+          x: item.x,
+          y: item.y,
+          position: type,
+          url: "",
+          elements: data?.elements?.map((element) => ({
+            ...element,
+            elementId: guid(),
+            url: "",
+          })),
+        },
+      });
+    },
     []
   );
   // 修改微件
@@ -268,13 +285,15 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                   }
                   selectedId={layout?.widgetId}
                   render={renderWidget}
-                  configureValue={currentPage?.configuration?.configureValue}
+                  configureValue={
+                    layout?.project?.configuration?.configureValue
+                  }
                   row={1}
                   column={
                     layout?.project?.configuration?.configureValue
                       ?.horizontalNumber
                   }
-                  onDrop={(item, data) => onDrop(item, data, "body")}
+                  onDrop={(item, data) => onDrop(item, data, "header")}
                   isDroppable={isShowAuxiliaryLine}
                   isResizable={isShowAuxiliaryLine}
                   staticed={!isShowAuxiliaryLine}
@@ -292,7 +311,9 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                   }
                   selectedId={layout?.widgetId}
                   render={renderWidget}
-                  configureValue={currentPage?.configuration?.configureValue}
+                  configureValue={
+                    layout?.project?.configuration?.configureValue
+                  }
                   row={
                     layout?.project?.configuration?.configureValue
                       ?.verticalNumber
