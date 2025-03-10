@@ -95,15 +95,15 @@ const ConfigLayout: FC<IConfigLayout> = () => {
     let arr: PageType[] = [];
     if (layout?.projectId) {
       if (layout?.pageId) {
-        arr = ["layer", "page", "project"];
+        arr = ["layer", "project"];
         if (layout?.widgetId) {
           if (layout?.elementId) {
-            arr = ["layer", "element", "widget", "page", "project", "data"];
+            arr = ["layer", "element", "widget", "project", "data"];
           } else {
-            arr = ["layer", "widget", "page", "project", "data"];
+            arr = ["layer", "widget", "project", "data"];
           }
         } else {
-          arr = ["layer", "page", "project"];
+          arr = ["layer", "project"];
         }
       }
     } else {
@@ -144,7 +144,6 @@ const ConfigLayout: FC<IConfigLayout> = () => {
 
   // 渲染组件
   const renderElement = useCallback((data: IAnyObject) => {
-    console.log("element update", data.elementId);
     if (data.element && elements[capitalizeFirstLetter(data.element)]) {
       return React.createElement(
         elements[capitalizeFirstLetter(data.element)],
@@ -160,6 +159,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
   // 渲染微件
   const renderWidget = useCallback(
     (data: IAnyObject) => {
+      console.log("widget update");
       return (
         <PreviewLayout
           data={data}
@@ -225,12 +225,19 @@ const ConfigLayout: FC<IConfigLayout> = () => {
     []
   );
   // 修改微件
-  const onDragStop = useCallback((item: Layout) => {}, []);
+  const onDragStop = useCallback((item: Layout) => {
+    console.log("onDragStop");
+  }, []);
   // 改变大小
   const onResizeStop = useCallback((item: Layout) => {}, []);
 
   // 删除微件
-  const onClose = useCallback((item: IAnyObject) => {}, []);
+  const onClose = useCallback((item: IAnyObject) => {
+    dispatch({
+      type: "DELETE_WIDGET",
+      id: item.widgetId,
+    });
+  }, []);
 
   return (
     <div className="cms-config-layout">

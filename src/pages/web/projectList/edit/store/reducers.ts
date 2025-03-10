@@ -1,6 +1,12 @@
 import { IPage } from "@src/service";
 import { ModifyActions } from "./action";
-import { ALL_STATE, PROJECT, MODIFY_PROJECT, ADD_WIDGET } from "./type";
+import {
+  ALL_STATE,
+  PROJECT,
+  MODIFY_PROJECT,
+  ADD_WIDGET,
+  DELETE_WIDGET,
+} from "./type";
 
 export const initialState: ALL_STATE = {
   project: {
@@ -47,6 +53,16 @@ export const projectReducer = (state = initialState, action: ModifyActions) => {
       copy.widgetId = action.data.widgetId;
       copy.elementId = "";
       console.log(copy, "copy");
+      return copy;
+    }
+    case DELETE_WIDGET: {
+      (currentPage as IPage).widgets = (currentPage as IPage).widgets.filter(
+        (item) => item.widgetId !== action.id
+      );
+      if (action.id === copy.widgetId) {
+        copy.widgetId = "";
+        copy.elementId = "";
+      }
       return copy;
     }
     default: {
