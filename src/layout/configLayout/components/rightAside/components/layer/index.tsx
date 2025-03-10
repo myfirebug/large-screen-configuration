@@ -1,34 +1,44 @@
 import { FolderOpenOutlined, FolderOutlined } from "@ant-design/icons";
 import React, { FC } from "react";
 import "./index.scss";
+import { Empty } from "antd";
 
 interface IConfigLayoutRightAsideLayer {
   datas: IAnyObject[];
   pageId?: string;
   widgetId?: string;
   elementId?: string;
+  projectId?: string;
   pid?: string;
   onSelected: (
-    type: "page" | "widget" | "element",
+    type: "page" | "widget" | "element" | "project",
     id: string,
     pid?: string
   ) => void;
 }
 
 const renderTree = (props: IConfigLayoutRightAsideLayer) => {
-  const { datas, pageId, widgetId, elementId, onSelected, pid } = props;
+  const { datas, pageId, widgetId, elementId, onSelected, pid, projectId } =
+    props;
   return datas.map((item, index) => {
     return (
       <div className="cms-config-layout__layer--item" key={index}>
         <div
           onClick={() =>
             onSelected?.(
-              item.pageId ? "page" : item.widgetId ? "widget" : "element",
-              item.pageId || item.widgetId || item.elementId,
+              item.projectId
+                ? "project"
+                : item.pageId
+                ? "page"
+                : item.widgetId
+                ? "widget"
+                : "element",
+              item.projectId || item.pageId || item.widgetId || item.elementId,
               pid
             )
           }
           className={`name ${
+            (item.projectId === projectId && projectId) ||
             (item.pageId === pageId && pageId) ||
             (item.widgetId === widgetId && widgetId) ||
             (item.elementId === elementId && elementId)
@@ -56,6 +66,7 @@ const renderTree = (props: IConfigLayoutRightAsideLayer) => {
               elementId,
               onSelected,
               pid: item.pageId || item.widgetId || item.elementId,
+              projectId,
             })}
           </>
         ) : null}
@@ -70,10 +81,22 @@ export const ConfigLayoutRightAsideLayer: FC<IConfigLayoutRightAsideLayer> = ({
   elementId,
   pageId,
   onSelected,
+  projectId,
 }) => {
   return (
     <div className="cms-config-layout__layer">
-      {renderTree({ datas, pageId, widgetId, elementId, onSelected })}
+      {datas.length ? (
+        renderTree({
+          datas,
+          pageId,
+          widgetId,
+          elementId,
+          onSelected,
+          projectId,
+        })
+      ) : (
+        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+      )}
     </div>
   );
 };

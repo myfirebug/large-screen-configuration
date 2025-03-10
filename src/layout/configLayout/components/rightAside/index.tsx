@@ -36,6 +36,10 @@ const ALLTABS: ITabItem[] = [
     type: "page",
   },
   {
+    icon: "&#xe628;",
+    type: "project",
+  },
+  {
     icon: "&#xe61c;",
     type: "linkage",
   },
