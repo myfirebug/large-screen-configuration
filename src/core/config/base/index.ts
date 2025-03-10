@@ -7,3 +7,4 @@ export * from "./echarts";
 export * from "./animate";
 export * from "./swiper";
 export * from "./elementData";
+export * from "./project";
