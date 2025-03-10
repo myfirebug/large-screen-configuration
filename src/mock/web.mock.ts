@@ -1,6 +1,6 @@
 import Mock from "mockjs";
 
-export const widgets = {
+export const webPageList = {
   url: "/pageList",
   method: "get",
   data: {
@@ -2429,6 +2429,26 @@ export const widgets = {
         },
       },
     ],
-    message: "获取组建列表成功",
+    message: "获取页面模版列表成功",
+  },
+};
+
+export const webProjectList = {
+  url: "/projectList",
+  method: "get",
+  data: {
+    result: true,
+    data: [
+      {
+        name: "成都市生态环境应急事件指挥调度中心",
+        id: Mock.mock("@guid"),
+        url: "",
+        createTime: Mock.mock('@date("yyyy-MM-dd")'),
+        count: 0,
+        projectId: Mock.mock("@guid"),
+        screenRatio: "4*4",
+      },
+    ],
+    message: "获取项目列表成功",
   },
 };

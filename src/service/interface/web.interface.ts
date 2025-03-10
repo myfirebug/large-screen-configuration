@@ -19,3 +19,23 @@ export interface IPagesResult {
   data: IPage[];
   message: string;
 }
+
+export interface IProject {
+  name: string;
+  id: string;
+  createTime: string;
+  url: string;
+  count: number;
+  projectId: string;
+  screenRatio: string;
+  pages: IPage[];
+  configuration: IAnyObject | null;
+}
+
+// 用户信息结果
+export interface IProjectsResult {
+  // 结果
+  result: boolean;
+  data: IProject[];
+  message: string;
+}
