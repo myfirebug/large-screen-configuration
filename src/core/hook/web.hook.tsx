@@ -1,9 +1,9 @@
 import { useState, useCallback } from "react";
-import { API, IPage } from "@service/index";
+import { API, IPage, IProject } from "@service/index";
 import localforage from "localforage";
 import { CACHE_PAGES } from "../enums/access.enums";
 export function web() {
-  // 是否处理loading状态
+  // 页面模版
   const [pagesLoading, setPagesLoading] = useState<boolean>(false);
   const [pagesList, setPagesList] = useState<IPage[]>([]);
   const [filterPagesList, setFilterPagesList] = useState<IPage[]>([]);
@@ -23,7 +23,7 @@ export function web() {
       });
   }, []);
 
-  const filterHandle = useCallback(
+  const pageFilterHandle = useCallback(
     (params?: IAnyObject) => {
       if (!params || JSON.stringify(params) === "{}") {
         setFilterPagesList(pagesList);
@@ -49,11 +49,60 @@ export function web() {
     [pagesList]
   );
 
+  // 项目列表
+  const [projectsLoading, setProjectsLoading] = useState<boolean>(false);
+  const [projectsList, setProjectsList] = useState<IProject[]>([]);
+  const [filterProjectsList, setFilterProjectsList] = useState<IProject[]>([]);
+  const getProjects = useCallback(() => {
+    setPagesLoading(true);
+    API.web
+      .projects()
+      .then((res) => {
+        setProjectsLoading(false);
+        setProjectsList(res.data);
+        setFilterProjectsList(res.data);
+      })
+      .catch(() => {
+        setProjectsLoading(false);
+      });
+  }, []);
+
+  const projectsFilterHandle = useCallback(
+    (params?: IAnyObject) => {
+      if (!params || JSON.stringify(params) === "{}") {
+        setFilterProjectsList(projectsList);
+      } else {
+        const { name, type, createTime } = params;
+        setFilterProjectsList(() => {
+          let arr: IProject[] = projectsList;
+          if (name) {
+            arr = arr.filter((item) => item.name.includes(name));
+          }
+          if (createTime) {
+            arr = arr.filter(
+              (item) =>
+                new Date(item.createTime) > new Date(createTime[0]) &&
+                new Date(item.createTime) < new Date(createTime[1])
+            );
+          }
+          return arr;
+        });
+        console.log(name, type, createTime);
+      }
+    },
+    [projectsList]
+  );
+
   return {
     pagesLoading,
     pagesList,
     filterPagesList,
     getPages,
-    filterHandle,
+    pageFilterHandle,
+    projectsLoading,
+    projectsList,
+    filterProjectsList,
+    getProjects,
+    projectsFilterHandle,
   };
 }
