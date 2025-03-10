@@ -170,7 +170,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
   }, [layout?.elementId, layout?.widgetId]);
   // 选中组件
   const onSelected = useCallback(
-    (type: "page" | "widget" | "element", id: string) => {
+    (type: "page" | "widget" | "element" | "project", id: string) => {
       if (type === "element" && id && layout?.elementId !== id) {
         dispatch({
           type: "SELECT_ELEMENT",

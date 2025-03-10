@@ -119,7 +119,11 @@ const ConfigLayout: FC<IConfigLayout> = () => {
 
   // 图层选择
   const layerSelectedHandle = useCallback(
-    (type: "page" | "widget" | "element", id: string, pid?: string) => {
+    (
+      type: "page" | "widget" | "element" | "project",
+      id: string,
+      pid?: string
+    ) => {
       switch (type) {
         case "widget": {
           if (layout?.widgetId !== id) {
