@@ -42,6 +42,7 @@ export const pageConfig = {
             required: false,
             min: 1,
             max: 6,
+            tooltip: "只有页面没有微件时可用",
             placeholder: "请输入横几屏",
           },
           {
@@ -51,6 +52,7 @@ export const pageConfig = {
             max: 6,
             name: "verticalNumber",
             required: false,
+            tooltip: "只有页面没有微件时可用",
             placeholder: "请输入竖几屏",
           },
           {
