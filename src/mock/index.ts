@@ -9,6 +9,8 @@ import * as elements from "./elements.mock";
 import * as widgets from "./widgets.mock";
 // web模块
 import * as web from "./web.mock";
+// 模拟数据接口
+import * as configuration from "./configuration";
 
 /**
  * 根据模块创建接口
@@ -41,5 +43,6 @@ create(userInfo);
 create(elements);
 create(widgets);
 create(web);
+create(configuration);
 
 export default Mock;
