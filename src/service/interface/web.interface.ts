@@ -22,10 +22,8 @@ export interface IPagesResult {
 
 export interface IProject {
   name: string;
-  id: string;
   createTime: string;
   url: string;
-  count: number;
   projectId: string;
   screenRatio: string;
   pages: IPage[];
