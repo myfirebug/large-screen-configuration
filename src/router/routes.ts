@@ -121,6 +121,15 @@ const routerDatas: IRoute[] = [
               menu: true,
             },
           },
+          {
+            path: "/web/project/configuration",
+            title: "项目配置",
+            modulePath: "web/projectList/edit",
+            meta: {
+              fullScreen: true,
+              auth: true,
+            },
+          },
         ],
       },
       {
