@@ -16,6 +16,10 @@ export type ADD_WIDGET_TYPE = typeof ADD_WIDGET;
 export const DELETE_WIDGET = "DELETE_WIDGET";
 export type DELETE_WIDGET_TYPE = typeof DELETE_WIDGET;
 
+// 修改微件
+export const MODIFY_WIDGET = "MODIFY_WIDGET";
+export type MODIFY_WIDGET_TYPE = typeof MODIFY_WIDGET;
+
 export interface ALL_STATE {
   project: IProject;
   elementId: string | undefined;

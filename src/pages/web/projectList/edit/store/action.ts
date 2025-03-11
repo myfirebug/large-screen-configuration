@@ -4,6 +4,7 @@ import {
   MODIFY_PROJECT_TYPE,
   ADD_WIDGET_TYPE,
   DELETE_WIDGET_TYPE,
+  MODIFY_WIDGET_TYPE,
 } from "./type";
 
 // 获取项目
@@ -27,8 +28,15 @@ export interface deleteWidgetAction {
   id: string;
 }
 
+// 修改微件
+export interface modifyWidgetAction {
+  type: MODIFY_WIDGET_TYPE;
+  data: IAnyObject;
+}
+
 export type ModifyActions =
   | projectAction
   | modifyProjectAction
   | addWidgetAction
-  | deleteWidgetAction;
+  | deleteWidgetAction
+  | modifyWidgetAction;

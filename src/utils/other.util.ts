@@ -95,3 +95,15 @@ export const getStyles = (
 export const capitalizeFirstLetter = (str: string) => {
   return str.replace(/^\w/, (c) => c.toUpperCase());
 };
+
+export const waitTimePromise = async (time: number = 100) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(true);
+    }, time);
+  });
+};
+
+export const waitTime = async (time: number = 100) => {
+  await waitTimePromise(time);
+};

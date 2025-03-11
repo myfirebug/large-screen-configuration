@@ -33,6 +33,7 @@ import elements from "@src/elements";
 import GridLayout from "@src/layout/gridLayout";
 import { IElement, IWidget } from "@src/service";
 import PreviewLayout from "@src/layout/previewLayout";
+import Request from "@src/compoents/request";
 import {
   WIDGET_BODY_COLUMN,
   WIDGET_BODY_GAP,
@@ -42,6 +43,7 @@ import {
   WIDGET_HEADER_ROW,
 } from "@src/core/enums/access.enums";
 import { Layout } from "react-grid-layout";
+import { Spin } from "antd";
 
 interface IConfigLayout {}
 
@@ -156,48 +158,78 @@ const ConfigLayout: FC<IConfigLayout> = () => {
     }
     return <div>你访问的组件不存在请联系售后人员</div>;
   }, []);
+
   // 渲染微件
   const renderWidget = useCallback(
     (data: IAnyObject) => {
-      console.log("widget update");
       return (
-        <PreviewLayout
-          data={data}
-          header={
-            <GridLayout
-              datas={
-                data?.elements.filter(
-                  (item: IElement) => item.position === "header"
-                ) || []
-              }
-              configureValue={currentPage?.configuration?.configureValue}
-              column={WIDGET_HEADER_COLUMN}
-              row={WIDGET_HEADER_ROW}
-              gap={WIDGET_HEADER_GAP}
-              render={renderElement}
-              isDroppable
-              isResizable
-              staticed
-            />
-          }
-          body={
-            <GridLayout
-              configureValue={currentPage?.configuration?.configureValue}
-              datas={
-                data?.elements.filter(
-                  (item: IElement) => item.position === "body"
-                ) || []
-              }
-              column={WIDGET_BODY_COLUMN}
-              row={WIDGET_BODY_ROW}
-              gap={WIDGET_BODY_GAP}
-              render={renderElement}
-              isDroppable
-              isResizable
-              staticed
-            />
-          }
-        />
+        <>
+          <Request
+            method={data?.configuration?.dataValue?.method}
+            url={data?.configuration?.dataValue?.url}
+            params={JSON.stringify(
+              data?.configuration?.dataValue?.params || {}
+            )}
+            render={(loading: boolean, success: boolean, realData: any) => {
+              return (
+                <>
+                  {loading ? (
+                    <Spin
+                      style={{
+                        position: "absolute",
+                        left: "50%",
+                        top: "50%",
+                        transform: "tranlate(-50%, -50%)",
+                        zIndex: 1000,
+                      }}
+                    />
+                  ) : null}
+                  <PreviewLayout
+                    data={data}
+                    header={
+                      <GridLayout
+                        datas={
+                          data?.elements.filter(
+                            (item: IElement) => item.position === "header"
+                          ) || []
+                        }
+                        configureValue={
+                          currentPage?.configuration?.configureValue
+                        }
+                        column={WIDGET_HEADER_COLUMN}
+                        row={WIDGET_HEADER_ROW}
+                        gap={WIDGET_HEADER_GAP}
+                        render={renderElement}
+                        isDroppable
+                        isResizable
+                        staticed
+                      />
+                    }
+                    body={
+                      <GridLayout
+                        configureValue={
+                          currentPage?.configuration?.configureValue
+                        }
+                        datas={
+                          data?.elements.filter(
+                            (item: IElement) => item.position === "body"
+                          ) || []
+                        }
+                        column={WIDGET_BODY_COLUMN}
+                        row={WIDGET_BODY_ROW}
+                        gap={WIDGET_BODY_GAP}
+                        render={renderElement}
+                        isDroppable
+                        isResizable
+                        staticed
+                      />
+                    }
+                  />
+                </>
+              );
+            }}
+          />
+        </>
       );
     },
     [currentPage?.configuration?.configureValue, renderElement]
@@ -229,7 +261,16 @@ const ConfigLayout: FC<IConfigLayout> = () => {
     console.log("onDragStop");
   }, []);
   // 改变大小
-  const onResizeStop = useCallback((item: Layout) => {}, []);
+  const onResizeStop = useCallback((item: Layout) => {
+    dispatch({
+      type: "MODIFY_WIDGET",
+      data: {
+        row: item.w,
+        column: item.h,
+        widgetId: item.i,
+      },
+    });
+  }, []);
 
   // 删除微件
   const onClose = useCallback((item: IAnyObject) => {
@@ -364,7 +405,21 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                     (currentWidget?.configuration
                       ?.configureValue as IAnyObject) || {}
                   }
-                  onFinish={(data: IAnyObject) => {}}
+                  onFinish={(data: IAnyObject) => {
+                    dispatch({
+                      type: "MODIFY_WIDGET",
+                      data: {
+                        ...currentWidget,
+                        configuration: {
+                          ...currentWidget?.configuration,
+                          configureValue: {
+                            ...currentWidget?.configuration?.configureValue,
+                            ...data,
+                          },
+                        },
+                      },
+                    });
+                  }}
                 />
               );
             } else if (data === "element") {
@@ -380,8 +435,23 @@ const ConfigLayout: FC<IConfigLayout> = () => {
             } else if (data === "data") {
               return (
                 <ConfigLayoutRightAsideData
+                  isShowWidgetDataConfig
                   widgetDataValue={currentWidget?.configuration?.dataValue}
-                  widgetOnFinish={(data: IAnyObject) => {}}
+                  widgetOnFinish={(data: IAnyObject) => {
+                    dispatch({
+                      type: "MODIFY_WIDGET",
+                      data: {
+                        ...currentWidget,
+                        configuration: {
+                          ...currentWidget?.configuration,
+                          dataValue: {
+                            ...currentWidget?.configuration?.dataValue,
+                            ...data,
+                          },
+                        },
+                      },
+                    });
+                  }}
                   elementDataValue={currentElement?.configuration.dataValue}
                   elementOnFinish={(data: IAnyObject) => {}}
                 />

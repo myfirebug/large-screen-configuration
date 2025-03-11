@@ -6,6 +6,7 @@ import {
   MODIFY_PROJECT,
   ADD_WIDGET,
   DELETE_WIDGET,
+  MODIFY_WIDGET,
 } from "./type";
 
 export const initialState: ALL_STATE = {
@@ -62,6 +63,18 @@ export const projectReducer = (state = initialState, action: ModifyActions) => {
       if (action.id === copy.widgetId) {
         copy.widgetId = "";
         copy.elementId = "";
+      }
+      return copy;
+    }
+    case MODIFY_WIDGET: {
+      const index = (currentPage as IPage).widgets.findIndex(
+        (item) => item.widgetId === action.data.widgetId
+      );
+      if (index !== -1) {
+        (currentPage as IPage).widgets[index] = {
+          ...(currentPage as IPage).widgets[index],
+          ...action.data,
+        };
       }
       return copy;
     }
