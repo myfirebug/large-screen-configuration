@@ -24,6 +24,10 @@ export type MODIFY_WIDGET_TYPE = typeof MODIFY_WIDGET;
 export const SELECT_WIDGET = "SELECT_WIDGET";
 export type SELECT_WIDGET_TYPE = typeof SELECT_WIDGET;
 
+// 选中组件
+export const SELECT_ELEMENT = "SELECT_ELEMENT";
+export type SELECT_ELEMENT_TYPE = typeof SELECT_ELEMENT;
+
 export interface ALL_STATE {
   project: IProject;
   elementId: string | undefined;

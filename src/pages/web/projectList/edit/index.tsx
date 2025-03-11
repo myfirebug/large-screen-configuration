@@ -133,12 +133,19 @@ const ConfigLayout: FC<IConfigLayout> = () => {
           return;
         }
         case "element": {
+          if (layout?.elementId !== id) {
+            dispatch({
+              type: "SELECT_ELEMENT",
+              widgetId: pid as string,
+              elementId: id,
+            });
+          }
           return;
         }
         default:
       }
     },
-    [layout?.widgetId]
+    [layout?.elementId, layout?.widgetId]
   );
 
   const currentPage = useMemo(() => {
@@ -405,7 +412,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
               return (
                 <div>
                   <ConfigLayoutRightAsideLayer
-                    datas={layout?.project ? [layout?.project] : []}
+                    datas={currentPage ? currentPage.widgets : []}
                     pageId={layout?.pageId}
                     widgetId={layout?.widgetId}
                     elementId={layout?.elementId}
