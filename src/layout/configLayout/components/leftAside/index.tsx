@@ -26,6 +26,10 @@ const ALLTABS: ITabItem[] = [
     icon: "&#xe625;",
     type: "page",
   },
+  {
+    icon: "&#xe628;",
+    type: "project",
+  },
 ];
 
 export const ConfigLayoutLeftAside: FC<IConfigLayoutLeftAside> = ({
