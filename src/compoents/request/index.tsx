@@ -1,5 +1,6 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import axios from "axios";
+import { waitTime } from "@src/utils";
 interface IRequestProps {
   // 类型
   method: "get" | "post";
@@ -17,10 +18,11 @@ const Request = memo((props: IRequestProps) => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  useEffect(() => {
+  const getData = useCallback(async () => {
     if (url && method) {
       setLoading(true);
-      axios({
+      await waitTime(2000);
+      await axios({
         url: url,
         method: method,
         params: JSON.parse(params),
@@ -35,7 +37,11 @@ const Request = memo((props: IRequestProps) => {
           setSuccess(false);
         });
     }
-  }, [url, params, method]);
+  }, [method, params, url]);
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
   return <>{render(loading, success, data)}</>;
 });
 export default Request;
