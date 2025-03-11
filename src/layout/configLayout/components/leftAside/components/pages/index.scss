@@ -1,0 +1,45 @@
+@include b(config-layout) {
+  @include e(pages) {
+    height: 100%;
+    display: flex;
+    overflow: hidden;
+    @include m(right) {
+      flex: 1;
+      overflow: hidden;
+      overflow-y: auto;
+    }
+    @include m(item) {
+      margin-top: 15px;
+      text-align: center;
+      cursor: pointer;
+      .name {
+        line-height: 18px;
+        padding-top: 5px;
+        text-align: center;
+        font-size: 12px;
+        transition: all 0.25s ease 0s;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: var(--cms-text-color-secondary);
+      }
+      .ant-image {
+        border-radius: 5px;
+        overflow: hidden;
+        pointer-events: none;
+        img {
+          transition: all 0.25s ease 0s;
+        }
+      }
+      &:hover {
+        img {
+          transform: scale(1.1);
+        }
+        .name {
+          color: var(--cms-text-color-primary);
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
