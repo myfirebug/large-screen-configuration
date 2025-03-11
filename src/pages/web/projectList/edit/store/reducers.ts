@@ -7,6 +7,7 @@ import {
   ADD_WIDGET,
   DELETE_WIDGET,
   MODIFY_WIDGET,
+  SELECT_WIDGET,
 } from "./type";
 
 export const initialState: ALL_STATE = {
@@ -76,6 +77,11 @@ export const projectReducer = (state = initialState, action: ModifyActions) => {
           ...action.data,
         };
       }
+      return copy;
+    }
+    case SELECT_WIDGET: {
+      copy.widgetId = action.widgetId;
+      copy.elementId = "";
       return copy;
     }
     default: {

@@ -121,8 +121,24 @@ const ConfigLayout: FC<IConfigLayout> = () => {
       type: "page" | "widget" | "element" | "project",
       id: string,
       pid?: string
-    ) => {},
-    []
+    ) => {
+      switch (type) {
+        case "widget": {
+          if (layout?.widgetId !== id) {
+            dispatch({
+              type: "SELECT_WIDGET",
+              widgetId: id,
+            });
+          }
+          return;
+        }
+        case "element": {
+          return;
+        }
+        default:
+      }
+    },
+    [layout?.widgetId]
   );
 
   const currentPage = useMemo(() => {
