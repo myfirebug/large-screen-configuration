@@ -55,18 +55,14 @@ const ProjectList: FC<any> = () => {
       width: 100,
       render: (text, record, _, action) => (
         <div className="option">
-          {record.count === 0 ? (
-            <span
-              key="editable"
-              onClick={() => {
-                navigate(
-                  `/web/project/configuration?pageId=${record.projectId}`
-                );
-              }}
-            >
-              编辑
-            </span>
-          ) : null}
+          <span
+            key="editable"
+            onClick={() => {
+              navigate(`/web/project/configuration?pageId=${record.projectId}`);
+            }}
+          >
+            编辑
+          </span>
           <span key="view">预览</span>
         </div>
       ),
