@@ -9,6 +9,7 @@ import {
   MODIFY_WIDGET,
   SELECT_WIDGET,
   SELECT_ELEMENT,
+  ADD_PAGE,
 } from "./type";
 
 export const initialState: ALL_STATE = {
@@ -33,6 +34,7 @@ export const projectReducer = (state = initialState, action: ModifyActions) => {
   const currentPage = copy.project.pages.find(
     (item) => item.pageId === copy.pageId
   );
+  console.log(state, action);
   switch (action.type) {
     // 获取页面
     case PROJECT: {
@@ -88,6 +90,11 @@ export const projectReducer = (state = initialState, action: ModifyActions) => {
     case SELECT_ELEMENT: {
       copy.widgetId = action.widgetId;
       copy.elementId = action.elementId;
+      return copy;
+    }
+    case ADD_PAGE: {
+      copy.project.pages.push(action.data);
+      copy.pageId = action.data.pageId;
       return copy;
     }
     default: {

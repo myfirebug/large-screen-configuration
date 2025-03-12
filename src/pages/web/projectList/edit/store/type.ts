@@ -28,6 +28,10 @@ export type SELECT_WIDGET_TYPE = typeof SELECT_WIDGET;
 export const SELECT_ELEMENT = "SELECT_ELEMENT";
 export type SELECT_ELEMENT_TYPE = typeof SELECT_ELEMENT;
 
+// 增加页面
+export const ADD_PAGE = "ADD_PAGE";
+export type ADD_PAGE_TYPE = typeof ADD_PAGE;
+
 export interface ALL_STATE {
   project: IProject;
   elementId: string | undefined;

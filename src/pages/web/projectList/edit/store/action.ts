@@ -1,4 +1,4 @@
-import { IProject, IWidget } from "@src/service";
+import { IPage, IProject, IWidget } from "@src/service";
 import {
   PROJECT_TYPE,
   MODIFY_PROJECT_TYPE,
@@ -7,6 +7,7 @@ import {
   MODIFY_WIDGET_TYPE,
   SELECT_WIDGET_TYPE,
   SELECT_ELEMENT_TYPE,
+  ADD_PAGE_TYPE,
 } from "./type";
 
 // 获取项目
@@ -47,6 +48,11 @@ export interface selectElementAction {
   elementId: string;
 }
 
+export interface addPageAction {
+  type: ADD_PAGE_TYPE;
+  data: IPage;
+}
+
 export type ModifyActions =
   | projectAction
   | modifyProjectAction
@@ -54,4 +60,5 @@ export type ModifyActions =
   | deleteWidgetAction
   | modifyWidgetAction
   | selectWidgetAction
-  | selectElementAction;
+  | selectElementAction
+  | addPageAction;
