@@ -13,11 +13,19 @@ interface IConfigLayoutRightAsideProject {
   pages: IPage[];
   pageId: string | undefined;
   addPageHandler: (name: string) => void;
+  modifyPageHandler: (data: IAnyObject) => void;
 }
 
 export const ConfigLayoutRightAsideProject: FC<
   IConfigLayoutRightAsideProject
-> = ({ configureValue, onFinish, pages, pageId, addPageHandler }) => {
+> = ({
+  configureValue,
+  onFinish,
+  pages,
+  pageId,
+  addPageHandler,
+  modifyPageHandler,
+}) => {
   const [form] = Form.useForm();
   const [pageDialogStatus, setPageDialogStatus] = useState(false);
   const [name, setName] = useState("");
@@ -27,8 +35,15 @@ export const ConfigLayoutRightAsideProject: FC<
         onClose={() => setPageDialogStatus(false)}
         name={name}
         open={pageDialogStatus}
-        onFinishHandler={(name) => {
-          addPageHandler(name);
+        onFinishHandler={(pageName) => {
+          if (name && pageId) {
+            modifyPageHandler({
+              name: pageName,
+              pageId,
+            });
+          } else {
+            addPageHandler(pageName);
+          }
         }}
       />
       <div className="page">

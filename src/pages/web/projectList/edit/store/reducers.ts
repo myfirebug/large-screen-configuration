@@ -10,6 +10,7 @@ import {
   SELECT_WIDGET,
   SELECT_ELEMENT,
   ADD_PAGE,
+  MODIFY_PAGE,
 } from "./type";
 
 export const initialState: ALL_STATE = {
@@ -31,7 +32,7 @@ export const initialState: ALL_STATE = {
 export const projectReducer = (state = initialState, action: ModifyActions) => {
   const copy: ALL_STATE = JSON.parse(JSON.stringify(state));
   // 当前页面
-  const currentPage = copy.project.pages.find(
+  let currentPage = copy.project.pages.find(
     (item) => item.pageId === copy.pageId
   );
   console.log(state, action);
@@ -95,6 +96,20 @@ export const projectReducer = (state = initialState, action: ModifyActions) => {
     case ADD_PAGE: {
       copy.project.pages.push(action.data);
       copy.pageId = action.data.pageId;
+      return copy;
+    }
+    case MODIFY_PAGE: {
+      const index = copy?.project?.pages?.findIndex(
+        (item) => item.pageId === action.data.pageId
+      );
+      if (index !== -1) {
+        copy.project.pages[index] = {
+          ...copy.project.pages[index],
+          ...action.data,
+        };
+        copy.pageId = action.data.pageId;
+      }
+      console.log(copy, "copy");
       return copy;
     }
     default: {

@@ -8,6 +8,7 @@ import {
   SELECT_WIDGET_TYPE,
   SELECT_ELEMENT_TYPE,
   ADD_PAGE_TYPE,
+  MODIFY_PAGE_TYPE,
 } from "./type";
 
 // 获取项目
@@ -47,10 +48,15 @@ export interface selectElementAction {
   widgetId: string;
   elementId: string;
 }
-
+// 新增页面
 export interface addPageAction {
   type: ADD_PAGE_TYPE;
   data: IPage;
+}
+// 编辑页面
+export interface modifyPageAction {
+  type: MODIFY_PAGE_TYPE;
+  data: IAnyObject;
 }
 
 export type ModifyActions =
@@ -61,4 +67,5 @@ export type ModifyActions =
   | modifyWidgetAction
   | selectWidgetAction
   | selectElementAction
-  | addPageAction;
+  | addPageAction
+  | modifyPageAction;

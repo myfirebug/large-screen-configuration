@@ -509,6 +509,12 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                       },
                     });
                   }}
+                  modifyPageHandler={(data) => {
+                    dispatch({
+                      type: "MODIFY_PAGE",
+                      data,
+                    });
+                  }}
                   addPageHandler={(name) => {
                     dispatch({
                       type: "ADD_PAGE",

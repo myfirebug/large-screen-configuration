@@ -32,6 +32,10 @@ export type SELECT_ELEMENT_TYPE = typeof SELECT_ELEMENT;
 export const ADD_PAGE = "ADD_PAGE";
 export type ADD_PAGE_TYPE = typeof ADD_PAGE;
 
+// 编辑页面
+export const MODIFY_PAGE = "MODIFY_PAGE";
+export type MODIFY_PAGE_TYPE = typeof MODIFY_PAGE;
+
 export interface ALL_STATE {
   project: IProject;
   elementId: string | undefined;
