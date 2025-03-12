@@ -39,6 +39,9 @@ export type MODIFY_PAGE_TYPE = typeof MODIFY_PAGE;
 // 选中页面
 export const SELECT_PAGE = "SELECT_PAGE";
 export type SELECT_PAGE_TYPE = typeof SELECT_PAGE;
+// 删除页面
+export const DELETE_PAGE = "DELETE_PAGE";
+export type DELETE_PAGE_TYPE = typeof DELETE_PAGE;
 
 export interface ALL_STATE {
   project: IProject;

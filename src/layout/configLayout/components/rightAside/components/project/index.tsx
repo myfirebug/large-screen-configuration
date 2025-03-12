@@ -15,6 +15,7 @@ interface IConfigLayoutRightAsideProject {
   addPageHandler: (name: string) => void;
   modifyPageHandler: (data: IAnyObject) => void;
   selectPageHandler: (pageId: string) => void;
+  deletePageHandler: (pageId: string) => void;
 }
 
 export const ConfigLayoutRightAsideProject: FC<
@@ -27,21 +28,27 @@ export const ConfigLayoutRightAsideProject: FC<
   addPageHandler,
   modifyPageHandler,
   selectPageHandler,
+  deletePageHandler,
 }) => {
   const [form] = Form.useForm();
   const [pageDialogStatus, setPageDialogStatus] = useState(false);
-  const [name, setName] = useState("");
+  const [selectPage, setSelectPage] = useState(() => {
+    return {
+      name: "",
+      pageId,
+    };
+  });
   return (
     <div className="cms-config-layout__project">
       <AddOrmodifyPageNameDialog
         onClose={() => setPageDialogStatus(false)}
-        name={name}
+        name={selectPage.name}
         open={pageDialogStatus}
         onFinishHandler={(pageName) => {
-          if (name && pageId) {
+          if (selectPage.name && selectPage.pageId) {
             modifyPageHandler({
               name: pageName,
-              pageId,
+              pageId: selectPage.pageId,
             });
           } else {
             addPageHandler(pageName);
@@ -76,13 +83,19 @@ export const ConfigLayoutRightAsideProject: FC<
                         <div className="project-controls">
                           <p
                             onClick={() => {
-                              setName(item.name);
+                              setSelectPage((state) => ({
+                                ...state,
+                                name: item.name,
+                                pageId: item.pageId,
+                              }));
                               setPageDialogStatus(true);
                             }}
                           >
                             编辑
                           </p>
-                          <p>删除</p>
+                          <p onClick={() => deletePageHandler(item.pageId)}>
+                            删除
+                          </p>
                         </div>
                       }
                     >
@@ -101,7 +114,10 @@ export const ConfigLayoutRightAsideProject: FC<
             type="primary"
             block
             onClick={() => {
-              setName("");
+              setSelectPage((state) => ({
+                ...state,
+                name: "",
+              }));
               setPageDialogStatus(true);
             }}
           >

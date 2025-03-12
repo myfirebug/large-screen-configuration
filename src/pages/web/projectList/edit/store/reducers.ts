@@ -12,6 +12,7 @@ import {
   ADD_PAGE,
   MODIFY_PAGE,
   SELECT_PAGE,
+  DELETE_PAGE,
 } from "./type";
 
 export const initialState: ALL_STATE = {
@@ -120,6 +121,18 @@ export const projectReducer = (state = initialState, action: ModifyActions) => {
       copy.pageId = action.pageId;
       copy.widgetId = "";
       copy.elementId = "";
+      return copy;
+    }
+    case DELETE_PAGE: {
+      copy.project.pages =
+        copy.project.pages?.filter((item) => item.pageId !== action.pageId) ||
+        [];
+      if (copy.pageId === action.pageId) {
+        copy.pageId = "";
+        copy.widgetId = "";
+        copy.elementId = "";
+      }
+      console.log(copy, "copy");
       return copy;
     }
     default: {

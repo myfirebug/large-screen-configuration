@@ -539,6 +539,12 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                       pageId,
                     });
                   }}
+                  deletePageHandler={(pageId) => {
+                    dispatch({
+                      type: "DELETE_PAGE",
+                      pageId,
+                    });
+                  }}
                 />
               );
             }

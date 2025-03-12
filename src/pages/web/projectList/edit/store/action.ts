@@ -10,6 +10,7 @@ import {
   ADD_PAGE_TYPE,
   MODIFY_PAGE_TYPE,
   SELECT_PAGE_TYPE,
+  DELETE_PAGE_TYPE,
 } from "./type";
 
 // 获取项目
@@ -64,6 +65,11 @@ export interface selectPageAction {
   type: SELECT_PAGE_TYPE;
   pageId: string;
 }
+// 删除页面
+export interface deletePageAction {
+  type: DELETE_PAGE_TYPE;
+  pageId: string;
+}
 
 export type ModifyActions =
   | projectAction
@@ -75,4 +81,5 @@ export type ModifyActions =
   | selectElementAction
   | addPageAction
   | modifyPageAction
-  | selectPageAction;
+  | selectPageAction
+  | deletePageAction;
