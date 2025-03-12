@@ -264,7 +264,14 @@ const ConfigLayout: FC<IConfigLayout> = () => {
   );
   // 修改微件
   const onDragStop = useCallback((item: Layout) => {
-    console.log("onDragStop");
+    dispatch({
+      type: "MODIFY_WIDGET",
+      data: {
+        x: item.x,
+        y: item.y,
+        widgetId: item.i,
+      },
+    });
   }, []);
   // 改变大小
   const onResizeStop = useCallback((item: Layout) => {

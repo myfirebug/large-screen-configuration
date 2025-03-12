@@ -17,7 +17,7 @@ import {
 
 export const initialState: ALL_STATE = {
   project: {
-    name: "未命名页面",
+    name: "未命名项目",
     createTime: "",
     url: "",
     projectId: "",
@@ -132,7 +132,6 @@ export const projectReducer = (state = initialState, action: ModifyActions) => {
         copy.widgetId = "";
         copy.elementId = "";
       }
-      console.log(copy, "copy");
       return copy;
     }
     default: {
