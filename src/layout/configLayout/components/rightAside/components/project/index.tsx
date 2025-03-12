@@ -126,6 +126,7 @@ export const ConfigLayoutRightAsideProject: FC<
         </div>
       </div>
       <Form
+        style={{ display: pages.length ? "block" : "none" }}
         labelCol={{ flex: "80px" }}
         labelAlign="left"
         form={form}
