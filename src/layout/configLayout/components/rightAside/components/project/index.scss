@@ -21,6 +21,10 @@
         white-space: nowrap;
         color: var(--cms-text-color-secondary);
         border-bottom: 1px solid var(--cms-divider-color);
+        .name {
+          flex: 1;
+          cursor: pointer;
+        }
         .controls {
           cursor: pointer;
           color: var(--cms-text-color-secondary);

@@ -14,6 +14,7 @@ interface IConfigLayoutRightAsideProject {
   pageId: string | undefined;
   addPageHandler: (name: string) => void;
   modifyPageHandler: (data: IAnyObject) => void;
+  selectPageHandler: (pageId: string) => void;
 }
 
 export const ConfigLayoutRightAsideProject: FC<
@@ -25,6 +26,7 @@ export const ConfigLayoutRightAsideProject: FC<
   pageId,
   addPageHandler,
   modifyPageHandler,
+  selectPageHandler,
 }) => {
   const [form] = Form.useForm();
   const [pageDialogStatus, setPageDialogStatus] = useState(false);
@@ -58,7 +60,16 @@ export const ConfigLayoutRightAsideProject: FC<
                   }`}
                   key={item.pageId}
                 >
-                  <div className="name">{item.name}</div>
+                  <div
+                    className="name"
+                    onClick={() => {
+                      if (item.pageId !== pageId) {
+                        selectPageHandler(item.pageId);
+                      }
+                    }}
+                  >
+                    {item.name}
+                  </div>
                   <div className="controls">
                     <Popover
                       content={

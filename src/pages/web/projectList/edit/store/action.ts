@@ -9,6 +9,7 @@ import {
   SELECT_ELEMENT_TYPE,
   ADD_PAGE_TYPE,
   MODIFY_PAGE_TYPE,
+  SELECT_PAGE_TYPE,
 } from "./type";
 
 // 获取项目
@@ -58,6 +59,11 @@ export interface modifyPageAction {
   type: MODIFY_PAGE_TYPE;
   data: IAnyObject;
 }
+// 选中页面
+export interface selectPageAction {
+  type: SELECT_PAGE_TYPE;
+  pageId: string;
+}
 
 export type ModifyActions =
   | projectAction
@@ -68,4 +74,5 @@ export type ModifyActions =
   | selectWidgetAction
   | selectElementAction
   | addPageAction
-  | modifyPageAction;
+  | modifyPageAction
+  | selectPageAction;

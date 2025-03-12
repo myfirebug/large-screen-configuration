@@ -11,6 +11,7 @@ import {
   SELECT_ELEMENT,
   ADD_PAGE,
   MODIFY_PAGE,
+  SELECT_PAGE,
 } from "./type";
 
 export const initialState: ALL_STATE = {
@@ -107,9 +108,18 @@ export const projectReducer = (state = initialState, action: ModifyActions) => {
           ...copy.project.pages[index],
           ...action.data,
         };
-        copy.pageId = action.data.pageId;
+        if (copy.pageId !== action.data.pageId) {
+          copy.pageId = action.data.pageId;
+          copy.widgetId = "";
+          copy.elementId = "";
+        }
       }
-      console.log(copy, "copy");
+      return copy;
+    }
+    case SELECT_PAGE: {
+      copy.pageId = action.pageId;
+      copy.widgetId = "";
+      copy.elementId = "";
       return copy;
     }
     default: {

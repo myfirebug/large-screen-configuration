@@ -533,6 +533,12 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                       },
                     });
                   }}
+                  selectPageHandler={(pageId) => {
+                    dispatch({
+                      type: "SELECT_PAGE",
+                      pageId,
+                    });
+                  }}
                 />
               );
             }
