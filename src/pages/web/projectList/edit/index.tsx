@@ -20,6 +20,7 @@ import {
   ConfigLayoutRightAsideData,
   ConfigLayoutRightAsidePage,
   ConfigLayoutRightAsideProject,
+  ConfigLayoutLeftAsidePage,
 } from "@src/layout/configLayout";
 
 import "@src/layout/configLayout/index.scss";
@@ -43,7 +44,7 @@ import {
   WIDGET_HEADER_ROW,
 } from "@src/core/enums/access.enums";
 import { Layout } from "react-grid-layout";
-import { Spin } from "antd";
+import { Empty, Spin } from "antd";
 
 interface IConfigLayout {}
 
@@ -69,21 +70,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
           createTime: "",
           projectId: guid(),
           screenRatio: "4*4",
-          pages: [
-            {
-              name: "未命名页面",
-              id: "",
-              url: "",
-              createTime: "",
-              count: 0,
-              pageId: guid(),
-              screenRatio: "4*4",
-              widgets: [],
-              configuration: {
-                configureValue: { ...pageConfig.configureValue },
-              },
-            },
-          ],
+          pages: [],
           configuration: {
             configureValue: { ...projectConfig.configureValue },
           },
@@ -94,7 +81,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
 
   // 判断右侧边栏所需模块
   const rightAside = useMemo(() => {
-    let arr: PageType[] = [];
+    let arr: PageType[] = ["project"];
     if (layout?.projectId) {
       if (layout?.pageId) {
         arr = ["layer", "project"];
@@ -109,7 +96,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
         }
       }
     } else {
-      arr = ["layer"];
+      arr = ["layer", "project"];
     }
 
     return arr;
@@ -147,7 +134,6 @@ const ConfigLayout: FC<IConfigLayout> = () => {
     },
     [layout?.elementId, layout?.widgetId]
   );
-
   const currentPage = useMemo(() => {
     return layout?.project?.pages?.find(
       (item) => item.pageId === layout?.pageId
@@ -159,14 +145,12 @@ const ConfigLayout: FC<IConfigLayout> = () => {
       (item) => layout?.widgetId && item.widgetId === layout?.widgetId
     );
   }, [currentPage?.widgets, layout?.widgetId]);
-
   // 当前选中的组件
   const currentElement = useMemo(() => {
     return currentWidget?.elements.find(
       (item) => layout?.elementId && item.elementId === layout?.elementId
     );
   }, [currentWidget?.elements, layout?.elementId]);
-
   // 渲染组件
   const renderElement = useCallback((data: IAnyObject) => {
     if (data.element && elements[capitalizeFirstLetter(data.element)]) {
@@ -181,7 +165,6 @@ const ConfigLayout: FC<IConfigLayout> = () => {
     }
     return <div>你访问的组件不存在请联系售后人员</div>;
   }, []);
-
   // 渲染微件
   const renderWidget = useCallback(
     (data: IAnyObject) => {
@@ -294,7 +277,6 @@ const ConfigLayout: FC<IConfigLayout> = () => {
       },
     });
   }, []);
-
   // 删除微件
   const onClose = useCallback((item: IAnyObject) => {
     dispatch({
@@ -302,7 +284,6 @@ const ConfigLayout: FC<IConfigLayout> = () => {
       id: item.widgetId,
     });
   }, []);
-
   return (
     <div className="cms-config-layout">
       <ConfigLayoutHeader
@@ -322,10 +303,16 @@ const ConfigLayout: FC<IConfigLayout> = () => {
       />
       <div className="cms-config-layout__content">
         <ConfigLayoutLeftAside
-          navs={["widget"]}
+          navs={
+            currentPage?.widgets?.length || !currentPage
+              ? ["widget"]
+              : ["widget", "page"]
+          }
           render={(data) => {
             if (data === "widget") {
               return <ConfigLayoutLeftAsideWidget />;
+            } else if (data === "page") {
+              return <ConfigLayoutLeftAsidePage />;
             }
             return null;
           }}
@@ -342,67 +329,81 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                 layout?.project?.configuration?.configureValue
                   ?.pageConfigHeight || 768
               }px`,
+              background: "var(--cms-background-color-secondary)",
             }}
             id="js_project"
           >
-            <PreviewLayout
-              data={layout?.project || {}}
-              header={
-                <GridLayout
-                  datas={
-                    currentPage?.widgets?.filter(
-                      (item) => item.position === "header"
-                    ) || []
-                  }
-                  selectedId={layout?.widgetId}
-                  render={renderWidget}
-                  configureValue={
-                    layout?.project?.configuration?.configureValue
-                  }
-                  row={1}
-                  column={
-                    layout?.project?.configuration?.configureValue
-                      ?.horizontalNumber
-                  }
-                  onDrop={(item, data) => onDrop(item, data, "header")}
-                  isDroppable={isShowAuxiliaryLine}
-                  isResizable={isShowAuxiliaryLine}
-                  staticed={!isShowAuxiliaryLine}
-                  onDragStop={onDragStop}
-                  onResizeStop={onResizeStop}
-                  onClose={onClose}
-                />
-              }
-              body={
-                <GridLayout
-                  datas={
-                    currentPage?.widgets?.filter(
-                      (item) => item.position === "body"
-                    ) || []
-                  }
-                  selectedId={layout?.widgetId}
-                  render={renderWidget}
-                  configureValue={
-                    layout?.project?.configuration?.configureValue
-                  }
-                  row={
-                    layout?.project?.configuration?.configureValue
-                      ?.verticalNumber
-                  }
-                  column={
-                    layout?.project?.configuration?.configureValue
-                      ?.horizontalNumber
-                  }
-                  onDrop={(item, data) => onDrop(item, data, "body")}
-                  isDroppable={isShowAuxiliaryLine}
-                  isResizable={isShowAuxiliaryLine}
-                  staticed={!isShowAuxiliaryLine}
-                  onDragStop={onDragStop}
-                  onResizeStop={onResizeStop}
-                  onClose={onClose}
-                />
-              }
-            />
+            {layout?.project?.pages?.length ? (
+              <PreviewLayout
+                data={layout?.project || {}}
+                header={
+                  <GridLayout
+                    datas={
+                      currentPage?.widgets?.filter(
+                        (item) => item.position === "header"
+                      ) || []
+                    }
+                    selectedId={layout?.widgetId}
+                    render={renderWidget}
+                    configureValue={
+                      layout?.project?.configuration?.configureValue
+                    }
+                    row={1}
+                    column={
+                      layout?.project?.configuration?.configureValue
+                        ?.horizontalNumber
+                    }
+                    onDrop={(item, data) => onDrop(item, data, "header")}
+                    isDroppable={isShowAuxiliaryLine}
+                    isResizable={isShowAuxiliaryLine}
+                    staticed={!isShowAuxiliaryLine}
+                    onDragStop={onDragStop}
+                    onResizeStop={onResizeStop}
+                    onClose={onClose}
+                  />
+                }
+                body={
+                  <GridLayout
+                    datas={
+                      currentPage?.widgets?.filter(
+                        (item) => item.position === "body"
+                      ) || []
+                    }
+                    selectedId={layout?.widgetId}
+                    render={renderWidget}
+                    configureValue={
+                      layout?.project?.configuration?.configureValue
+                    }
+                    row={
+                      layout?.project?.configuration?.configureValue
+                        ?.verticalNumber
+                    }
+                    column={
+                      layout?.project?.configuration?.configureValue
+                        ?.horizontalNumber
+                    }
+                    onDrop={(item, data) => onDrop(item, data, "body")}
+                    isDroppable={isShowAuxiliaryLine}
+                    isResizable={isShowAuxiliaryLine}
+                    staticed={!isShowAuxiliaryLine}
+                    onDragStop={onDragStop}
+                    onResizeStop={onResizeStop}
+                    onClose={onClose}
+                  />
+                }
+              />
+            ) : (
+              <Empty
+                style={{
+                  position: "absolute",
+                  left: "50%",
+                  top: "50%",
+                  transform: "translate(-50%, -50%)",
+                }}
+                image={Empty.PRESENTED_IMAGE_SIMPLE}
+                description="请先在右侧添加页面，才能进行后面的操作哦！"
+              />
+            )}
           </div>
         </ConfigLayoutMain>
         <ConfigLayoutRightAside
@@ -492,6 +493,8 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                   configureValue={
                     layout?.project?.configuration?.configureValue
                   }
+                  pages={layout?.project?.pages || []}
+                  pageId={layout?.pageId}
                   onFinish={(data) => {
                     dispatch({
                       type: "MODIFY_PROJECT",
@@ -502,6 +505,24 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                             ...layout?.project?.configuration?.configureValue,
                             ...data,
                           },
+                        },
+                      },
+                    });
+                  }}
+                  addPageHandler={(name) => {
+                    dispatch({
+                      type: "ADD_PAGE",
+                      data: {
+                        name: name,
+                        id: "",
+                        url: "",
+                        createTime: "",
+                        count: 0,
+                        pageId: guid(),
+                        screenRatio: "4*4",
+                        widgets: [],
+                        configuration: {
+                          configureValue: { ...pageConfig.configureValue },
                         },
                       },
                     });
