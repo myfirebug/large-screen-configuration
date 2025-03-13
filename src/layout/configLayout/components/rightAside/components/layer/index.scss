@@ -6,24 +6,26 @@
     overflow-y: auto;
     cursor: pointer;
     color: var(--cms-text-color-secondary);
-    .anticon {
-      margin-right: 5px;
-    }
     @include m(item) {
       > div {
         padding-left: 10px;
       }
-      .name {
+      .title {
+        display: flex;
         padding: 0 10px;
         border-bottom: 1px solid var(--cms-divider-color);
-        transition: all 0.25s ease 0s;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        transition: all 0.25s ease 0s;
         &:hover,
         &.is-active {
           color: var(--cms-primary-color);
+        }
+        .name {
+          padding: 0 5px;
+          flex: 1;
+          transition: all 0.25s ease 0s;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          transition: all 0.25s ease 0s;
         }
       }
     }
