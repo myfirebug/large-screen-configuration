@@ -131,45 +131,6 @@ export const widgetConfig = {
             required: false,
             placeholder: "",
           },
-          [
-            {
-              name: "内边距",
-              list: [
-                {
-                  componentName: "InputNumber",
-                  label: "左边距",
-                  name: "bodyStylePaddingLeft",
-                  required: false,
-                  placeholder: "请输入左边距",
-                  addonAfter: "px",
-                },
-                {
-                  componentName: "InputNumber",
-                  label: "右边距",
-                  name: "bodyStylePaddingRight",
-                  required: false,
-                  placeholder: "请输入右边距",
-                  addonAfter: "px",
-                },
-                {
-                  componentName: "InputNumber",
-                  label: "上边距",
-                  name: "bodyStylePaddingTop",
-                  required: false,
-                  placeholder: "请输入上边距",
-                  addonAfter: "px",
-                },
-                {
-                  componentName: "InputNumber",
-                  label: "下边距",
-                  name: "bodyStylePaddingBottom",
-                  required: false,
-                  placeholder: "请输入下边距",
-                  addonAfter: "px",
-                },
-              ],
-            },
-          ],
         ],
       },
       {
