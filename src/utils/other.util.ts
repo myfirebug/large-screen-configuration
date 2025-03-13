@@ -92,6 +92,27 @@ export const getStyles = (
   return result;
 };
 
+/**
+ * 得到新的json数据集合
+ * @param styles json数据集合
+ * @param prefix 前缀
+ * @returns 新的数据集合
+ */
+export const getPrefixStyle = (
+  styles: IAnyObject,
+  prefix: string = "style"
+) => {
+  let data: IAnyObject = {};
+  for (let filed in styles) {
+    if (filed.indexOf(prefix) === 0) {
+      let newField = filed.substring(prefix.length);
+      newField = newField.replace(newField[0], newField[0].toLocaleLowerCase());
+      data[newField] = styles[filed];
+    }
+  }
+  return data;
+};
+
 export const capitalizeFirstLetter = (str: string) => {
   return str.replace(/^\w/, (c) => c.toUpperCase());
 };
