@@ -34,7 +34,6 @@ export const widgets = {
             isShowAuxiliaryLine: true,
             auxiliaryLineBorderColor: "rgba(255, 255, 255, 0.2)",
             headerStyleBorderBottomColor: "rgb(15, 32, 212)",
-            bodyStylePaddingTop: 4,
             headerShow: true,
           },
           dataValue: {
@@ -195,7 +194,6 @@ export const widgets = {
             isShowAuxiliaryLine: false,
             auxiliaryLineBorderColor: "rgba(255, 255, 255, 0.2)",
             headerStyleBorderBottomColor: "rgb(15, 32, 212)",
-            bodyStylePaddingTop: 4,
             headerShow: true,
           },
           dataValue: {
@@ -407,7 +405,6 @@ export const widgets = {
             isShowAuxiliaryLine: false,
             auxiliaryLineBorderColor: "rgba(255, 255, 255, 0.2)",
             headerStyleBorderBottomColor: "rgb(15, 32, 212)",
-            bodyStylePaddingTop: 4,
             headerShow: true,
           },
           dataValue: {
@@ -617,7 +614,6 @@ export const widgets = {
             isShowAuxiliaryLine: true,
             auxiliaryLineBorderColor: "rgba(255, 255, 255, 0.2)",
             headerStyleBorderBottomColor: "rgb(15, 32, 212)",
-            bodyStylePaddingTop: 4,
             headerShow: true,
           },
           dataValue: {

@@ -43,7 +43,6 @@ export const webPageList = {
                 isShowAuxiliaryLine: true,
                 auxiliaryLineBorderColor: "rgba(255, 255, 255, 0.2)",
                 headerStyleBorderBottomColor: "rgb(15, 32, 212)",
-                bodyStylePaddingTop: 4,
                 headerShow: true,
               },
               dataValue: {
@@ -241,7 +240,6 @@ export const webPageList = {
                 isShowAuxiliaryLine: true,
                 auxiliaryLineBorderColor: "rgba(255, 255, 255, 0.2)",
                 headerStyleBorderBottomColor: "rgb(15, 32, 212)",
-                bodyStylePaddingTop: 4,
                 headerShow: true,
               },
               dataValue: {
@@ -439,7 +437,6 @@ export const webPageList = {
                 isShowAuxiliaryLine: true,
                 auxiliaryLineBorderColor: "rgba(255, 255, 255, 0.2)",
                 headerStyleBorderBottomColor: "rgb(15, 32, 212)",
-                bodyStylePaddingTop: 4,
                 headerShow: true,
               },
               dataValue: {
@@ -637,7 +634,6 @@ export const webPageList = {
                 isShowAuxiliaryLine: true,
                 auxiliaryLineBorderColor: "rgba(255, 255, 255, 0.2)",
                 headerStyleBorderBottomColor: "rgb(15, 32, 212)",
-                bodyStylePaddingTop: 4,
                 headerShow: true,
               },
               dataValue: {
@@ -815,7 +811,6 @@ export const webPageList = {
                 isShowAuxiliaryLine: true,
                 auxiliaryLineBorderColor: "rgba(255, 255, 255, 0.2)",
                 headerStyleBorderBottomColor: "rgb(15, 32, 212)",
-                bodyStylePaddingTop: 4,
                 headerShow: true,
               },
               dataValue: {
@@ -993,7 +988,6 @@ export const webPageList = {
                 isShowAuxiliaryLine: true,
                 auxiliaryLineBorderColor: "rgba(255, 255, 255, 0.2)",
                 headerStyleBorderBottomColor: "rgb(15, 32, 212)",
-                bodyStylePaddingTop: 4,
                 headerShow: true,
               },
               dataValue: {
@@ -1171,7 +1165,6 @@ export const webPageList = {
                 isShowAuxiliaryLine: false,
                 auxiliaryLineBorderColor: "rgba(255, 255, 255, 0.2)",
                 headerStyleBorderBottomColor: "rgb(15, 32, 212)",
-                bodyStylePaddingTop: 4,
                 headerShow: true,
               },
               dataValue: {
@@ -1384,7 +1377,6 @@ export const webPageList = {
                 isShowAuxiliaryLine: false,
                 auxiliaryLineBorderColor: "rgba(255, 255, 255, 0.2)",
                 headerStyleBorderBottomColor: "rgb(15, 32, 212)",
-                bodyStylePaddingTop: 4,
                 headerShow: true,
               },
               dataValue: {
@@ -1597,7 +1589,6 @@ export const webPageList = {
                 isShowAuxiliaryLine: false,
                 auxiliaryLineBorderColor: "rgba(255, 255, 255, 0.2)",
                 headerStyleBorderBottomColor: "rgb(15, 32, 212)",
-                bodyStylePaddingTop: 4,
                 headerShow: true,
               },
               dataValue: {
@@ -1810,7 +1801,6 @@ export const webPageList = {
                 isShowAuxiliaryLine: false,
                 auxiliaryLineBorderColor: "rgba(255, 255, 255, 0.2)",
                 headerStyleBorderBottomColor: "rgb(15, 32, 212)",
-                bodyStylePaddingTop: 4,
                 headerShow: true,
               },
               dataValue: {
@@ -2021,7 +2011,6 @@ export const webPageList = {
                 isShowAuxiliaryLine: false,
                 auxiliaryLineBorderColor: "rgba(255, 255, 255, 0.2)",
                 headerStyleBorderBottomColor: "rgb(15, 32, 212)",
-                bodyStylePaddingTop: 4,
                 headerShow: true,
               },
               dataValue: {
@@ -2232,7 +2221,6 @@ export const webPageList = {
                 isShowAuxiliaryLine: false,
                 auxiliaryLineBorderColor: "rgba(255, 255, 255, 0.2)",
                 headerStyleBorderBottomColor: "rgb(15, 32, 212)",
-                bodyStylePaddingTop: 4,
                 headerShow: true,
               },
               dataValue: {
