@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import "./index.scss";
 import { useNavigate } from "react-router-dom";
-import ModifyNameDialog from "./components/modifyNameDialog";
+import ModifyNameDialog from "@src/compoents/modifyNameDialog";
 
 interface IConfigLayoutHeader {
   // 类型
