@@ -4,7 +4,7 @@ import DynamicForm from "../dynamicForm";
 import { projectConfig } from "@src/core/config/base";
 import "./index.scss";
 import { IPage } from "@src/service";
-import AddOrmodifyPageNameDialog from "../addOrmodifyPageNameDialog";
+import ModifyNameDialog from "@src/compoents/modifyNameDialog";
 import { EllipsisOutlined } from "@ant-design/icons";
 
 interface IConfigLayoutRightAsideProject {
@@ -40,11 +40,11 @@ export const ConfigLayoutRightAsideProject: FC<
   });
   return (
     <div className="cms-config-layout__project">
-      <AddOrmodifyPageNameDialog
+      <ModifyNameDialog
         onClose={() => setPageDialogStatus(false)}
         name={selectPage.name}
         open={pageDialogStatus}
-        onFinishHandler={(pageName) => {
+        modifyNameSuccessHander={(pageName) => {
           if (selectPage.name && selectPage.pageId) {
             modifyPageHandler({
               name: pageName,
@@ -54,6 +54,7 @@ export const ConfigLayoutRightAsideProject: FC<
             addPageHandler(pageName);
           }
         }}
+        pageType={"page"}
       />
       <div className="page">
         <div className="page-header">页面列表</div>
