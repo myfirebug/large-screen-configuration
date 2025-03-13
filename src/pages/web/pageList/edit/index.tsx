@@ -276,6 +276,40 @@ const ConfigLayout: FC<IConfigLayout> = () => {
     });
   }, []);
 
+  // 删除微件
+  const onDeleteHandler = useCallback(
+    (
+      type: "page" | "widget" | "element" | "project",
+      id: string,
+      pid?: string
+    ) => {
+      if (type === "widget") {
+        dispatch({
+          type: "DELETE_WIDGET",
+          id,
+        });
+      }
+    },
+    []
+  );
+  // 修改微件
+  const onEditHandler = useCallback(
+    (
+      type: "page" | "widget" | "element" | "project",
+      id: string,
+      name: string,
+      pid?: string
+    ) => {
+      if (type === "widget") {
+        dispatch({
+          type: "MODIFY_WIDGET",
+          data: { name, widgetId: id },
+        });
+      }
+    },
+    []
+  );
+
   return (
     <div className="cms-config-layout">
       <ConfigLayoutHeader
@@ -388,6 +422,9 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                     widgetId={layout?.widgetId}
                     elementId={layout?.elementId}
                     onSelected={layerSelectedHandle}
+                    pageType="page"
+                    onDeleteHandler={onDeleteHandler}
+                    onEditHandler={onEditHandler}
                   />
                 </div>
               );

@@ -28,7 +28,7 @@ export type MODIFY_WIDGET_TYPE = typeof MODIFY_WIDGET;
 export const SELECT_ELEMENT = "SELECT_ELEMENT";
 export type SELECT_ELEMENT_TYPE = typeof SELECT_ELEMENT;
 
-// 修改微件
+// 修改组件
 export const MODIFY_ELEMENT = "MODIFY_ELEMENT";
 export type MODIFY_ELEMENT_TYPE = typeof MODIFY_ELEMENT;
 
