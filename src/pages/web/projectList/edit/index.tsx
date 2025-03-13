@@ -470,7 +470,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
               return (
                 <div>
                   <ConfigLayoutRightAsideLayer
-                    datas={currentPage ? currentPage.widgets : []}
+                    datas={currentPage ? [currentPage] : []}
                     pageId={layout?.pageId}
                     widgetId={layout?.widgetId}
                     elementId={layout?.elementId}
