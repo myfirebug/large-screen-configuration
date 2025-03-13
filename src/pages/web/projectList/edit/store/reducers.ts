@@ -1,4 +1,4 @@
-import { IPage } from "@src/service";
+import { IElement, IPage, IWidget } from "@src/service";
 import { ModifyActions } from "./action";
 import {
   ALL_STATE,
@@ -13,7 +13,10 @@ import {
   MODIFY_PAGE,
   SELECT_PAGE,
   DELETE_PAGE,
+  MODIFY_PROJECT_CONFIGUREVALUE,
+  MODIFY_ELEMENT,
 } from "./type";
+import { getPrefixStyle } from "@src/utils";
 
 export const initialState: ALL_STATE = {
   project: {
@@ -37,7 +40,10 @@ export const projectReducer = (state = initialState, action: ModifyActions) => {
   let currentPage = copy.project.pages.find(
     (item) => item.pageId === copy.pageId
   );
-  console.log(state, action);
+  // 当前微件
+  let currentWidget = currentPage?.widgets.find(
+    (item) => item.widgetId === copy.widgetId
+  );
   switch (action.type) {
     // 获取页面
     case PROJECT: {
@@ -53,14 +59,65 @@ export const projectReducer = (state = initialState, action: ModifyActions) => {
       };
       return copy;
     }
+    case MODIFY_PROJECT_CONFIGUREVALUE: {
+      let data: IAnyObject = getPrefixStyle(action.data, "widget");
+      if (JSON.stringify(data) !== "{}") {
+        for (let i = 0; i < copy.project.pages.length; i++) {
+          for (let j = 0; j < copy.project.pages[i].widgets.length; j++) {
+            copy.project.pages[i].widgets[j].configuration = {
+              ...copy.project.pages[i].widgets[j].configuration,
+              configureValue: {
+                ...copy.project.pages[i].widgets[j].configuration
+                  ?.configureValue,
+                ...data,
+              },
+            };
+          }
+        }
+      }
+      copy.project.configuration = {
+        ...copy.project.configuration,
+        configureValue: {
+          ...copy.project.configuration?.configureValue,
+          ...action.data,
+        },
+      };
+      return copy;
+    }
     case ADD_WIDGET: {
-      (currentPage as IPage).widgets = [
-        ...(currentPage as IPage).widgets,
-        action.data,
-      ];
-      copy.widgetId = action.data.widgetId;
+      let data: IAnyObject = getPrefixStyle(
+        copy?.project?.configuration?.configureValue || {},
+        "widget"
+      );
+      let widgets: IWidget[] = [];
+      if (Array.isArray(action.data)) {
+        widgets = action.data.map((item) => ({
+          ...item,
+          configuration: {
+            ...item?.configuration,
+            configureValue: {
+              ...item?.configuration?.configureValue,
+              ...data,
+            },
+          },
+        }));
+      } else {
+        copy.widgetId = action.data.widgetId;
+        widgets.push({
+          ...action.data,
+          configuration: {
+            ...action?.data?.configuration,
+            configureValue: {
+              ...action?.data?.configuration?.configureValue,
+              ...data,
+            },
+          },
+        });
+      }
+      (currentPage as IPage).widgets = (currentPage as IPage).widgets.concat(
+        widgets
+      );
       copy.elementId = "";
-      console.log(copy, "copy");
       return copy;
     }
     case DELETE_WIDGET: {
@@ -98,6 +155,8 @@ export const projectReducer = (state = initialState, action: ModifyActions) => {
     case ADD_PAGE: {
       copy.project.pages.push(action.data);
       copy.pageId = action.data.pageId;
+      copy.elementId = "";
+      copy.widgetId = "";
       return copy;
     }
     case MODIFY_PAGE: {
@@ -132,6 +191,19 @@ export const projectReducer = (state = initialState, action: ModifyActions) => {
         copy.widgetId = "";
         copy.elementId = "";
       }
+      return copy;
+    }
+    case MODIFY_ELEMENT: {
+      const index = currentWidget?.elements?.findIndex(
+        (item) => item.elementId === copy.elementId
+      );
+      if (index !== -1) {
+        (currentWidget?.elements as IElement[])[index as number] = {
+          ...(currentWidget?.elements as IElement[])[index as number],
+          ...action.data,
+        };
+      }
+      console.log(copy, "123");
       return copy;
     }
     default: {

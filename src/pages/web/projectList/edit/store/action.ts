@@ -11,6 +11,8 @@ import {
   MODIFY_PAGE_TYPE,
   SELECT_PAGE_TYPE,
   DELETE_PAGE_TYPE,
+  MODIFY_PROJECT_CONFIGUREVALUE_TYPE,
+  MODIFY_ELEMENT_TYPE,
 } from "./type";
 
 // 获取项目
@@ -23,10 +25,15 @@ export interface modifyProjectAction {
   type: MODIFY_PROJECT_TYPE;
   data: IAnyObject;
 }
+// 修改项目的configureValue
+export interface modifyProjectConfigureValueAction {
+  type: MODIFY_PROJECT_CONFIGUREVALUE_TYPE;
+  data: IAnyObject;
+}
 // 新增微件
 export interface addWidgetAction {
   type: ADD_WIDGET_TYPE;
-  data: IWidget;
+  data: IWidget | IWidget[];
 }
 // 删除微件
 export interface deleteWidgetAction {
@@ -71,6 +78,12 @@ export interface deletePageAction {
   pageId: string;
 }
 
+// 修改组件
+export interface modifyElementAction {
+  type: MODIFY_ELEMENT_TYPE;
+  data: IAnyObject;
+}
+
 export type ModifyActions =
   | projectAction
   | modifyProjectAction
@@ -82,4 +95,6 @@ export type ModifyActions =
   | addPageAction
   | modifyPageAction
   | selectPageAction
-  | deletePageAction;
+  | deletePageAction
+  | modifyProjectConfigureValueAction
+  | modifyElementAction;

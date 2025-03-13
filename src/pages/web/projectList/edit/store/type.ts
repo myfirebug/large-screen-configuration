@@ -8,6 +8,11 @@ export type PROJECT_TYPE = typeof PROJECT;
 export const MODIFY_PROJECT = "MODIFY_PROJECT";
 export type MODIFY_PROJECT_TYPE = typeof MODIFY_PROJECT;
 
+// 修改项目的configureValue
+export const MODIFY_PROJECT_CONFIGUREVALUE = "MODIFY_PROJECT_CONFIGUREVALUE";
+export type MODIFY_PROJECT_CONFIGUREVALUE_TYPE =
+  typeof MODIFY_PROJECT_CONFIGUREVALUE;
+
 // 添加微件
 export const ADD_WIDGET = "ADD_WIDGET";
 export type ADD_WIDGET_TYPE = typeof ADD_WIDGET;
@@ -42,6 +47,10 @@ export type SELECT_PAGE_TYPE = typeof SELECT_PAGE;
 // 删除页面
 export const DELETE_PAGE = "DELETE_PAGE";
 export type DELETE_PAGE_TYPE = typeof DELETE_PAGE;
+
+// 修改组件
+export const MODIFY_ELEMENT = "MODIFY_ELEMENT";
+export type MODIFY_ELEMENT_TYPE = typeof MODIFY_ELEMENT;
 
 export interface ALL_STATE {
   project: IProject;

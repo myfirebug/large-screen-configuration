@@ -152,19 +152,24 @@ const ConfigLayout: FC<IConfigLayout> = () => {
     );
   }, [currentWidget?.elements, layout?.elementId]);
   // 渲染组件
-  const renderElement = useCallback((data: IAnyObject) => {
-    if (data.element && elements[capitalizeFirstLetter(data.element)]) {
-      return React.createElement(
-        elements[capitalizeFirstLetter(data.element)],
-        {
-          options: data.configuration.configureValue,
-          data: data.configuration?.dataValue?.mock,
-          field: data.configuration?.dataValue?.field,
-        }
-      );
-    }
-    return <div>你访问的组件不存在请联系售后人员</div>;
-  }, []);
+  const renderElement = useCallback(
+    (data: IAnyObject, realData?: IAnyObject) => {
+      if (data.element && elements[capitalizeFirstLetter(data.element)]) {
+        return React.createElement(
+          elements[capitalizeFirstLetter(data.element)],
+          {
+            options: data.configuration.configureValue,
+            data: data.configuration?.dataValue?.useInterface
+              ? realData || {}
+              : data.configuration?.dataValue?.mock,
+            field: data.configuration?.dataValue?.field,
+          }
+        );
+      }
+      return <div>你访问的组件不存在请联系售后人员</div>;
+    },
+    []
+  );
   // 渲染微件
   const renderWidget = useCallback(
     (data: IAnyObject) => {
@@ -205,7 +210,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                         column={WIDGET_HEADER_COLUMN}
                         row={WIDGET_HEADER_ROW}
                         gap={WIDGET_HEADER_GAP}
-                        render={renderElement}
+                        render={(data) => renderElement(data, realData)}
                         isDroppable
                         isResizable
                         staticed
@@ -224,7 +229,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                         column={WIDGET_BODY_COLUMN}
                         row={WIDGET_BODY_ROW}
                         gap={WIDGET_BODY_GAP}
-                        render={renderElement}
+                        render={(data) => renderElement(data, realData)}
                         isDroppable
                         isResizable
                         staticed
@@ -291,11 +296,45 @@ const ConfigLayout: FC<IConfigLayout> = () => {
       id: item.widgetId,
     });
   }, []);
+
+  // 删除微件
+  const onDeleteHandler = useCallback(
+    (
+      type: "page" | "widget" | "element" | "project",
+      id: string,
+      pid?: string
+    ) => {
+      if (type === "widget") {
+        dispatch({
+          type: "DELETE_WIDGET",
+          id,
+        });
+      }
+    },
+    []
+  );
+  // 修改微件
+  const onEditHandler = useCallback(
+    (
+      type: "page" | "widget" | "element" | "project",
+      id: string,
+      name: string,
+      pid?: string
+    ) => {
+      if (type === "widget") {
+        dispatch({
+          type: "MODIFY_WIDGET",
+          data: { name, widgetId: id },
+        });
+      }
+    },
+    []
+  );
   return (
     <div className="cms-config-layout">
       <ConfigLayoutHeader
         name={layout?.project?.name}
-        pageType="page"
+        pageType="project"
         modifyNameSuccessHander={(name) => {
           dispatch({
             type: "MODIFY_PROJECT",
@@ -319,7 +358,18 @@ const ConfigLayout: FC<IConfigLayout> = () => {
             if (data === "widget") {
               return <ConfigLayoutLeftAsideWidget />;
             } else if (data === "page") {
-              return <ConfigLayoutLeftAsidePage />;
+              return (
+                <ConfigLayoutLeftAsidePage
+                  onClick={(page) => {
+                    if (!currentPage?.widgets.length) {
+                      dispatch({
+                        type: "ADD_WIDGET",
+                        data: page.widgets,
+                      });
+                    }
+                  }}
+                />
+              );
             }
             return null;
           }}
@@ -426,6 +476,9 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                     elementId={layout?.elementId}
                     projectId={layout?.projectId}
                     onSelected={layerSelectedHandle}
+                    pageType="project"
+                    onDeleteHandler={onDeleteHandler}
+                    onEditHandler={onEditHandler}
                   />
                 </div>
               );
@@ -460,7 +513,21 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                   configureValue={
                     currentElement?.configuration.configureValue || {}
                   }
-                  onFinish={(data: IAnyObject) => {}}
+                  onFinish={(data: IAnyObject) => {
+                    dispatch({
+                      type: "MODIFY_ELEMENT",
+                      data: {
+                        ...currentElement,
+                        configuration: {
+                          ...currentElement?.configuration,
+                          configureValue: {
+                            ...currentElement?.configuration?.configureValue,
+                            ...data,
+                          },
+                        },
+                      },
+                    });
+                  }}
                 />
               );
             } else if (data === "data") {
@@ -484,7 +551,21 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                     });
                   }}
                   elementDataValue={currentElement?.configuration.dataValue}
-                  elementOnFinish={(data: IAnyObject) => {}}
+                  elementOnFinish={(data: IAnyObject) => {
+                    dispatch({
+                      type: "MODIFY_ELEMENT",
+                      data: {
+                        ...currentElement,
+                        configuration: {
+                          ...currentElement?.configuration,
+                          dataValue: {
+                            ...currentElement?.configuration?.dataValue,
+                            ...data,
+                          },
+                        },
+                      },
+                    });
+                  }}
                 />
               );
             } else if (data === "page") {
@@ -504,16 +585,8 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                   pageId={layout?.pageId}
                   onFinish={(data) => {
                     dispatch({
-                      type: "MODIFY_PROJECT",
-                      data: {
-                        configuration: {
-                          ...layout?.project?.configuration,
-                          configureValue: {
-                            ...layout?.project?.configuration?.configureValue,
-                            ...data,
-                          },
-                        },
-                      },
+                      type: "MODIFY_PROJECT_CONFIGUREVALUE",
+                      data,
                     });
                   }}
                   modifyPageHandler={(data) => {
