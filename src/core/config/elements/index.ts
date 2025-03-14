@@ -35,6 +35,8 @@ import {
   progressTable,
 } from "./table";
 
+import { formRadio } from "./form";
+
 const elementsConfig: any = {
   baseText,
   iconText,
@@ -66,6 +68,7 @@ const elementsConfig: any = {
   borderTable,
   rankingTable,
   progressTable,
+  formRadio,
 };
 
 export default elementsConfig;
