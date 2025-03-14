@@ -7,7 +7,6 @@ import React, {
   useState,
 } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import elements from "@src/elements";
 import {
   ConfigLayoutHeader,
   ConfigLayoutMain,
@@ -26,7 +25,7 @@ import "@src/layout/configLayout/index.scss";
 import PreviewLayout from "@src/layout/previewLayout";
 import { initialState, widgetReducer } from "./store/reducers";
 import { IElement, IWidget } from "@src/service";
-import { capitalizeFirstLetter, guid } from "@src/utils";
+import { guid } from "@src/utils";
 import "animate.css";
 import {
   CACHE_WIDGETS,
@@ -44,6 +43,7 @@ import html2canvas from "html2canvas";
 import { Button, Form, message, Modal, Select } from "antd";
 import GridLayout from "@src/layout/gridLayout";
 import { Layout } from "react-grid-layout";
+import RenderElement from "@src/compoents/renderElement";
 interface IConfigLayout {}
 
 const ConfigLayout: FC<IConfigLayout> = () => {
@@ -139,21 +139,6 @@ const ConfigLayout: FC<IConfigLayout> = () => {
     },
     []
   );
-  // 渲染组件
-  const renderPreview = useCallback((data: IAnyObject) => {
-    console.log("element update", data.elementId);
-    if (data.element && elements[capitalizeFirstLetter(data.element)]) {
-      return React.createElement(
-        elements[capitalizeFirstLetter(data.element)],
-        {
-          options: data.configuration.configureValue,
-          data: data.configuration?.dataValue?.mock,
-          field: data.configuration?.dataValue?.field,
-        }
-      );
-    }
-    return <div>你访问的组件不存在请联系售后人员</div>;
-  }, []);
   // 判断右侧边栏所需模块
   const rightAside = useMemo(() => {
     let arr: PageType[] = [];
@@ -334,7 +319,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                       (item) => item.position === "header"
                     ) || []
                   }
-                  render={renderPreview}
+                  render={(data) => <RenderElement data={data} />}
                   onDrop={(item, data) => onDrop(item, data, "header")}
                   onDragStop={onDragStop}
                   onResizeStop={onResizeStop}
@@ -356,7 +341,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                       (item) => item.position === "body"
                     ) || []
                   }
-                  render={renderPreview}
+                  render={(data) => <RenderElement data={data} />}
                   onDrop={(item, data) => onDrop(item, data, "body")}
                   onDragStop={onDragStop}
                   onResizeStop={onResizeStop}

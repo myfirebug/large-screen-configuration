@@ -26,25 +26,16 @@ import {
 import "@src/layout/configLayout/index.scss";
 import { initialState, projectReducer } from "./store/reducers";
 import "animate.css";
-import { capitalizeFirstLetter, guid } from "@src/utils";
+import { guid } from "@src/utils";
 import { pageConfig, projectConfig } from "@src/core/config/base";
 import "./index.scss";
-import elements from "@src/elements";
 
 import GridLayout from "@src/layout/gridLayout";
-import { IElement, IWidget } from "@src/service";
+import { IWidget } from "@src/service";
 import PreviewLayout from "@src/layout/previewLayout";
-import Request from "@src/compoents/request";
-import {
-  WIDGET_BODY_COLUMN,
-  WIDGET_BODY_GAP,
-  WIDGET_BODY_ROW,
-  WIDGET_HEADER_COLUMN,
-  WIDGET_HEADER_GAP,
-  WIDGET_HEADER_ROW,
-} from "@src/core/enums/access.enums";
 import { Layout } from "react-grid-layout";
-import { Empty, Spin } from "antd";
+import { Empty } from "antd";
+import RenderWidget from "@src/compoents/renderWidget";
 
 interface IConfigLayout {}
 
@@ -151,100 +142,6 @@ const ConfigLayout: FC<IConfigLayout> = () => {
       (item) => layout?.elementId && item.elementId === layout?.elementId
     );
   }, [currentWidget?.elements, layout?.elementId]);
-  // 渲染组件
-  const renderElement = useCallback(
-    (data: IAnyObject, realData?: IAnyObject) => {
-      if (data.element && elements[capitalizeFirstLetter(data.element)]) {
-        return React.createElement(
-          elements[capitalizeFirstLetter(data.element)],
-          {
-            options: data.configuration.configureValue,
-            data: data.configuration?.dataValue?.useInterface
-              ? realData || {}
-              : data.configuration?.dataValue?.mock,
-            field: data.configuration?.dataValue?.field,
-          }
-        );
-      }
-      return <div>你访问的组件不存在请联系售后人员</div>;
-    },
-    []
-  );
-  // 渲染微件
-  const renderWidget = useCallback(
-    (data: IAnyObject) => {
-      return (
-        <>
-          <Request
-            method={data?.configuration?.dataValue?.method}
-            url={data?.configuration?.dataValue?.url}
-            params={JSON.stringify(
-              data?.configuration?.dataValue?.params || {}
-            )}
-            render={(loading: boolean, success: boolean, realData: any) => {
-              return (
-                <>
-                  {loading ? (
-                    <Spin
-                      style={{
-                        position: "absolute",
-                        left: "50%",
-                        top: "50%",
-                        transform: "tranlate(-50%, -50%)",
-                        zIndex: 1000,
-                      }}
-                    />
-                  ) : null}
-                  <PreviewLayout
-                    data={data}
-                    header={
-                      <GridLayout
-                        datas={
-                          data?.elements.filter(
-                            (item: IElement) => item.position === "header"
-                          ) || []
-                        }
-                        configureValue={
-                          currentPage?.configuration?.configureValue
-                        }
-                        column={WIDGET_HEADER_COLUMN}
-                        row={WIDGET_HEADER_ROW}
-                        gap={WIDGET_HEADER_GAP}
-                        render={(data) => renderElement(data, realData)}
-                        isDroppable
-                        isResizable
-                        staticed
-                      />
-                    }
-                    body={
-                      <GridLayout
-                        configureValue={
-                          currentPage?.configuration?.configureValue
-                        }
-                        datas={
-                          data?.elements.filter(
-                            (item: IElement) => item.position === "body"
-                          ) || []
-                        }
-                        column={WIDGET_BODY_COLUMN}
-                        row={WIDGET_BODY_ROW}
-                        gap={WIDGET_BODY_GAP}
-                        render={(data) => renderElement(data, realData)}
-                        isDroppable
-                        isResizable
-                        staticed
-                      />
-                    }
-                  />
-                </>
-              );
-            }}
-          />
-        </>
-      );
-    },
-    [currentPage?.configuration?.configureValue, renderElement]
-  );
   // 新增微件
   const onDrop = useCallback(
     (item: Layout, data: IWidget, type: "header" | "body") => {
@@ -401,7 +298,14 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                       ) || []
                     }
                     selectedId={layout?.widgetId}
-                    render={renderWidget}
+                    render={(data) => (
+                      <RenderWidget
+                        data={data}
+                        configureValue={
+                          currentPage?.configuration?.configureValue
+                        }
+                      />
+                    )}
                     configureValue={
                       layout?.project?.configuration?.configureValue
                     }
@@ -427,7 +331,14 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                       ) || []
                     }
                     selectedId={layout?.widgetId}
-                    render={renderWidget}
+                    render={(data) => (
+                      <RenderWidget
+                        data={data}
+                        configureValue={
+                          currentPage?.configuration?.configureValue
+                        }
+                      />
+                    )}
                     configureValue={
                       layout?.project?.configuration?.configureValue
                     }

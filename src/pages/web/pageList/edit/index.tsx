@@ -26,25 +26,17 @@ import { initialState, pageReducer } from "./store/reducers";
 import "animate.css";
 import html2canvas from "html2canvas";
 import { message } from "antd";
-import { capitalizeFirstLetter, guid } from "@src/utils";
+import { guid } from "@src/utils";
 import { pageConfig } from "@src/core/config/base";
 import "./index.scss";
-import elements from "@src/elements";
 
 import GridLayout from "@src/layout/gridLayout";
 import { IElement, IPage, IWidget } from "@src/service";
 import PreviewLayout from "@src/layout/previewLayout";
-import {
-  CACHE_PAGES,
-  WIDGET_BODY_COLUMN,
-  WIDGET_BODY_GAP,
-  WIDGET_BODY_ROW,
-  WIDGET_HEADER_COLUMN,
-  WIDGET_HEADER_GAP,
-  WIDGET_HEADER_ROW,
-} from "@src/core/enums/access.enums";
+import { CACHE_PAGES } from "@src/core/enums/access.enums";
 import { Layout } from "react-grid-layout";
 import localforage from "localforage";
+import RenderWidget from "@src/compoents/renderWidget";
 
 interface IConfigLayout {}
 
@@ -163,66 +155,6 @@ const ConfigLayout: FC<IConfigLayout> = () => {
     );
   }, [currentWidget?.elements, layout?.elementId]);
 
-  // 渲染组件
-  const renderElement = useCallback((data: IAnyObject) => {
-    console.log("element update", data.elementId);
-    if (data.element && elements[capitalizeFirstLetter(data.element)]) {
-      return React.createElement(
-        elements[capitalizeFirstLetter(data.element)],
-        {
-          options: data.configuration.configureValue,
-          data: data.configuration?.dataValue?.mock,
-          field: data.configuration?.dataValue?.field,
-        }
-      );
-    }
-    return <div>你访问的组件不存在请联系售后人员</div>;
-  }, []);
-  // 渲染微件
-  const renderWidget = useCallback(
-    (data: IAnyObject) => {
-      return (
-        <PreviewLayout
-          data={data}
-          header={
-            <GridLayout
-              datas={
-                data?.elements.filter(
-                  (item: IElement) => item.position === "header"
-                ) || []
-              }
-              configureValue={layout?.page?.configuration?.configureValue}
-              column={WIDGET_HEADER_COLUMN}
-              row={WIDGET_HEADER_ROW}
-              gap={WIDGET_HEADER_GAP}
-              render={renderElement}
-              isDroppable
-              isResizable
-              staticed
-            />
-          }
-          body={
-            <GridLayout
-              configureValue={layout?.page?.configuration?.configureValue}
-              datas={
-                data?.elements.filter(
-                  (item: IElement) => item.position === "body"
-                ) || []
-              }
-              column={WIDGET_BODY_COLUMN}
-              row={WIDGET_BODY_ROW}
-              gap={WIDGET_BODY_GAP}
-              render={renderElement}
-              isDroppable
-              isResizable
-              staticed
-            />
-          }
-        />
-      );
-    },
-    [layout?.page?.configuration?.configureValue, renderElement]
-  );
   // 新增微件
   const onDrop = useCallback(
     (item: Layout, data: IWidget, type: "header" | "body") => {
@@ -389,7 +321,14 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                     ) || []
                   }
                   selectedId={layout?.widgetId}
-                  render={renderWidget}
+                  render={(data) => (
+                    <RenderWidget
+                      data={data}
+                      configureValue={
+                        layout?.page?.configuration?.configureValue
+                      }
+                    />
+                  )}
                   configureValue={layout?.page?.configuration?.configureValue}
                   row={
                     layout?.page?.configuration?.configureValue?.verticalNumber
