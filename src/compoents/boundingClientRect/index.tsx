@@ -1,3 +1,4 @@
+import { useDebounce } from "ahooks";
 import React, {
   FC,
   ReactNode,
@@ -15,6 +16,11 @@ const BoundingClientRect: FC<IResizeObserver> = ({ render }) => {
   const [boundingClientRect, setBoundingClientRect] = useState({
     width: 0,
     height: 0,
+  });
+
+  const debouncedValue = useDebounce(boundingClientRect, {
+    wait: 50,
+    trailing: true,
   });
 
   // 目标元素
@@ -48,7 +54,7 @@ const BoundingClientRect: FC<IResizeObserver> = ({ render }) => {
   }, [getClientRect]);
   return (
     <div ref={target} style={{ width: "100%", height: "100%" }}>
-      {render(boundingClientRect.width, boundingClientRect.height)}
+      {render(debouncedValue.width, debouncedValue.height)}
     </div>
   );
 };
