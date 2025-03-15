@@ -30,20 +30,19 @@ import { guid } from "@src/utils";
 import { pageConfig } from "@src/core/config/base";
 import "./index.scss";
 
-import GridLayout from "@src/layout/gridLayout";
 import { IElement, IPage, IWidget } from "@src/service";
-import PreviewLayout from "@src/layout/previewLayout";
 import { CACHE_PAGES } from "@src/core/enums/access.enums";
 import { Layout } from "react-grid-layout";
 import localforage from "localforage";
-import RenderWidget from "@src/compoents/renderWidget";
+import RenderPage from "@src/compoents/renderPage";
+import PreviewDialog from "@src/compoents/previewDialog";
 
 interface IConfigLayout {}
 
 const ConfigLayout: FC<IConfigLayout> = () => {
   let location = useLocation();
   const [layout, dispatch] = useReducer(pageReducer, initialState);
-  const [, setShow] = useState(false);
+  const [show, setShow] = useState(false);
   const [isShowAuxiliaryLine, setIsShowAuxiliaryLine] = useState(true);
   const navigate = useNavigate();
 
@@ -310,42 +309,18 @@ const ConfigLayout: FC<IConfigLayout> = () => {
             }}
             id="js_page"
           >
-            <PreviewLayout
+            <RenderPage
               data={layout?.page || {}}
-              header={null}
-              body={
-                <GridLayout
-                  datas={
-                    layout?.page?.widgets?.filter(
-                      (item) => item.position === "body"
-                    ) || []
-                  }
-                  selectedId={layout?.widgetId}
-                  render={(data) => (
-                    <RenderWidget
-                      data={data}
-                      configureValue={
-                        layout?.page?.configuration?.configureValue
-                      }
-                    />
-                  )}
-                  configureValue={layout?.page?.configuration?.configureValue}
-                  row={
-                    layout?.page?.configuration?.configureValue?.verticalNumber
-                  }
-                  column={
-                    layout?.page?.configuration?.configureValue
-                      ?.horizontalNumber
-                  }
-                  onDrop={(item, data) => onDrop(item, data, "body")}
-                  isDroppable={isShowAuxiliaryLine}
-                  isResizable={isShowAuxiliaryLine}
-                  staticed={!isShowAuxiliaryLine}
-                  onDragStop={onDragStop}
-                  onResizeStop={onResizeStop}
-                  onClose={onClose}
-                />
-              }
+              configureValue={layout?.page?.configuration?.configureValue}
+              widgets={layout?.page?.widgets || []}
+              selectedId={layout?.widgetId}
+              onDrop={onDrop}
+              isDroppable={isShowAuxiliaryLine}
+              isResizable={isShowAuxiliaryLine}
+              staticed={!isShowAuxiliaryLine}
+              onDragStop={onDragStop}
+              onResizeStop={onResizeStop}
+              onClose={onClose}
             />
           </div>
         </ConfigLayoutMain>
@@ -478,6 +453,24 @@ const ConfigLayout: FC<IConfigLayout> = () => {
           }}
         />
       </div>
+      {/* 页面预览 */}
+      <PreviewDialog
+        title="页面预览"
+        open={show}
+        onClose={() => setShow(false)}
+        width={
+          layout?.page?.configuration?.configureValue?.widgetConfigWidth || 1366
+        }
+        height={
+          layout?.page?.configuration?.configureValue?.widgetConfigHeight || 768
+        }
+      >
+        <RenderPage
+          data={layout?.page || {}}
+          configureValue={layout?.page?.configuration?.configureValue}
+          widgets={layout?.page?.widgets || []}
+        />
+      </PreviewDialog>
     </div>
   );
 };
