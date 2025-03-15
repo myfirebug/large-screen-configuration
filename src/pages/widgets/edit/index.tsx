@@ -22,28 +22,18 @@ import {
 import { widgetConfig } from "@src/core/config/base";
 
 import "@src/layout/configLayout/index.scss";
-import PreviewLayout from "@src/layout/previewLayout";
 import { initialState, widgetReducer } from "./store/reducers";
 import { IElement, IWidget } from "@src/service";
 import { guid } from "@src/utils";
 import "animate.css";
-import {
-  CACHE_WIDGETS,
-  ELEMETSTYPE,
-  WIDGET_BODY_COLUMN,
-  WIDGET_BODY_GAP,
-  WIDGET_BODY_ROW,
-  WIDGET_HEADER_COLUMN,
-  WIDGET_HEADER_GAP,
-  WIDGET_HEADER_ROW,
-} from "@src/core/enums/access.enums";
-import WidgetPreviewDialog from "@src/compoents/widgetPreviewDialog";
+import { CACHE_WIDGETS, ELEMETSTYPE } from "@src/core/enums/access.enums";
 import localforage from "localforage";
 import html2canvas from "html2canvas";
 import { Button, Form, message, Modal, Select } from "antd";
-import GridLayout from "@src/layout/gridLayout";
 import { Layout } from "react-grid-layout";
-import RenderElement from "@src/compoents/renderElement";
+
+import RenderWidget from "@src/compoents/renderWidget";
+import PreviewDialog from "@src/compoents/previewDialog";
 interface IConfigLayout {}
 
 const ConfigLayout: FC<IConfigLayout> = () => {
@@ -146,7 +136,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
       if (layout?.elementId) {
         arr = ["layer", "element", "widget", "data"];
       } else {
-        arr = ["layer", "widget"];
+        arr = ["layer", "widget", "data"];
       }
     } else {
       arr = ["layer", "widget"];
@@ -244,6 +234,18 @@ const ConfigLayout: FC<IConfigLayout> = () => {
     []
   );
 
+  // 当前选中微件参数字段列表
+  const currentWidgetParamFields = useMemo(() => {
+    const params = currentWidget?.configuration?.dataValue?.params;
+    let arr: string[] = [];
+    try {
+      for (let field in params) {
+        arr.push(field);
+      }
+    } catch (err) {}
+    return arr;
+  }, [currentWidget?.configuration?.dataValue?.params]);
+
   return (
     <div className="cms-config-layout">
       <ConfigLayoutHeader
@@ -306,52 +308,17 @@ const ConfigLayout: FC<IConfigLayout> = () => {
             }}
             id="js_widget"
           >
-            <PreviewLayout
-              header={
-                <GridLayout
-                  selectedId={layout?.elementId}
-                  column={WIDGET_HEADER_COLUMN}
-                  row={WIDGET_HEADER_ROW}
-                  gap={WIDGET_HEADER_GAP}
-                  configureValue={currentWidget?.configuration?.configureValue}
-                  datas={
-                    currentWidget?.elements.filter(
-                      (item) => item.position === "header"
-                    ) || []
-                  }
-                  render={(data) => <RenderElement data={data} />}
-                  onDrop={(item, data) => onDrop(item, data, "header")}
-                  onDragStop={onDragStop}
-                  onResizeStop={onResizeStop}
-                  isDroppable={isShowAuxiliaryLine}
-                  isResizable={isShowAuxiliaryLine}
-                  staticed={!isShowAuxiliaryLine}
-                  onClose={onClose}
-                />
-              }
-              body={
-                <GridLayout
-                  selectedId={layout?.elementId}
-                  column={WIDGET_BODY_COLUMN}
-                  row={WIDGET_BODY_ROW}
-                  gap={WIDGET_BODY_GAP}
-                  configureValue={currentWidget?.configuration?.configureValue}
-                  datas={
-                    currentWidget?.elements.filter(
-                      (item) => item.position === "body"
-                    ) || []
-                  }
-                  render={(data) => <RenderElement data={data} />}
-                  onDrop={(item, data) => onDrop(item, data, "body")}
-                  onDragStop={onDragStop}
-                  onResizeStop={onResizeStop}
-                  isDroppable={isShowAuxiliaryLine}
-                  isResizable={isShowAuxiliaryLine}
-                  staticed={!isShowAuxiliaryLine}
-                  onClose={onClose}
-                />
-              }
-              data={layout?.widget || {}}
+            <RenderWidget
+              data={currentWidget as IWidget}
+              configureValue={currentWidget?.configuration?.configureValue}
+              onDrop={onDrop}
+              onDragStop={onDragStop}
+              onResizeStop={onResizeStop}
+              isDroppable={isShowAuxiliaryLine}
+              isResizable={isShowAuxiliaryLine}
+              staticed={!isShowAuxiliaryLine}
+              onClose={onClose}
+              selectedId={layout?.elementId}
             />
           </div>
         </ConfigLayoutMain>
@@ -432,6 +399,12 @@ const ConfigLayout: FC<IConfigLayout> = () => {
             } else if (data === "data") {
               return (
                 <ConfigLayoutRightAsideData
+                  isShowWidgetDataConfig
+                  paramFields={
+                    currentElement?.type === "form"
+                      ? currentWidgetParamFields
+                      : []
+                  }
                   widgetDataValue={layout?.widget?.configuration?.dataValue}
                   widgetOnFinish={(data: IAnyObject) => {
                     const widget = layout?.widget;
@@ -482,11 +455,27 @@ const ConfigLayout: FC<IConfigLayout> = () => {
         />
       </div>
 
-      <WidgetPreviewDialog
+      {/* 预览功能 */}
+      <PreviewDialog
         open={show}
         onClose={() => setShow(false)}
-        data={layout?.widget as IWidget}
-      />
+        title="微件预览"
+        width={
+          currentWidget?.configuration?.configureValue?.pageConfigWidth || 600
+        }
+        height={
+          currentWidget?.configuration?.configureValue?.pageConfigHeight || 400
+        }
+      >
+        <RenderWidget
+          data={currentWidget as IWidget}
+          configureValue={currentWidget?.configuration?.configureValue}
+          isDroppable={true}
+          isResizable={true}
+          staticed={true}
+        />
+      </PreviewDialog>
+      {/* 发布功能 */}
       <Modal
         open={!isShowAuxiliaryLine}
         title="发布微件"
