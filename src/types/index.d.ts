@@ -8,7 +8,14 @@ type PageType =
   | "linkage"
   | "data";
 // 组件类型
-type elementsType = "text" | "image" | "table" | "line" | "bar" | "pie";
+type elementsType =
+  | "text"
+  | "image"
+  | "table"
+  | "line"
+  | "bar"
+  | "pie"
+  | "form";
 // 组件名称类型
 type elementsNameType = elementsType | "baseText";
 // 配置名称类型
