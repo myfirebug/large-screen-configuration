@@ -30,12 +30,10 @@ import { guid } from "@src/utils";
 import { pageConfig, projectConfig } from "@src/core/config/base";
 import "./index.scss";
 
-import GridLayout from "@src/layout/gridLayout";
 import { IWidget } from "@src/service";
-import PreviewLayout from "@src/layout/previewLayout";
 import { Layout } from "react-grid-layout";
 import { Empty } from "antd";
-import RenderWidget from "@src/compoents/renderWidget";
+import RenderPage from "@src/compoents/renderPage";
 
 interface IConfigLayout {}
 
@@ -136,6 +134,17 @@ const ConfigLayout: FC<IConfigLayout> = () => {
       (item) => layout?.widgetId && item.widgetId === layout?.widgetId
     );
   }, [currentPage?.widgets, layout?.widgetId]);
+  // 当前选中微件参数字段列表
+  const currentWidgetParamFields = useMemo(() => {
+    const params = currentWidget?.configuration?.dataValue?.params;
+    let arr: string[] = [];
+    try {
+      for (let field in params) {
+        arr.push(field);
+      }
+    } catch (err) {}
+    return arr;
+  }, [currentWidget?.configuration?.dataValue?.params]);
   // 当前选中的组件
   const currentElement = useMemo(() => {
     return currentWidget?.elements.find(
@@ -288,78 +297,23 @@ const ConfigLayout: FC<IConfigLayout> = () => {
             id="js_project"
           >
             {layout?.project?.pages?.length ? (
-              <PreviewLayout
-                data={layout?.project || {}}
-                header={
-                  <GridLayout
-                    datas={
-                      currentPage?.widgets?.filter(
-                        (item) => item.position === "header"
-                      ) || []
-                    }
-                    selectedId={layout?.widgetId}
-                    render={(data) => (
-                      <RenderWidget
-                        data={data}
-                        configureValue={
-                          currentPage?.configuration?.configureValue
-                        }
-                      />
-                    )}
-                    configureValue={
-                      layout?.project?.configuration?.configureValue
-                    }
-                    row={1}
-                    column={
-                      layout?.project?.configuration?.configureValue
-                        ?.horizontalNumber
-                    }
-                    onDrop={(item, data) => onDrop(item, data, "header")}
-                    isDroppable={isShowAuxiliaryLine}
-                    isResizable={isShowAuxiliaryLine}
-                    staticed={!isShowAuxiliaryLine}
-                    onDragStop={onDragStop}
-                    onResizeStop={onResizeStop}
-                    onClose={onClose}
-                  />
-                }
-                body={
-                  <GridLayout
-                    datas={
-                      currentPage?.widgets?.filter(
-                        (item) => item.position === "body"
-                      ) || []
-                    }
-                    selectedId={layout?.widgetId}
-                    render={(data) => (
-                      <RenderWidget
-                        data={data}
-                        configureValue={
-                          currentPage?.configuration?.configureValue
-                        }
-                      />
-                    )}
-                    configureValue={
-                      layout?.project?.configuration?.configureValue
-                    }
-                    row={
-                      layout?.project?.configuration?.configureValue
-                        ?.verticalNumber
-                    }
-                    column={
-                      layout?.project?.configuration?.configureValue
-                        ?.horizontalNumber
-                    }
-                    onDrop={(item, data) => onDrop(item, data, "body")}
-                    isDroppable={isShowAuxiliaryLine}
-                    isResizable={isShowAuxiliaryLine}
-                    staticed={!isShowAuxiliaryLine}
-                    onDragStop={onDragStop}
-                    onResizeStop={onResizeStop}
-                    onClose={onClose}
-                  />
-                }
-              />
+              <>
+                <RenderPage
+                  data={layout?.project || {}}
+                  configureValue={
+                    layout?.project?.configuration?.configureValue
+                  }
+                  widgets={currentPage?.widgets || []}
+                  selectedId={layout?.widgetId}
+                  onDrop={onDrop}
+                  isDroppable={isShowAuxiliaryLine}
+                  isResizable={isShowAuxiliaryLine}
+                  staticed={!isShowAuxiliaryLine}
+                  onDragStop={onDragStop}
+                  onResizeStop={onResizeStop}
+                  onClose={onClose}
+                />
+              </>
             ) : (
               <Empty
                 style={{
@@ -445,6 +399,11 @@ const ConfigLayout: FC<IConfigLayout> = () => {
               return (
                 <ConfigLayoutRightAsideData
                   isShowWidgetDataConfig
+                  paramFields={
+                    currentElement?.type === "form"
+                      ? currentWidgetParamFields
+                      : []
+                  }
                   widgetDataValue={currentWidget?.configuration?.dataValue}
                   widgetOnFinish={(data: IAnyObject) => {
                     dispatch({
