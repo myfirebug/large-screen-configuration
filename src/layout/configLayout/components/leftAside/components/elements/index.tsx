@@ -13,6 +13,7 @@ const ALLELEMENTS: elementsType[] = [
   "line",
   "bar",
   "pie",
+  "form",
 ];
 
 export const ConfigLayoutLeftAsideElements: FC<

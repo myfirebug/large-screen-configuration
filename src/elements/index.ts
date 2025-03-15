@@ -4,6 +4,7 @@ import Bar from "./bar";
 import Pie from "./pie";
 import { BaseImage, BaseBanner } from "./image";
 import Table from "./table";
+import { FormRadio } from "./form";
 
 const elements: any = {
   BaseText,
@@ -16,5 +17,6 @@ const elements: any = {
   BaseBanner,
   DateText,
   Table,
+  FormRadio,
 };
 export default elements;

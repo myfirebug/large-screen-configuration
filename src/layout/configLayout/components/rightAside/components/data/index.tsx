@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useEffect, useState } from "react";
-import { Button, Form, Switch } from "antd";
+import { Button, Form, Select, Switch } from "antd";
 import DynamicForm from "../dynamicForm";
 import { elementDataConfig, widgetDataConfig } from "@src/core/config/base";
 import { Tabs } from "antd";
@@ -14,6 +14,7 @@ interface IConfigLayoutRightAsideData {
   widgetOnFinish: (data: IAnyObject) => void;
   elementOnFinish: (data: IAnyObject) => void;
   isShowWidgetDataConfig?: boolean;
+  paramFields?: string[];
 }
 
 export const ConfigLayoutRightAsideData: FC<IConfigLayoutRightAsideData> = ({
@@ -22,6 +23,7 @@ export const ConfigLayoutRightAsideData: FC<IConfigLayoutRightAsideData> = ({
   widgetOnFinish,
   elementOnFinish,
   isShowWidgetDataConfig,
+  paramFields,
 }) => {
   const [elementForm] = Form.useForm();
   const [widgetForm] = Form.useForm();
@@ -85,6 +87,19 @@ export const ConfigLayoutRightAsideData: FC<IConfigLayoutRightAsideData> = ({
                 }
               }}
             />
+            {paramFields?.length ? (
+              <Form.Item
+                label="接口参数字段"
+                name="paramName"
+                tooltip="从组组件的参数中选择"
+              >
+                <Select placeholder="请选择">
+                  {paramFields.map((item) => (
+                    <Select.Option key={item}>{item}</Select.Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            ) : null}
             <Form.Item>
               <Button type="primary" htmlType="submit" block>
                 保存
