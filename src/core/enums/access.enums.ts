@@ -22,6 +22,7 @@ export const ELEMETSTYPE: IAnyObject = {
   line: "折线图",
   bar: "柱状图",
   pie: "饼图",
+  form: "表单",
 };
 
 // 微件头
