@@ -8,6 +8,8 @@ import { Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { web } from "@src/core/hook";
+import PreviewDialog from "@src/compoents/previewDialog";
+import RenderPage from "@src/compoents/renderPage";
 
 export const waitTimePromise = async (time: number = 100) => {
   return new Promise((resolve) => {
@@ -25,8 +27,8 @@ const PageList: FC<any> = () => {
   const actionRef = useRef<ActionType>();
   const navigate = useNavigate();
 
-  const [, setShow] = useState(false);
-  const [, setWidget] = useState<IPage>();
+  const [show, setShow] = useState(false);
+  const [page, setPage] = useState<IPage>();
 
   const { getPages, pageFilterHandle, filterPagesList } = web();
   useEffect(() => {
@@ -84,7 +86,7 @@ const PageList: FC<any> = () => {
             key="view"
             onClick={() => {
               setShow(true);
-              setWidget(record);
+              setPage(record);
             }}
           >
             预览
@@ -96,6 +98,20 @@ const PageList: FC<any> = () => {
 
   return (
     <div className="cms-page">
+      {/* 页面预览 */}
+      <PreviewDialog
+        title="页面预览"
+        open={show}
+        onClose={() => setShow(false)}
+        width={page?.configuration?.configureValue?.widgetConfigWidth || 1366}
+        height={page?.configuration?.configureValue?.widgetConfigHeight || 768}
+      >
+        <RenderPage
+          data={page || {}}
+          configureValue={page?.configuration?.configureValue}
+          widgets={page?.widgets || []}
+        />
+      </PreviewDialog>
       <ProTable<IPage>
         columns={columns}
         actionRef={actionRef}
