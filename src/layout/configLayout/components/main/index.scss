@@ -13,7 +13,12 @@
     overflow: auto;
   }
   @include e(footer) {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 15px;
     height: 40px;
+    font-size: 12px;
     background: var(--cms-background-color-primary);
     border-top: 1px solid var(--cms-divider-color);
   }
