@@ -302,7 +302,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
             <>
               <RenderPage
                 data={layout?.project || {}}
-                transformScale={scale / 100}
+                // transformScale={scale / 100}
                 configureValue={layout?.project?.configuration?.configureValue}
                 widgets={currentPage?.widgets || []}
                 selectedId={layout?.widgetId}
