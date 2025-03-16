@@ -26,6 +26,8 @@ interface IRenderWidgetProps {
   onDragStop?: (item: Layout) => void;
   onResizeStop?: (item: Layout) => void;
   onClose?: (item: IAnyObject) => void;
+  onChangeParams?: (data: IAnyObject, widgetId: string) => void;
+  transformScale?: number;
 }
 
 const RenderWidget: FC<IRenderWidgetProps> = ({
@@ -39,6 +41,8 @@ const RenderWidget: FC<IRenderWidgetProps> = ({
   onDragStop,
   onResizeStop,
   onClose,
+  transformScale = 1,
+  onChangeParams,
 }) => {
   const [isRender, setIsRender] = useState(false);
   useEffect(() => {
@@ -60,15 +64,28 @@ const RenderWidget: FC<IRenderWidgetProps> = ({
             return (
               <>
                 {loading ? (
-                  <Spin
+                  <div
                     style={{
                       position: "absolute",
-                      left: "50%",
-                      top: "50%",
-                      transform: "tranlate(-50%, -50%)",
+                      left: 0,
+                      right: 0,
+                      top: 0,
+                      bottom: 0,
+                      width: data?.configuration?.width + "px",
+                      height: data?.configuration?.height + "px",
                       zIndex: 1000,
                     }}
-                  />
+                  >
+                    <Spin
+                      style={{
+                        position: "absolute",
+                        left: "50%",
+                        top: "50%",
+                        transform: "tranlate(-50%, -50%)",
+                        zIndex: 1000,
+                      }}
+                    />
+                  </div>
                 ) : null}
                 <PreviewLayout
                   data={data}
@@ -79,13 +96,20 @@ const RenderWidget: FC<IRenderWidgetProps> = ({
                           (item: IElement) => item.position === "header"
                         ) || []
                       }
+                      transformScale={transformScale}
                       selectedId={selectedId}
                       configureValue={configureValue}
                       column={WIDGET_HEADER_COLUMN}
                       row={WIDGET_HEADER_ROW}
                       gap={WIDGET_HEADER_GAP}
-                      render={(data) => (
-                        <RenderElement data={data} realData={realData} />
+                      render={(subData) => (
+                        <RenderElement
+                          data={subData}
+                          realData={realData}
+                          widgetId={data.widgetId}
+                          params={data?.configuration?.dataValue?.params}
+                          onChangeParams={onChangeParams}
+                        />
                       )}
                       isDroppable={isDroppable}
                       isResizable={isResizable}
@@ -104,12 +128,19 @@ const RenderWidget: FC<IRenderWidgetProps> = ({
                           (item: IElement) => item.position === "body"
                         ) || []
                       }
+                      transformScale={transformScale}
                       selectedId={selectedId}
                       column={WIDGET_BODY_COLUMN}
                       row={WIDGET_BODY_ROW}
                       gap={WIDGET_BODY_GAP}
-                      render={(data) => (
-                        <RenderElement data={data} realData={realData} />
+                      render={(subData) => (
+                        <RenderElement
+                          data={subData}
+                          realData={realData}
+                          widgetId={data.widgetId}
+                          params={data?.configuration?.dataValue?.params}
+                          onChangeParams={onChangeParams}
+                        />
                       )}
                       isDroppable={isDroppable}
                       isResizable={isResizable}
