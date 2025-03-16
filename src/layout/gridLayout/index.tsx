@@ -22,6 +22,7 @@ interface IGridLayout {
   onDragStop?: (item: Layout) => void;
   onResizeStop?: (item: Layout) => void;
   onClose?: (item: IAnyObject) => void;
+  transformScale?: number;
 }
 
 const GridLayout = memo((props: IGridLayout) => {
@@ -41,6 +42,7 @@ const GridLayout = memo((props: IGridLayout) => {
     onResizeStop,
     onClose,
     selectedId,
+    transformScale = 1,
   } = props;
 
   const layout = useMemo(() => {
@@ -61,6 +63,7 @@ const GridLayout = memo((props: IGridLayout) => {
   return (
     <BoundingClientRect
       render={(width, height) => {
+        console.log(width, height, "BoundingClientRect");
         return (
           <div className="cms-grid-layout__main">
             {!staticed ? (
@@ -83,6 +86,7 @@ const GridLayout = memo((props: IGridLayout) => {
               maxRows={row}
               width={width}
               cols={column}
+              transformScale={transformScale}
               // verticalCompact={false}
               compactType={null}
               preventCollision
