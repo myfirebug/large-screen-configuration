@@ -293,34 +293,35 @@ const ConfigLayout: FC<IConfigLayout> = () => {
             return null;
           }}
         />
-        <ConfigLayoutMain>
-          <div
-            style={{
-              position: "relative",
-              width: `${
-                currentWidget?.configuration?.configureValue
-                  ?.widgetConfigWidth || 600
-              }px`,
-              height: `${
-                currentWidget?.configuration?.configureValue
-                  ?.widgetConfigHeight || 400
-              }px`,
+        <ConfigLayoutMain
+          style={{
+            position: "relative",
+            width: `${
+              currentWidget?.configuration?.configureValue?.widgetConfigWidth ||
+              600
+            }px`,
+            height: `${
+              currentWidget?.configuration?.configureValue
+                ?.widgetConfigHeight || 400
+            }px`,
+          }}
+          id="js_widget"
+        >
+          <RenderWidget
+            data={currentWidget as IWidget}
+            configureValue={currentWidget?.configuration?.configureValue}
+            onDrop={onDrop}
+            onDragStop={onDragStop}
+            onResizeStop={onResizeStop}
+            isDroppable={isShowAuxiliaryLine}
+            isResizable={isShowAuxiliaryLine}
+            staticed={!isShowAuxiliaryLine}
+            onClose={onClose}
+            selectedId={layout?.elementId}
+            onChangeParams={(data) => {
+              console.log(data, "data");
             }}
-            id="js_widget"
-          >
-            <RenderWidget
-              data={currentWidget as IWidget}
-              configureValue={currentWidget?.configuration?.configureValue}
-              onDrop={onDrop}
-              onDragStop={onDragStop}
-              onResizeStop={onResizeStop}
-              isDroppable={isShowAuxiliaryLine}
-              isResizable={isShowAuxiliaryLine}
-              staticed={!isShowAuxiliaryLine}
-              onClose={onClose}
-              selectedId={layout?.elementId}
-            />
-          </div>
+          />
         </ConfigLayoutMain>
         <ConfigLayoutRightAside
           navs={rightAside}
@@ -473,6 +474,25 @@ const ConfigLayout: FC<IConfigLayout> = () => {
           isDroppable={true}
           isResizable={true}
           staticed={true}
+          onChangeParams={(data, widgetId) => {
+            console.log(data, widgetId, "data");
+            dispatch({
+              type: "MODIFY_WIDGET",
+              data: {
+                ...currentWidget,
+                configuration: {
+                  ...currentWidget?.configuration,
+                  dataValue: {
+                    ...currentWidget?.configuration?.dataValue,
+                    params: {
+                      ...currentWidget?.configuration?.dataValue?.params,
+                      ...data,
+                    },
+                  },
+                },
+              },
+            });
+          }}
         />
       </PreviewDialog>
       {/* 发布功能 */}

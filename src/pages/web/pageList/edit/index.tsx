@@ -294,35 +294,33 @@ const ConfigLayout: FC<IConfigLayout> = () => {
             return null;
           }}
         />
-        <ConfigLayoutMain>
-          <div
-            style={{
-              position: "relative",
-              width: `${
-                layout?.page?.configuration?.configureValue?.pageConfigWidth ||
-                1366
-              }px`,
-              height: `${
-                layout?.page?.configuration?.configureValue?.pageConfigHeight ||
-                768
-              }px`,
-            }}
-            id="js_page"
-          >
-            <RenderPage
-              data={layout?.page || {}}
-              configureValue={layout?.page?.configuration?.configureValue}
-              widgets={layout?.page?.widgets || []}
-              selectedId={layout?.widgetId}
-              onDrop={onDrop}
-              isDroppable={isShowAuxiliaryLine}
-              isResizable={isShowAuxiliaryLine}
-              staticed={!isShowAuxiliaryLine}
-              onDragStop={onDragStop}
-              onResizeStop={onResizeStop}
-              onClose={onClose}
-            />
-          </div>
+        <ConfigLayoutMain
+          style={{
+            position: "relative",
+            width: `${
+              layout?.page?.configuration?.configureValue?.pageConfigWidth ||
+              1366
+            }px`,
+            height: `${
+              layout?.page?.configuration?.configureValue?.pageConfigHeight ||
+              768
+            }px`,
+          }}
+          id="js_page"
+        >
+          <RenderPage
+            data={layout?.page || {}}
+            configureValue={layout?.page?.configuration?.configureValue}
+            widgets={layout?.page?.widgets || []}
+            selectedId={layout?.widgetId}
+            onDrop={onDrop}
+            isDroppable={isShowAuxiliaryLine}
+            isResizable={isShowAuxiliaryLine}
+            staticed={!isShowAuxiliaryLine}
+            onDragStop={onDragStop}
+            onResizeStop={onResizeStop}
+            onClose={onClose}
+          />
         </ConfigLayoutMain>
         <ConfigLayoutRightAside
           navs={rightAside}

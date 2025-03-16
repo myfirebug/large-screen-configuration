@@ -42,6 +42,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
   const [layout, dispatch] = useReducer(projectReducer, initialState);
   const [, setShow] = useState(false);
   const [isShowAuxiliaryLine] = useState(true);
+  // const [scale, setScale] = useState(100);
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
@@ -280,53 +281,52 @@ const ConfigLayout: FC<IConfigLayout> = () => {
             return null;
           }}
         />
-        <ConfigLayoutMain>
-          <div
-            style={{
-              position: "relative",
-              width: `${
-                layout?.project?.configuration?.configureValue
-                  ?.pageConfigWidth || 1366
-              }px`,
-              height: `${
-                layout?.project?.configuration?.configureValue
-                  ?.pageConfigHeight || 768
-              }px`,
-              background: "var(--cms-background-color-secondary)",
-            }}
-            id="js_project"
-          >
-            {layout?.project?.pages?.length ? (
-              <>
-                <RenderPage
-                  data={layout?.project || {}}
-                  configureValue={
-                    layout?.project?.configuration?.configureValue
-                  }
-                  widgets={currentPage?.widgets || []}
-                  selectedId={layout?.widgetId}
-                  onDrop={onDrop}
-                  isDroppable={isShowAuxiliaryLine}
-                  isResizable={isShowAuxiliaryLine}
-                  staticed={!isShowAuxiliaryLine}
-                  onDragStop={onDragStop}
-                  onResizeStop={onResizeStop}
-                  onClose={onClose}
-                />
-              </>
-            ) : (
-              <Empty
-                style={{
-                  position: "absolute",
-                  left: "50%",
-                  top: "50%",
-                  transform: "translate(-50%, -50%)",
-                }}
-                image={Empty.PRESENTED_IMAGE_SIMPLE}
-                description="请先在右侧添加页面，才能进行后面的操作哦！"
+        <ConfigLayoutMain
+          // scale={scale}
+          // setScale={setScale}
+          style={{
+            position: "relative",
+            width: `${
+              layout?.project?.configuration?.configureValue?.pageConfigWidth ||
+              1366
+            }px`,
+            height: `${
+              layout?.project?.configuration?.configureValue
+                ?.pageConfigHeight || 768
+            }px`,
+            background: "var(--cms-background-color-secondary)",
+          }}
+          id="js_project"
+        >
+          {layout?.project?.pages?.length ? (
+            <>
+              <RenderPage
+                data={layout?.project || {}}
+                transformScale={scale / 100}
+                configureValue={layout?.project?.configuration?.configureValue}
+                widgets={currentPage?.widgets || []}
+                selectedId={layout?.widgetId}
+                onDrop={onDrop}
+                isDroppable={isShowAuxiliaryLine}
+                isResizable={isShowAuxiliaryLine}
+                staticed={!isShowAuxiliaryLine}
+                onDragStop={onDragStop}
+                onResizeStop={onResizeStop}
+                onClose={onClose}
               />
-            )}
-          </div>
+            </>
+          ) : (
+            <Empty
+              style={{
+                position: "absolute",
+                left: "50%",
+                top: "50%",
+                transform: "translate(-50%, -50%)",
+              }}
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+              description="请先在右侧添加页面，才能进行后面的操作哦！"
+            />
+          )}
         </ConfigLayoutMain>
         <ConfigLayoutRightAside
           navs={rightAside}
