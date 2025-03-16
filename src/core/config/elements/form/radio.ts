@@ -4,6 +4,7 @@ export const formRadio = {
   configureValue: {
     radioSize: "small",
     radioOptionType: "default",
+    radioTextAlign: "flex-end",
   },
   // 配置项值
   dataValue: {

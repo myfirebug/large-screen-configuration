@@ -1,5 +1,6 @@
 @include b(form) {
   @include e(radio) {
+    width: 100%;
     display: flex;
     align-items: center;
   }

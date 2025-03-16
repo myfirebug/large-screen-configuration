@@ -31,6 +31,18 @@ export const formRadio = {
               { code: "button", name: "button" },
             ],
           },
+          {
+            componentName: "Select",
+            label: "对齐方式",
+            name: "radioTextAlign",
+            required: false,
+            placeholder: "",
+            options: [
+              { code: "center", name: "居中" },
+              { code: "flex-start", name: "左对齐" },
+              { code: "flex-end", name: "右对齐" },
+            ],
+          },
         ],
       },
     ],

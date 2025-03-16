@@ -26,9 +26,12 @@ export const FormRadio: FC<IFormRadio> = ({ options, data, field, other }) => {
     );
   }, [datas, other?.paramName, other?.params]);
   return (
-    <div className="cms-form__radio">
+    <div
+      className="cms-form__radio"
+      style={{ justifyContent: options.radioTextAlign }}
+    >
       <Radio.Group
-        defaultValue={defaultValue}
+        value={defaultValue}
         size={options?.radioSize}
         onChange={onChange}
         optionType={options?.radioOptionType || "default"}
