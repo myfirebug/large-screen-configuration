@@ -5,9 +5,18 @@ import { capitalizeFirstLetter } from "@src/utils";
 interface IRenderElementProps {
   data: IAnyObject;
   realData?: IAnyObject;
+  params?: IAnyObject;
+  widgetId?: string;
+  onChangeParams?: (data: IAnyObject, widgetId: string) => void;
 }
 
-const RenderElement: FC<IRenderElementProps> = ({ data, realData }) => {
+const RenderElement: FC<IRenderElementProps> = ({
+  data,
+  realData,
+  params,
+  onChangeParams,
+  widgetId,
+}) => {
   const [isRender, setIsRender] = useState(false);
   useEffect(() => {
     const timmer = setTimeout(() => {
@@ -30,12 +39,17 @@ const RenderElement: FC<IRenderElementProps> = ({ data, realData }) => {
           ? {
               // 表单变化时向外传递的函数
               onChangeHandler: (value: any) => {
-                console.log(value, "onChangeHandler");
+                onChangeParams?.(
+                  {
+                    [data.configuration?.dataValue?.paramName]: value,
+                  },
+                  widgetId as string
+                );
               },
               // 接口参数
-              params: data.configuration?.dataValue?.params || {},
+              params: params || {},
               // 表单组件值需要保存的字段名，即params接口参数里的字段名
-              paramName: data.configuration?.dataValue?.paramsName,
+              paramName: data.configuration?.dataValue?.paramName,
             }
           : null,
     });

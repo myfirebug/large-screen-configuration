@@ -17,6 +17,7 @@ interface IRenderPageProps {
   onDragStop?: (item: Layout) => void;
   onResizeStop?: (item: Layout) => void;
   onClose?: (item: IAnyObject) => void;
+  transformScale?: number;
 }
 
 const RenderPage: FC<IRenderPageProps> = ({
@@ -31,6 +32,7 @@ const RenderPage: FC<IRenderPageProps> = ({
   onResizeStop,
   onClose,
   widgets,
+  transformScale,
 }) => {
   return (
     <PreviewLayout
@@ -40,7 +42,11 @@ const RenderPage: FC<IRenderPageProps> = ({
           datas={widgets?.filter((item) => item.position === "header") || []}
           selectedId={selectedId}
           render={(data) => (
-            <RenderWidget data={data} configureValue={configureValue} />
+            <RenderWidget
+              data={data}
+              transformScale={transformScale}
+              configureValue={configureValue}
+            />
           )}
           configureValue={configureValue}
           row={1}
@@ -52,6 +58,7 @@ const RenderPage: FC<IRenderPageProps> = ({
           onDragStop={onDragStop}
           onResizeStop={onResizeStop}
           onClose={onClose}
+          transformScale={transformScale}
         />
       }
       body={
@@ -59,7 +66,11 @@ const RenderPage: FC<IRenderPageProps> = ({
           datas={widgets?.filter((item) => item.position === "body") || []}
           selectedId={selectedId}
           render={(data) => (
-            <RenderWidget data={data} configureValue={configureValue} />
+            <RenderWidget
+              transformScale={transformScale}
+              data={data}
+              configureValue={configureValue}
+            />
           )}
           configureValue={configureValue}
           row={configureValue?.verticalNumber}
@@ -71,6 +82,7 @@ const RenderPage: FC<IRenderPageProps> = ({
           onDragStop={onDragStop}
           onResizeStop={onResizeStop}
           onClose={onClose}
+          transformScale={transformScale}
         />
       }
     />
