@@ -37,7 +37,6 @@ const Line = memo((props: ILine) => {
         : [],
     };
   }, [data, field, options]);
-  console.log(getOption, "getOption");
   const style = useMemo(() => {
     return getStyles(options);
   }, [options]);
