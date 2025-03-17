@@ -1,0 +1,25 @@
+@include b(config-layout) {
+  @include e(navigation) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    z-index: 1000;
+    transform: translateX(-50%);
+    padding-top: 10px;
+    box-sizing: border-box;
+    > div {
+      padding: 10px 30px;
+      font-weight: bold;
+      cursor: pointer;
+      opacity: 0.6;
+      transition: all 0.25s ease 0s;
+      &:hover,
+      &.is-active {
+        opacity: 1;
+      }
+    }
+  }
+}
