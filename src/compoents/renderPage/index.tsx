@@ -18,6 +18,7 @@ interface IRenderPageProps {
   onResizeStop?: (item: Layout) => void;
   onClose?: (item: IAnyObject) => void;
   transformScale?: number;
+  onChangeParams?: (data: IAnyObject, widgetId: string) => void;
 }
 
 const RenderPage: FC<IRenderPageProps> = ({
@@ -33,6 +34,7 @@ const RenderPage: FC<IRenderPageProps> = ({
   onClose,
   widgets,
   transformScale,
+  onChangeParams,
 }) => {
   return (
     <PreviewLayout
@@ -46,6 +48,7 @@ const RenderPage: FC<IRenderPageProps> = ({
               data={data}
               transformScale={transformScale}
               configureValue={configureValue}
+              onChangeParams={onChangeParams}
             />
           )}
           configureValue={configureValue}
@@ -70,6 +73,7 @@ const RenderPage: FC<IRenderPageProps> = ({
               transformScale={transformScale}
               data={data}
               configureValue={configureValue}
+              onChangeParams={onChangeParams}
             />
           )}
           configureValue={configureValue}

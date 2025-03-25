@@ -21,7 +21,7 @@ const RenderElement: FC<IRenderElementProps> = ({
   useEffect(() => {
     const timmer = setTimeout(() => {
       setIsRender(true);
-    }, 200);
+    }, 300);
     return () => {
       clearTimeout(timmer);
     };
