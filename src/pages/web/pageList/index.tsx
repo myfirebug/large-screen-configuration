@@ -9,7 +9,6 @@ import { PlusOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { web } from "@src/core/hook";
 import PreviewDialog from "@src/compoents/previewDialog";
-import RenderPage from "@src/compoents/renderPage";
 
 export const waitTimePromise = async (time: number = 100) => {
   return new Promise((resolve) => {
@@ -100,18 +99,14 @@ const PageList: FC<any> = () => {
     <div className="cms-page">
       {/* 页面预览 */}
       <PreviewDialog
+        data={page}
+        pageType="page"
         title="页面预览"
         open={show}
         onClose={() => setShow(false)}
         width={page?.configuration?.configureValue?.widgetConfigWidth || 1366}
         height={page?.configuration?.configureValue?.widgetConfigHeight || 768}
-      >
-        <RenderPage
-          data={page || {}}
-          configureValue={page?.configuration?.configureValue}
-          widgets={page?.widgets || []}
-        />
-      </PreviewDialog>
+      />
       <ProTable<IPage>
         columns={columns}
         actionRef={actionRef}

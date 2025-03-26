@@ -34,13 +34,15 @@ import { IWidget } from "@src/service";
 import { Layout } from "react-grid-layout";
 import { Empty } from "antd";
 import RenderPage from "@src/compoents/renderPage";
+import Navigation from "@src/compoents/navigation";
+import PreviewDialog from "@src/compoents/previewDialog";
 
 interface IConfigLayout {}
 
 const ConfigLayout: FC<IConfigLayout> = () => {
   let location = useLocation();
   const [layout, dispatch] = useReducer(projectReducer, initialState);
-  const [, setShow] = useState(false);
+  const [show, setShow] = useState(false);
   const [isShowAuxiliaryLine] = useState(true);
   // const [scale, setScale] = useState(100);
 
@@ -314,6 +316,19 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                 onResizeStop={onResizeStop}
                 onClose={onClose}
               />
+              <Navigation
+                configureValue={layout?.project?.configuration?.configureValue}
+                datas={layout?.project?.pages}
+                selectedId={layout?.pageId as string}
+                onChange={(pageId: string) => {
+                  dispatch({
+                    type: "MODIFY_PAGE",
+                    data: {
+                      pageId: pageId,
+                    },
+                  });
+                }}
+              />
             </>
           ) : (
             <Empty
@@ -502,6 +517,22 @@ const ConfigLayout: FC<IConfigLayout> = () => {
           }}
         />
       </div>
+      {/* 页面预览 */}
+      <PreviewDialog
+        data={layout?.project}
+        pageType="project"
+        title="项目预览"
+        open={show}
+        onClose={() => setShow(false)}
+        width={
+          layout?.project?.configuration?.configureValue?.widgetConfigWidth ||
+          1366
+        }
+        height={
+          layout?.project?.configuration?.configureValue?.widgetConfigHeight ||
+          768
+        }
+      />
     </div>
   );
 };

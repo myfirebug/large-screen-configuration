@@ -454,6 +454,8 @@ const ConfigLayout: FC<IConfigLayout> = () => {
       {/* 页面预览 */}
       <PreviewDialog
         title="页面预览"
+        pageType="page"
+        data={layout?.page}
         open={show}
         onClose={() => setShow(false)}
         width={
@@ -462,13 +464,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
         height={
           layout?.page?.configuration?.configureValue?.widgetConfigHeight || 768
         }
-      >
-        <RenderPage
-          data={layout?.page || {}}
-          configureValue={layout?.page?.configuration?.configureValue}
-          widgets={layout?.page?.widgets || []}
-        />
-      </PreviewDialog>
+      />
     </div>
   );
 };
