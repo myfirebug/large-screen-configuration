@@ -9,7 +9,6 @@ import { PlusOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { widgets } from "@src/core/hook";
 import PreviewDialog from "@src/compoents/previewDialog";
-import RenderWidget from "@src/compoents/renderWidget";
 
 export const waitTimePromise = async (time: number = 100) => {
   return new Promise((resolve) => {
@@ -181,21 +180,15 @@ const Widgets: FC<any> = () => {
       {/* 预览功能 */}
       <PreviewDialog
         open={show}
+        data={widget}
+        pageType="widget"
         onClose={() => setShow(false)}
         title="微件预览"
         width={widget?.configuration?.configureValue?.widgetConfigWidth || 600}
         height={
           widget?.configuration?.configureValue?.widgetConfigHeight || 400
         }
-      >
-        <RenderWidget
-          data={widget as IWidget}
-          configureValue={widget?.configuration?.configureValue}
-          isDroppable={true}
-          isResizable={true}
-          staticed={true}
-        />
-      </PreviewDialog>
+      ></PreviewDialog>
     </div>
   );
 };

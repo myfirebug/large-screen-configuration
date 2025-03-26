@@ -459,6 +459,8 @@ const ConfigLayout: FC<IConfigLayout> = () => {
       {/* 预览功能 */}
       <PreviewDialog
         open={show}
+        data={currentWidget}
+        pageType="widget"
         onClose={() => setShow(false)}
         title="微件预览"
         width={
@@ -467,34 +469,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
         height={
           currentWidget?.configuration?.configureValue?.pageConfigHeight || 400
         }
-      >
-        <RenderWidget
-          data={currentWidget as IWidget}
-          configureValue={currentWidget?.configuration?.configureValue}
-          isDroppable={true}
-          isResizable={true}
-          staticed={true}
-          onChangeParams={(data, widgetId) => {
-            console.log(data, widgetId, "data");
-            dispatch({
-              type: "MODIFY_WIDGET",
-              data: {
-                ...currentWidget,
-                configuration: {
-                  ...currentWidget?.configuration,
-                  dataValue: {
-                    ...currentWidget?.configuration?.dataValue,
-                    params: {
-                      ...currentWidget?.configuration?.dataValue?.params,
-                      ...data,
-                    },
-                  },
-                },
-              },
-            });
-          }}
-        />
-      </PreviewDialog>
+      />
       {/* 发布功能 */}
       <Modal
         open={!isShowAuxiliaryLine}
