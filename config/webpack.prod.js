@@ -2,6 +2,7 @@
 const TerserWebpackPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const CompressionPlugin = require("compression-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const SpeedMeasureWebpackPlugin = require("speed-measure-webpack-plugin");
 const BundleAnalyzerPlugin =
@@ -47,6 +48,14 @@ module.exports = merge.merge(baseConfig, {
             drop_debugger: true,
           },
         },
+      }),
+      new CompressionPlugin({
+        // algorithm: "gzip", // 使用gzip压缩
+        algorithm: "brotliCompress", // 使用gzip压缩
+        test: /\.(js|css|html)$/, // 压缩js和css文件
+        threshold: 10240, // 只处理比这个值大的资源。10240 bytes = 10KB
+        minRatio: 0.8, // 压缩比率的最小值。只有当压缩比率大于或等于这个值时，才会生成gzip文件。
+        deleteOriginalAssets: false,
       }),
     ],
     splitChunks: {

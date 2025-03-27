@@ -67,6 +67,7 @@
     "animate.css": "^4.1.1",
     "antd": "^5.23.1",
     "axios": "^1.4.0",
+    "compression-webpack-plugin": "^11.1.0",
     "countup.js": "^2.8.0",
     "css-vars-ponyfill": "^2.4.8",
     "dayjs": "^1.11.13",
