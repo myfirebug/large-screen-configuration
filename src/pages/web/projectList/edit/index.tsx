@@ -21,6 +21,7 @@ import {
   ConfigLayoutRightAsidePage,
   ConfigLayoutRightAsideProject,
   ConfigLayoutLeftAsidePage,
+  ConfigLayoutRightAsideLinkage,
 } from "@src/layout/configLayout";
 
 import "@src/layout/configLayout/index.scss";
@@ -79,9 +80,9 @@ const ConfigLayout: FC<IConfigLayout> = () => {
         arr = ["layer", "project"];
         if (layout?.widgetId) {
           if (layout?.elementId) {
-            arr = ["layer", "element", "widget", "project", "data"];
+            arr = ["layer", "element", "widget", "project", "data", "linkage"];
           } else {
-            arr = ["layer", "widget", "project", "data"];
+            arr = ["layer", "widget", "project", "data", "linkage"];
           }
         } else {
           arr = ["layer", "project"];
@@ -508,6 +509,28 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                     dispatch({
                       type: "DELETE_PAGE",
                       pageId,
+                    });
+                  }}
+                />
+              );
+            } else if (data === "linkage") {
+              return (
+                <ConfigLayoutRightAsideLinkage
+                  widgets={currentPage?.widgets || []}
+                  currentWidgetId={currentWidget?.widgetId || ""}
+                  onFinish={(data) => {
+                    dispatch({
+                      type: "MODIFY_WIDGET",
+                      data: {
+                        ...currentWidget,
+                        configuration: {
+                          ...currentWidget?.configuration,
+                          dataValue: {
+                            ...currentWidget?.configuration?.dataValue,
+                            ...data,
+                          },
+                        },
+                      },
                     });
                   }}
                 />
