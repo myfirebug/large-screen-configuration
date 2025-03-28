@@ -97,7 +97,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
         if (layout?.elementId) {
           arr = ["layer", "element", "widget", "page", "data"];
         } else {
-          arr = ["layer", "widget", "page"];
+          arr = ["layer", "widget", "page", "data"];
         }
       } else {
         arr = ["layer", "page"];
@@ -391,6 +391,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
             } else if (data === "data") {
               return (
                 <ConfigLayoutRightAsideData
+                  isShowWidgetDataConfig
                   widgetDataValue={currentWidget?.configuration?.dataValue}
                   widgetOnFinish={(data: IAnyObject) => {
                     dispatch({
