@@ -39,8 +39,11 @@ export const widgetReducer = (state = initialState, action: ModifyActions) => {
       copy.widget = {
         ...action.data,
         configuration: {
-          configureValue: widgetConfig.configureValue,
-          dataValue: widgetConfig.dataValue,
+          configureValue:
+            action.data?.configuration?.configureValue ||
+            widgetConfig.configureValue,
+          dataValue:
+            action.data?.configuration?.dataValue || widgetConfig.dataValue,
         },
       };
       copy.widgetId = action.data.widgetId;
