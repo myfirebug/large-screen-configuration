@@ -18,6 +18,13 @@ export const configuration = {
           ],
         },
       ],
+      "table|20": [
+        {
+          name: "@region",
+          data: "902,381",
+          progressBar: Mock.mock("@float(5, 100)") + "%",
+        },
+      ],
       "radio|3": [{ label: "@csentence(2)", value: "@increment" }],
     }),
   },
