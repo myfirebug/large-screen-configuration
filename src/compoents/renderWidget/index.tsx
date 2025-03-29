@@ -28,6 +28,7 @@ interface IRenderWidgetProps {
   onClose?: (item: IAnyObject) => void;
   onChangeParams?: (data: IAnyObject, widgetId: string) => void;
   transformScale?: number;
+  linkageParams?: IAnyObject;
 }
 
 const RenderWidget: FC<IRenderWidgetProps> = ({
@@ -43,6 +44,7 @@ const RenderWidget: FC<IRenderWidgetProps> = ({
   onClose,
   transformScale = 1,
   onChangeParams,
+  linkageParams = {},
 }) => {
   const [isRender, setIsRender] = useState(false);
   useEffect(() => {
@@ -59,7 +61,10 @@ const RenderWidget: FC<IRenderWidgetProps> = ({
         <Request
           method={data?.configuration?.dataValue?.method}
           url={data?.configuration?.dataValue?.url}
-          params={JSON.stringify(data?.configuration?.dataValue?.params || {})}
+          params={JSON.stringify({
+            ...(data?.configuration?.dataValue?.params || {}),
+            ...linkageParams,
+          })}
           render={(loading: boolean, success: boolean, realData: any) => {
             return (
               <>

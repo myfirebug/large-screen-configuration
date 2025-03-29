@@ -1,6 +1,6 @@
 import GridLayout from "@src/layout/gridLayout";
 import PreviewLayout from "@src/layout/previewLayout";
-import React, { FC } from "react";
+import React, { FC, useCallback } from "react";
 import RenderWidget from "../renderWidget";
 import { Layout } from "react-grid-layout";
 import { IWidget } from "@src/service";
@@ -36,6 +36,30 @@ const RenderPage: FC<IRenderPageProps> = ({
   transformScale,
   onChangeParams,
 }) => {
+  const getlinkageParams = useCallback(
+    (widgetId: string) => {
+      let parentParams = {};
+      for (let i = 0; i < widgets.length; i++) {
+        console.log(
+          widgets,
+          widgets[i]?.configuration?.dataValue?.linkageIds,
+          widgetId,
+          "widgets"
+        );
+        if (
+          widgets[i]?.configuration?.dataValue?.linkageIds &&
+          widgets[i]?.configuration?.dataValue?.linkageIds.includes(widgetId)
+        ) {
+          parentParams = {
+            ...parentParams,
+            ...widgets[i]?.configuration?.dataValue?.params,
+          };
+        }
+      }
+      return parentParams;
+    },
+    [widgets]
+  );
   return (
     <PreviewLayout
       data={data}
@@ -43,14 +67,17 @@ const RenderPage: FC<IRenderPageProps> = ({
         <GridLayout
           datas={widgets?.filter((item) => item.position === "header") || []}
           selectedId={selectedId}
-          render={(data) => (
-            <RenderWidget
-              data={data}
-              transformScale={transformScale}
-              configureValue={configureValue}
-              onChangeParams={onChangeParams}
-            />
-          )}
+          render={(data) => {
+            return (
+              <RenderWidget
+                data={data}
+                linkageParams={getlinkageParams(data.widgetId)}
+                transformScale={transformScale}
+                configureValue={configureValue}
+                onChangeParams={onChangeParams}
+              />
+            );
+          }}
           configureValue={configureValue}
           row={1}
           column={configureValue?.horizontalNumber}
@@ -68,14 +95,17 @@ const RenderPage: FC<IRenderPageProps> = ({
         <GridLayout
           datas={widgets?.filter((item) => item.position === "body") || []}
           selectedId={selectedId}
-          render={(data) => (
-            <RenderWidget
-              transformScale={transformScale}
-              data={data}
-              configureValue={configureValue}
-              onChangeParams={onChangeParams}
-            />
-          )}
+          render={(data) => {
+            return (
+              <RenderWidget
+                transformScale={transformScale}
+                data={data}
+                linkageParams={getlinkageParams(data.widgetId)}
+                configureValue={configureValue}
+                onChangeParams={onChangeParams}
+              />
+            );
+          }}
           configureValue={configureValue}
           row={configureValue?.verticalNumber}
           column={configureValue?.horizontalNumber}
