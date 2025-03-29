@@ -63,7 +63,6 @@ const GridLayout = memo((props: IGridLayout) => {
   return (
     <BoundingClientRect
       render={(width, height) => {
-        console.log(width, height, "BoundingClientRect");
         return (
           <div className="cms-grid-layout__main">
             {!staticed ? (

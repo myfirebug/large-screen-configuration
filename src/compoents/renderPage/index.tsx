@@ -40,12 +40,6 @@ const RenderPage: FC<IRenderPageProps> = ({
     (widgetId: string) => {
       let parentParams = {};
       for (let i = 0; i < widgets.length; i++) {
-        console.log(
-          widgets,
-          widgets[i]?.configuration?.dataValue?.linkageIds,
-          widgetId,
-          "widgets"
-        );
         if (
           widgets[i]?.configuration?.dataValue?.linkageIds &&
           widgets[i]?.configuration?.dataValue?.linkageIds.includes(widgetId)

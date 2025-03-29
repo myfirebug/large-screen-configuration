@@ -1,10 +1,3 @@
-/*
- * echarts图表相关处理
- * @Author: hejp
- * @Date: 2022-08-11 11:53:54
- * @Last Modified by: hejp
- * @Last Modified time: 2022-08-16 17:24:51
- */
 interface result {
   legendData: any[];
   xAxisData: any[];
@@ -398,8 +391,6 @@ export function handleData(data: any[], type?: string): result {
   let series: any[] = [];
   // 判断饼图数据项
   let isOnlyOneData = type === "pie" && data.length === 1;
-
-  console.log(data, "data");
 
   data.forEach((item: any, index: number) => {
     !isOnlyOneData && legendData.push(item.seriesName);
