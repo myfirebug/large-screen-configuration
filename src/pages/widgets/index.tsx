@@ -124,9 +124,7 @@ const Widgets: FC<any> = () => {
               <span
                 key="editable"
                 onClick={() => {
-                  navigate(
-                    `/widgets/configuration?widgetId=${record.widgetId}`
-                  );
+                  navigate(`/widgets/configuration?widgetId=${record.id}`);
                 }}
               >
                 编辑

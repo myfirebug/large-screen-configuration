@@ -26,14 +26,14 @@ import { initialState, widgetReducer } from "./store/reducers";
 import { IElement, IWidget } from "@src/service";
 import { guid } from "@src/utils";
 import "animate.css";
-import { CACHE_WIDGETS, ELEMETSTYPE } from "@src/core/enums/access.enums";
-import localforage from "localforage";
+import { ELEMETSTYPE } from "@src/core/enums/access.enums";
 import html2canvas from "html2canvas";
 import { Button, Form, message, Modal, Select } from "antd";
 import { Layout } from "react-grid-layout";
 
 import RenderWidget from "@src/compoents/renderWidget";
 import PreviewDialog from "@src/compoents/previewDialog";
+import { widgets } from "@src/core/hook";
 interface IConfigLayout {}
 
 const ConfigLayout: FC<IConfigLayout> = () => {
@@ -42,28 +42,22 @@ const ConfigLayout: FC<IConfigLayout> = () => {
   const [layout, dispatch] = useReducer(widgetReducer, initialState);
   const [show, setShow] = useState(false);
   const [isShowAuxiliaryLine, setIsShowAuxiliaryLine] = useState(true);
+  const { widgetsList, getWidgets } = widgets();
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
-    // 编辑
     if (queryParams.size) {
-      const widgetId = queryParams.get("widgetId");
-      if (widgetId) {
-        localforage.getItem(CACHE_WIDGETS, (err, value) => {
-          if (value) {
-            const curr = (value as IWidget[]).find(
-              (item) => item.widgetId === widgetId
-            );
-            if (curr) {
-              dispatch({
-                type: "WIDGET",
-                data: curr,
-              });
-            } else {
-              console.log("找不到微件ID");
-            }
-          }
-        });
+      if (!widgetsList.length) {
+        getWidgets();
+      } else {
+        const widgetId = queryParams.get("widgetId");
+        const index = widgetsList.findIndex((item) => item.id === widgetId);
+        if (index >= 0) {
+          dispatch({
+            type: "WIDGET",
+            data: widgetsList[index],
+          });
+        }
       }
     } else {
       // 新增
@@ -89,7 +83,45 @@ const ConfigLayout: FC<IConfigLayout> = () => {
         },
       });
     }
-  }, [location]);
+  }, [getWidgets, location.search, widgetsList]);
+
+  // useEffect(() => {
+  //   const queryParams = new URLSearchParams(location.search);
+  //   // 编辑
+  //   if (queryParams.size) {
+  //     const widgetId = queryParams.get("widgetId");
+  //     if (widgetId) {
+  //       // dispatch({
+  //       //   type: "WIDGET",
+  //       //   data: curr,
+  //       // });
+  //       console.log(widgetsList, "widgetsList");
+  //     }
+  //   } else {
+  //     // 新增
+  //     dispatch({
+  //       type: "WIDGET",
+  //       data: {
+  //         name: "未命名微件",
+  //         url: "",
+  //         id: "",
+  //         createTime: "",
+  //         type: "text",
+  //         count: 0,
+  //         x: 0,
+  //         y: 0,
+  //         column: 1,
+  //         row: 1,
+  //         widgetId: guid(),
+  //         configuration: {
+  //           configureValue: widgetConfig.configureValue,
+  //           dataValue: widgetConfig.dataValue,
+  //         },
+  //         elements: [],
+  //       },
+  //     });
+  //   }
+  // }, [location, widgetsList]);
 
   // 编辑组件
   const onDragStop = useCallback((item: Layout) => {
