@@ -30,12 +30,11 @@ import { guid } from "@src/utils";
 import { pageConfig } from "@src/core/config/base";
 import "./index.scss";
 
-import { IElement, IPage, IWidget } from "@src/service";
-import { CACHE_PAGES } from "@src/core/enums/access.enums";
+import { IElement, IWidget } from "@src/service";
 import { Layout } from "react-grid-layout";
-import localforage from "localforage";
 import RenderPage from "@src/compoents/renderPage";
 import PreviewDialog from "@src/compoents/previewDialog";
+import { web } from "@src/core/hook";
 
 interface IConfigLayout {}
 
@@ -45,28 +44,25 @@ const ConfigLayout: FC<IConfigLayout> = () => {
   const [show, setShow] = useState(false);
   const [isShowAuxiliaryLine, setIsShowAuxiliaryLine] = useState(true);
   const navigate = useNavigate();
+  const { getPages, pagesList } = web();
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     // 编辑
     if (queryParams.size) {
-      const pageId = queryParams.get("pageId");
-      if (pageId) {
-        localforage.getItem(CACHE_PAGES, (err, value) => {
-          if (value) {
-            const curr = (value as IPage[]).find(
-              (item) => item.pageId === pageId
-            );
-            if (curr) {
-              dispatch({
-                type: "PAGE",
-                data: curr,
-              });
-            } else {
-              console.log("找不到微件ID");
-            }
+      if (!pagesList.length) {
+        getPages();
+      } else {
+        const pageId = queryParams.get("pageId");
+        if (pageId) {
+          const index = pagesList.findIndex((item) => item.id === pageId);
+          if (index >= 0) {
+            dispatch({
+              type: "PAGE",
+              data: pagesList[index],
+            });
           }
-        });
+        }
       }
     } else {
       dispatch({
@@ -86,7 +82,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
         },
       });
     }
-  }, [location]);
+  }, [getPages, location, pagesList]);
 
   // 判断右侧边栏所需模块
   const rightAside = useMemo(() => {

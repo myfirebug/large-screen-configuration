@@ -75,7 +75,7 @@ const PageList: FC<any> = () => {
             <span
               key="editable"
               onClick={() => {
-                navigate(`/web/page/configuration?pageId=${record.pageId}`);
+                navigate(`/web/page/configuration?pageId=${record.id}`);
               }}
             >
               编辑
