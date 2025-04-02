@@ -4,7 +4,7 @@ import { bar } from "./bar";
 import { pie } from "./pie";
 import { baseImage, baseBanner } from "./image";
 import { table } from "./table";
-import { formRadio } from "./form";
+import { formRadio, formSelect } from "./form";
 
 const elementsConfig: any = {
   baseText,
@@ -18,6 +18,7 @@ const elementsConfig: any = {
   dateText,
   table,
   formRadio,
+  formSelect,
 };
 
 export default elementsConfig;

@@ -1,0 +1,10 @@
+@include b(form) {
+  @include e(select) {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    .ant-select {
+      width: 100%;
+    }
+  }
+}
