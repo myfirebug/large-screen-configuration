@@ -37,7 +37,7 @@ import { Empty } from "antd";
 import RenderPage from "@src/compoents/renderPage";
 import Navigation from "@src/compoents/navigation";
 import PreviewDialog from "@src/compoents/previewDialog";
-
+import { web } from "@src/core/hook";
 interface IConfigLayout {}
 
 const ConfigLayout: FC<IConfigLayout> = () => {
@@ -45,6 +45,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
   const [layout, dispatch] = useReducer(projectReducer, initialState);
   const [show, setShow] = useState(false);
   const [isShowAuxiliaryLine] = useState(true);
+  const { getProjects, projectsList } = web();
   // const [scale, setScale] = useState(100);
 
   useEffect(() => {
@@ -53,6 +54,19 @@ const ConfigLayout: FC<IConfigLayout> = () => {
     if (queryParams.size) {
       const projectId = queryParams.get("projectId");
       if (projectId) {
+        if (!projectsList.length) {
+          getProjects();
+        } else {
+          const index = projectsList.findIndex(
+            (item) => item.projectId === projectId
+          );
+          if (index >= 0) {
+            dispatch({
+              type: "PROJECT",
+              data: projectsList[index],
+            });
+          }
+        }
       }
     } else {
       dispatch({
@@ -70,7 +84,7 @@ const ConfigLayout: FC<IConfigLayout> = () => {
         },
       });
     }
-  }, [location]);
+  }, [location, getProjects, projectsList]);
 
   // 判断右侧边栏所需模块
   const rightAside = useMemo(() => {
@@ -254,7 +268,9 @@ const ConfigLayout: FC<IConfigLayout> = () => {
           });
         }}
         previewHandler={() => setShow(true)}
-        publishHandler={() => {}}
+        publishHandler={() => {
+          console.log(JSON.stringify(layout?.project));
+        }}
         logo="&#xe628;"
       />
       <div className="cms-config-layout__content">
@@ -274,7 +290,10 @@ const ConfigLayout: FC<IConfigLayout> = () => {
                     if (!currentPage?.widgets.length) {
                       dispatch({
                         type: "ADD_WIDGET",
-                        data: page.widgets,
+                        data: page.widgets.map((item) => ({
+                          ...item,
+                          widgetId: guid(),
+                        })),
                       });
                     }
                   }}

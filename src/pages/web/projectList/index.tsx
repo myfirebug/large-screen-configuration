@@ -1,13 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import type { ActionType, ProColumns } from "@ant-design/pro-components";
 import { ProTable } from "@ant-design/pro-components";
-import React, { useRef, FC, useEffect } from "react";
+import React, { useRef, FC, useEffect, useState } from "react";
 import { IProject } from "@src/service";
 import "./index.scss";
 import { Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { web } from "@src/core/hook";
+import PreviewDialog from "@src/compoents/previewDialog";
 
 export const waitTimePromise = async (time: number = 100) => {
   return new Promise((resolve) => {
@@ -24,6 +25,8 @@ export const waitTime = async (time: number = 100) => {
 const ProjectList: FC<any> = () => {
   const actionRef = useRef<ActionType>();
   const navigate = useNavigate();
+  const [show, setShow] = useState(false);
+  const [project, setProject] = useState<IProject>();
 
   const { getProjects, projectsFilterHandle, filterProjectsList } = web();
   useEffect(() => {
@@ -58,12 +61,22 @@ const ProjectList: FC<any> = () => {
           <span
             key="editable"
             onClick={() => {
-              navigate(`/web/project/configuration?pageId=${record.projectId}`);
+              navigate(
+                `/web/project/configuration?projectId=${record.projectId}`
+              );
             }}
           >
             编辑
           </span>
-          <span key="view">预览</span>
+          <span
+            key="view"
+            onClick={() => {
+              setShow(true);
+              setProject(record);
+            }}
+          >
+            预览
+          </span>
         </div>
       ),
     },
@@ -71,6 +84,20 @@ const ProjectList: FC<any> = () => {
 
   return (
     <div className="cms-project">
+      {/* 页面预览 */}
+      <PreviewDialog
+        data={project}
+        pageType="project"
+        title="项目预览"
+        open={show}
+        onClose={() => setShow(false)}
+        width={
+          project?.configuration?.configureValue?.widgetConfigWidth || 1366
+        }
+        height={
+          project?.configuration?.configureValue?.widgetConfigHeight || 768
+        }
+      />
       <ProTable<IProject>
         columns={columns}
         actionRef={actionRef}

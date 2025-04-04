@@ -94,13 +94,15 @@ const project = (data: IProject) => {
   });
   const [pageId, setPageId] = useState("");
 
-  const currentPage = useMemo(() => {
-    return diffData?.pages.find((item) => item.pageId === pageId);
-  }, [diffData?.pages, pageId]);
   useEffect(() => {
     setDiffData(data);
     setPageId(data?.pages?.[0]?.pageId);
   }, [data]);
+  console.log(diffData, "diffData");
+
+  const currentPage = useMemo(() => {
+    return diffData?.pages.find((item) => item.pageId === pageId);
+  }, [diffData?.pages, pageId]);
   return (
     <>
       <RenderPage
@@ -135,8 +137,8 @@ const project = (data: IProject) => {
         }}
       />
       <Navigation
-        configureValue={diffData?.configuration?.configureValue}
-        datas={diffData?.pages}
+        configureValue={data?.configuration?.configureValue}
+        datas={data?.pages}
         selectedId={pageId as string}
         onChange={(pageId: string) => {
           setPageId(pageId);
