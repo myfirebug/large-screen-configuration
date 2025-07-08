@@ -1,13 +1,15 @@
 {
   "name": "large-screen-configuration",
   "version": "1.0.0",
-  "description": "从零搭建vue、react工程",
+  "description": "从零搭建React 拖动配置大屏的后台管理系统工程",
   "main": ".eslintrc.js",
   "devDependencies": {
     "@babel/core": "^7.22.9",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@babel/preset-react": "^7.22.5",
     "@babel/preset-typescript": "^7.22.5",
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
     "@types/react": "^18.2.17",
     "@types/react-dom": "^18.2.7",
@@ -22,6 +24,8 @@
     "eslint-config-react-app": "^7.0.1",
     "eslint-webpack-plugin": "^4.0.1",
     "html-webpack-plugin": "^5.5.3",
+    "husky": "^8.0.0",
+    "lint-staged": "^16.1.2",
     "mini-css-extract-plugin": "^2.7.6",
     "portfinder": "^1.0.32",
     "postcss-loader": "^7.3.3",
@@ -43,7 +47,8 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "cross-env NODE_ENV=development TENANT=main webpack serve --config ./config/webpack.dev.js",
-    "build": "cross-env NODE_ENV=production TENANT=main webpack --config ./config/webpack.prod.js"
+    "build": "cross-env NODE_ENV=production TENANT=main webpack --config ./config/webpack.prod.js",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -88,5 +93,10 @@
     "last 2 versions",
     "> 1%",
     "not dead"
-  ]
+  ],
+  "lint-staged": {
+    "*.{js,ts,json,tsx,css,react,html}": [
+      "prettier --write"
+    ]
+  }
 }
