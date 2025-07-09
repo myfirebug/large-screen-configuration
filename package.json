@@ -95,8 +95,8 @@
     "not dead"
   ],
   "lint-staged": {
-    "*.{js,ts,json,tsx,css,react,html}": [
-      "prettier --write"
+    "*.{ts,,tsx}": [
+      "eslint"
     ]
   }
 }
