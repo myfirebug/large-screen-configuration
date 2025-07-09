@@ -95,7 +95,7 @@
     "not dead"
   ],
   "lint-staged": {
-    "*.{ts,,tsx}": [
+    "*.{js,ts,jsx,tsx}": [
       "eslint"
     ]
   }
