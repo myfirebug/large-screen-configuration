@@ -1,6 +1,6 @@
 module.exports = {
   // 站点名称
-  sitename: "大屏管理系统12",
+  sitename: "大屏管理系统",
   // 站点标题
   title: "大屏管理系统",
   // 站点描述
