@@ -31,7 +31,7 @@
 @include b(avatar) {
   width: 24px;
   height: 24px;
-  margin-right: 5px;
+  margin: 0 5px 0 10px;
   border-radius: 50%;
   overflow: hidden;
   background: var(--cms-background-color-primary);

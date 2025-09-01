@@ -1,8 +1,8 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useState, useEffect, useContext } from "react";
 import { getParentsById } from "@src/utils";
 import routerDatas, { IRoute } from "@src/router/routes";
 import { useLocation, Link } from "react-router-dom";
-import { Breadcrumb, Dropdown, MenuProps } from "antd";
+import { Breadcrumb, Dropdown, MenuProps, Switch } from "antd";
 import { LoginOutlined, DownOutlined } from "@ant-design/icons";
 
 import { useThemeDispatch, useTheme } from "@src/core/theme/themeContext";
@@ -13,12 +13,13 @@ import {
   useFrameLayoutDispatch,
 } from "@src/layout/frameLayout/frameLayoutContext";
 import { useInfo } from "@src/core/hook";
-import { useI18n } from "@src/core/i18n/i18n.hook";
+import { LocaleContext } from "@src/core/i18n/localeContent";
 
 interface IHeader {}
 
 const Header: FC<IHeader> = () => {
-  const { $t } = useI18n();
+  const { $t } = useContext(LocaleContext);
+  const { setLocale, locale } = useContext(LocaleContext);
   const { pathname } = useLocation();
   const [breadcrumb, setBreadcrumb] = useState<any[]>([]);
   const themeDispatch = useThemeDispatch();
@@ -64,6 +65,13 @@ const Header: FC<IHeader> = () => {
       ),
     },
   ];
+
+  const changeHandler = (value: boolean) => {
+    value ? setLocale("zh_CN") : setLocale("en");
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
+  };
   return (
     <div className="cms-frame-layout__header">
       <div className="cms-frame-layout__header--left">
@@ -102,6 +110,12 @@ const Header: FC<IHeader> = () => {
             ))}
           </div>
         </div>
+        <Switch
+          checkedChildren="EN"
+          unCheckedChildren="中文"
+          onChange={changeHandler}
+          defaultChecked={locale === "zh_CN"}
+        />
         <Dropdown menu={{ items }} overlayClassName="cms-user-dropdown">
           <div className="cms-user">
             <div className="cms-avatar">
