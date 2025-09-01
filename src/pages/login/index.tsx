@@ -10,8 +10,10 @@ import {
 import { useNavigate } from "react-router-dom";
 
 import "./index.scss";
+import { useI18n } from "@src/core/i18n/i18n.hook";
 
 function Login() {
+  const { $t } = useI18n();
   const navigate = useNavigate();
   const { loginLoading, login } = useLogin();
   const particles = useRef<HTMLDivElement>(null);
@@ -151,11 +153,11 @@ function Login() {
     <div className="cms-login">
       <div className="cms-login__mask" ref={particles} id="js_particles"></div>
       <div className="cms-login__left">
-        <h1>欢迎来到智能大屏后台管理系统</h1>
-        <p>您的大屏配置助手，快来体验吧！</p>
+        <h1>{$t("login_title" /*欢迎来到智能大屏后台管理系统*/)}</h1>
+        <p>{$t("login_sub_title" /*您的大屏配置助手，快来体验吧！*/)}</p>
       </div>
       <div className="cms-login__right">
-        <h2>账户登录</h2>
+        <h2>{$t("login_account" /*账户登录*/)} </h2>
         <Form
           name="basic"
           wrapperCol={{ span: 24 }}
@@ -165,12 +167,17 @@ function Login() {
           <Form.Item<ILoginForm>
             label=""
             name="username"
-            rules={[{ required: true, message: "请输入用户名" }]}
+            rules={[
+              {
+                required: true,
+                message: $t("login_verify_username" /*请输入用户名*/),
+              },
+            ]}
           >
             <Input
               allowClear
               size="large"
-              placeholder="用户名"
+              placeholder={$t("login_account" /*用户名*/)}
               prefix={<UserOutlined className="site-form-item-icon" />}
             />
           </Form.Item>
@@ -178,12 +185,17 @@ function Login() {
           <Form.Item<ILoginForm>
             label=""
             name="password"
-            rules={[{ required: true, message: "请输入密码" }]}
+            rules={[
+              {
+                required: true,
+                message: $t("login_verify_pwd" /*请输入密码*/),
+              },
+            ]}
           >
             <Input.Password
               allowClear
               size="large"
-              placeholder="密码"
+              placeholder={$t("login_pwd" /*密码*/)}
               prefix={<LockOutlined className="site-form-item-icon" />}
             />
           </Form.Item>
@@ -196,7 +208,7 @@ function Login() {
               size="large"
               loading={loginLoading}
             >
-              登录
+              {$t("login" /*登录*/)}
             </Button>
           </Form.Item>
         </Form>
