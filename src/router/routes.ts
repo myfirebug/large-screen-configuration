@@ -1,3 +1,4 @@
+import { useI18n } from "@src/core/i18n/i18n.hook";
 import { NonIndexRouteObject } from "react-router-dom";
 
 export interface IMeta {
@@ -23,6 +24,8 @@ export interface IRoute extends NonIndexRouteObject {
   icon?: string;
 }
 
+const { $t } = useI18n();
+
 const routerDatas: IRoute[] = [
   {
     path: "/",
@@ -35,7 +38,7 @@ const routerDatas: IRoute[] = [
     children: [
       {
         path: "/login",
-        title: "登录",
+        title: $t("frame_route_login" /*登录*/),
         redirect: "/login",
         modulePath: "login",
         meta: {
@@ -46,7 +49,7 @@ const routerDatas: IRoute[] = [
       },
       {
         path: "/home",
-        title: "首页",
+        title: $t("frame_route_home" /*首页*/),
         modulePath: "home",
         icon: "&#xe8b9;",
         meta: {
@@ -56,7 +59,7 @@ const routerDatas: IRoute[] = [
       },
       {
         path: "/elements",
-        title: "组件",
+        title: $t("frame_route_element" /*组件*/),
         modulePath: "elements",
         icon: "&#xe640;",
         meta: {
@@ -66,7 +69,7 @@ const routerDatas: IRoute[] = [
       },
       {
         path: "/widgets",
-        title: "微件",
+        title: $t("frame_route_widget" /*微件*/),
         modulePath: "widgets",
         icon: "&#xe634;",
         meta: {
@@ -76,7 +79,7 @@ const routerDatas: IRoute[] = [
       },
       {
         path: "/widgets/configuration",
-        title: "微件配置",
+        title: $t("frame_route_widget_config" /*微件配置*/),
         modulePath: "widgets/edit",
         meta: {
           fullScreen: true,
@@ -86,7 +89,7 @@ const routerDatas: IRoute[] = [
       },
       {
         path: "/web",
-        title: "电脑端",
+        title: $t("frame_route_pc" /*电脑端*/),
         icon: "&#xe61f;",
         modulePath: "",
         meta: {
@@ -96,7 +99,7 @@ const routerDatas: IRoute[] = [
         children: [
           {
             path: "/web/page-list",
-            title: "页面模版列表",
+            title: $t("frame_route_pc_page_temp_list" /*页面模版列表*/),
             modulePath: "web/pageList",
             meta: {
               auth: true,
@@ -105,7 +108,7 @@ const routerDatas: IRoute[] = [
           },
           {
             path: "/web/page/configuration",
-            title: "页面模版配置",
+            title: $t("frame_route_pc_page_temp_config" /*页面模版配置*/),
             modulePath: "web/pageList/edit",
             meta: {
               fullScreen: true,
@@ -114,7 +117,7 @@ const routerDatas: IRoute[] = [
           },
           {
             path: "/web/project-list",
-            title: "项目列表",
+            title: $t("frame_route_pc_project_list" /*项目列表*/),
             modulePath: "web/projectList",
             meta: {
               auth: true,
@@ -123,7 +126,7 @@ const routerDatas: IRoute[] = [
           },
           {
             path: "/web/project/configuration",
-            title: "项目配置",
+            title: $t("frame_route_pc_project_config" /*项目配置*/),
             modulePath: "web/projectList/edit",
             meta: {
               fullScreen: true,

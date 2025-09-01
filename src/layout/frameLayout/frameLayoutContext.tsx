@@ -11,6 +11,8 @@ import dayjs from "dayjs";
 import "dayjs/locale/zh-cn";
 import zhCN from "antd/locale/zh_CN";
 import { LocaleProvider } from "@src/core/i18n/localeContent";
+import { LOCAL_NAME } from "@src/core/enums/access.enums";
+import { localStorage } from "@src/utils";
 dayjs.locale("zh-cn");
 
 interface IThemeProvider {
@@ -53,7 +55,9 @@ export function FrameLayoutProvider(props: IThemeProvider) {
         algorithm: [theme.darkAlgorithm, theme.compactAlgorithm],
       }}
     >
-      <LocaleProvider locale="en">
+      <LocaleProvider
+        locale={localStorage.get(LOCAL_NAME) || localStorage.get("en")}
+      >
         <FrameLayoutContext.Provider value={layout}>
           <FrameLayoutDispatchContext.Provider value={dispatch}>
             <FrameLayout>{children}</FrameLayout>

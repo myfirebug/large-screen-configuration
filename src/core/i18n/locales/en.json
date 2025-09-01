@@ -14,5 +14,16 @@
   "home_up": "It rose by [0]% compared with last month",
   "home_widget": "widget",
   "home_page": "page",
-  "home_project": "project"
+  "home_project": "project",
+  "frame_logOut": "logOut",
+  "frame_route_home": "home",
+  "frame_route_login": "login",
+  "frame_route_element": "element",
+  "frame_route_widget": "widget",
+  "frame_route_widget_config": "widget config",
+  "frame_route_pc": "Computer",
+  "frame_route_pc_page_temp_list": "List of page templates",
+  "frame_route_pc_page_temp_config": "Page template configuration",
+  "frame_route_pc_project_list": "Project list",
+  "frame_route_pc_project_config": "Project configuration"
 }

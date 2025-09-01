@@ -13,10 +13,12 @@ import {
   useFrameLayoutDispatch,
 } from "@src/layout/frameLayout/frameLayoutContext";
 import { useInfo } from "@src/core/hook";
+import { useI18n } from "@src/core/i18n/i18n.hook";
 
 interface IHeader {}
 
 const Header: FC<IHeader> = () => {
+  const { $t } = useI18n();
   const { pathname } = useLocation();
   const [breadcrumb, setBreadcrumb] = useState<any[]>([]);
   const themeDispatch = useThemeDispatch();
@@ -57,7 +59,7 @@ const Header: FC<IHeader> = () => {
           }
         >
           <LoginOutlined />
-          退出登录
+          {$t("frame_logOut" /*退出登录*/)}
         </div>
       ),
     },
@@ -66,7 +68,7 @@ const Header: FC<IHeader> = () => {
     <div className="cms-frame-layout__header">
       <div className="cms-frame-layout__header--left">
         <div className="cms-icon">&#xe605;</div>
-        <h1>大屏管理系统</h1>
+        <h1>{$t("login_title" /*大屏管理系统*/)}</h1>
         {breadcrumb && breadcrumb.length ? (
           <Breadcrumb
             items={breadcrumb.map((item: any) => ({
@@ -106,7 +108,7 @@ const Header: FC<IHeader> = () => {
               <img alt="" />
             </div>
             <span className="cms-user__name">
-              欢迎 <b>{frameLayout?.userInfo?.username || "--"}</b>
+              <b>{frameLayout?.userInfo?.username || "--"}</b>
             </span>
             <DownOutlined />
           </div>

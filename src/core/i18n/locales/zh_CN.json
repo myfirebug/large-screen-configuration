@@ -14,5 +14,16 @@
   "home_up": "上升[0]%较上月相比",
   "home_widget": "微件",
   "home_page": "页面",
-  "home_project": "项目"
+  "home_project": "项目",
+  "frame_logOut": "退出登录",
+  "frame_route_home": "首页",
+  "frame_route_login": "登录",
+  "frame_route_element": "组件",
+  "frame_route_widget": "微件",
+  "frame_route_widget_config": "微件配置",
+  "frame_route_pc": "电脑端",
+  "frame_route_pc_page_temp_list": "页面模版列表",
+  "frame_route_pc_page_temp_config": "页面模版配置",
+  "frame_route_pc_project_list": "项目列表",
+  "frame_route_pc_project_config": "项目配置"
 }
