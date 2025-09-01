@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./index.scss";
 import { Tabs, TabsProps } from "antd";
 import Elements from "./components/elements";
-import { useI18n } from "@src/core/i18n/i18n.hook";
+import { LocaleContext } from "@src/core/i18n/localeContent";
 
 function NewTrend() {
-  const { $t } = useI18n();
+  const { $t } = useContext(LocaleContext);
   const items: TabsProps["items"] = [
     {
       key: "1",

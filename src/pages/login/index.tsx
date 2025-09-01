@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useContext } from "react";
 import { Button, Form, Input } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { ILoginForm } from "@src/service";
@@ -10,10 +10,10 @@ import {
 import { useNavigate } from "react-router-dom";
 
 import "./index.scss";
-import { useI18n } from "@src/core/i18n/i18n.hook";
+import { LocaleContext } from "@src/core/i18n/localeContent";
 
 function Login() {
-  const { $t } = useI18n();
+  const { $t } = useContext(LocaleContext);
   const navigate = useNavigate();
   const { loginLoading, login } = useLogin();
   const particles = useRef<HTMLDivElement>(null);

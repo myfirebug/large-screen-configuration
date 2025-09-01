@@ -1,12 +1,12 @@
-import React, { FC, useState } from "react";
+import React, { FC, useContext, useState } from "react";
 import Echarts from "@src/compoents/echarts";
 import Box from "../../../box";
 import "./index.scss";
-import { useI18n } from "@src/core/i18n/i18n.hook";
+import { LocaleContext } from "@src/core/i18n/localeContent";
 interface IElements {}
 
 const Elements: FC<IElements> = () => {
-  const { $t } = useI18n();
+  const { $t } = useContext(LocaleContext);
   const [data] = useState([
     { value: 1048, name: "a" },
     { value: 735, name: "b" },

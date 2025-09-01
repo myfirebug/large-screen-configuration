@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./index.scss";
-import { useI18n } from "@src/core/i18n/i18n.hook";
+import { LocaleContext } from "@src/core/i18n/localeContent";
 
 function Statistics() {
-  const { $t } = useI18n();
+  const { $t } = useContext(LocaleContext);
   return (
     <div className="cms-home__statistics">
       <div className="cms-home__statistics--item">
