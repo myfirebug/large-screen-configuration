@@ -7,6 +7,12 @@
   "login_verify_pwd": "Please enter the password",
   "login_pwd": "password",
   "login": "login",
-  "sure": "sure",
-  "common_live_line": "network[0]"
+  "home_element_add": "New component added",
+  "home_element_ranking": "Component Usage Ranking List",
+  "home_element_type": "Proportion of component types",
+  "home_element": "element",
+  "home_up": "It rose by [0]% compared with last month",
+  "home_widget": "widget",
+  "home_page": "page",
+  "home_project": "project"
 }

@@ -2,9 +2,11 @@ import React, { FC, useState } from "react";
 import Echarts from "@src/compoents/echarts";
 import Box from "../../../box";
 import "./index.scss";
+import { useI18n } from "@src/core/i18n/i18n.hook";
 interface IElements {}
 
 const Elements: FC<IElements> = () => {
+  const { $t } = useI18n();
   const [data] = useState([
     { value: 1048, name: "a" },
     { value: 735, name: "b" },
@@ -109,7 +111,7 @@ const Elements: FC<IElements> = () => {
             ],
             series: [
               {
-                name: "组件新增",
+                name: $t("home_element_add" /*组件新增*/),
                 type: "bar",
                 barWidth: "50%",
                 itemStyle: {
@@ -125,7 +127,7 @@ const Elements: FC<IElements> = () => {
       </div>
       <div className="cms-home__elements--right">
         <Box
-          title="组件使用排行榜"
+          title={$t("home_element_ranking" /*组件使用排行榜*/)}
           style={{ height: "420px" }}
           className="cms-useLeaderboard"
         >
@@ -139,7 +141,10 @@ const Elements: FC<IElements> = () => {
             ))}
           </ul>
         </Box>
-        <Box title="组件类型占比" style={{ height: "250px" }}>
+        <Box
+          title={$t("home_element_type" /*组件类型占比*/)}
+          style={{ height: "250px" }}
+        >
           <Echarts
             option={{
               tooltip: {

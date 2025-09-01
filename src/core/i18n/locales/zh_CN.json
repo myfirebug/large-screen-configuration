@@ -7,6 +7,12 @@
   "login_verify_pwd": "请输入密码",
   "login_pwd": "密码",
   "login": "登录",
-  "sure": "确定",
-  "common_live_line": "网络[0]"
+  "home_element_add": "组件新增",
+  "home_element_ranking": "组件使用排行榜",
+  "home_element_type": "组件类型占比",
+  "home_element": "组件",
+  "home_up": "上升[0]%较上月相比",
+  "home_widget": "微件",
+  "home_page": "页面",
+  "home_project": "项目"
 }
