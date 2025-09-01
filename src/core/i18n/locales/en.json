@@ -1,0 +1,12 @@
+{
+  "login_title": "Welcome to large-screen background management system",
+  "login_sub_title": "Come and experience your large-screen configuration assistant!",
+  "login_account": "account login",
+  "login_verify_username": "Please enter your username",
+  "login_username": "username",
+  "login_verify_pwd": "Please enter the password",
+  "login_pwd": "password",
+  "login": "login",
+  "sure": "sure",
+  "common_live_line": "network[0]"
+}

@@ -1,0 +1,12 @@
+{
+  "login_title": "欢迎来到智能大屏后台管理系统",
+  "login_sub_title": "您的大屏配置助手，快来体验吧！",
+  "login_account": "账号登录",
+  "login_verify_username": "请输入用户名",
+  "login_username": "用户名",
+  "login_verify_pwd": "请输入密码",
+  "login_pwd": "密码",
+  "login": "登录",
+  "sure": "确定",
+  "common_live_line": "网络[0]"
+}

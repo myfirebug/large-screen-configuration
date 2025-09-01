@@ -10,6 +10,7 @@ import { getCurrentPrimaryColor, IThemeName } from "@core/theme";
 import dayjs from "dayjs";
 import "dayjs/locale/zh-cn";
 import zhCN from "antd/locale/zh_CN";
+import { LocaleProvider } from "@src/core/i18n/localeContent";
 dayjs.locale("zh-cn");
 
 interface IThemeProvider {
@@ -52,11 +53,13 @@ export function FrameLayoutProvider(props: IThemeProvider) {
         algorithm: [theme.darkAlgorithm, theme.compactAlgorithm],
       }}
     >
-      <FrameLayoutContext.Provider value={layout}>
-        <FrameLayoutDispatchContext.Provider value={dispatch}>
-          <FrameLayout>{children}</FrameLayout>
-        </FrameLayoutDispatchContext.Provider>
-      </FrameLayoutContext.Provider>
+      <LocaleProvider locale="en">
+        <FrameLayoutContext.Provider value={layout}>
+          <FrameLayoutDispatchContext.Provider value={dispatch}>
+            <FrameLayout>{children}</FrameLayout>
+          </FrameLayoutDispatchContext.Provider>
+        </FrameLayoutContext.Provider>
+      </LocaleProvider>
     </ConfigProvider>
   );
 }

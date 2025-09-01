@@ -40,3 +40,7 @@ export const CACHE_WIDGETS = "CACHE_WIDGETS";
 
 // 缓存页面列表
 export const CACHE_PAGES = "CACHE_PAGES";
+
+// 国际化
+export const LOCAL_NAME = "LOCAL_NAME";
+export const CURRENT_LOCALS = "CURRENT_LOCALS";
