@@ -70,7 +70,7 @@ const Header: FC<IHeader> = () => {
     value ? setLocale("zh_CN") : setLocale("en");
     setTimeout(() => {
       window.location.reload();
-    }, 1000);
+    }, 100);
   };
   return (
     <div className="cms-frame-layout__header">
