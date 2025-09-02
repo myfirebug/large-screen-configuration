@@ -10,6 +10,7 @@ import { getCurrentPrimaryColor, IThemeName } from "@core/theme";
 import dayjs from "dayjs";
 import "dayjs/locale/zh-cn";
 import zhCN from "antd/locale/zh_CN";
+import en_US from "antd/locale/en_US";
 import { LocaleProvider } from "@src/core/i18n/localeContent";
 import { LOCAL_NAME } from "@src/core/enums/access.enums";
 import { localStorage } from "@src/utils";
@@ -33,38 +34,36 @@ export function FrameLayoutProvider(props: IThemeProvider) {
 
   const currentTheme = useTheme();
   return (
-    <ConfigProvider
-      locale={zhCN}
-      theme={{
-        token: {
-          colorPrimary: getCurrentPrimaryColor(currentTheme as IThemeName),
-          colorBgContainer: "var(--cms-background-color-primary)",
-          colorBorder: "var(--cms-divider-color)",
-          colorIcon: "var(--cms-divider-color)",
-          colorIconHover: "var(--cms-primary-color)",
-          colorTextPlaceholder: "var(--cms-divider-color)",
-          colorText: "var(--cms-text-color-secondary)",
-          controlOutline: "var(--cms-secondary-color)",
-          colorErrorOutline: "#ff4d4f",
-          colorBorderSecondary: "var(--cms-divider-color)",
-          colorBgElevated: "var(--cms-background-color-primary)",
-          colorBgSpotlight: "var(--cms-background-color-secondary)",
-          colorLinkHover: "var(--cms-secondary-color)",
-          controlItemBgActive: "var(--cms-background-color-secondary)",
-        },
-        algorithm: [theme.darkAlgorithm, theme.compactAlgorithm],
-      }}
-    >
-      <LocaleProvider
-        locale={localStorage.get(LOCAL_NAME) || localStorage.get("en")}
+    <LocaleProvider locale={localStorage.get(LOCAL_NAME) || "en"}>
+      <ConfigProvider
+        locale={localStorage.get(LOCAL_NAME) === "en" ? en_US : zhCN}
+        theme={{
+          token: {
+            colorPrimary: getCurrentPrimaryColor(currentTheme as IThemeName),
+            colorBgContainer: "var(--cms-background-color-primary)",
+            colorBorder: "var(--cms-divider-color)",
+            colorIcon: "var(--cms-divider-color)",
+            colorIconHover: "var(--cms-primary-color)",
+            colorTextPlaceholder: "var(--cms-divider-color)",
+            colorText: "var(--cms-text-color-secondary)",
+            controlOutline: "var(--cms-secondary-color)",
+            colorErrorOutline: "#ff4d4f",
+            colorBorderSecondary: "var(--cms-divider-color)",
+            colorBgElevated: "var(--cms-background-color-primary)",
+            colorBgSpotlight: "var(--cms-background-color-secondary)",
+            colorLinkHover: "var(--cms-secondary-color)",
+            controlItemBgActive: "var(--cms-background-color-secondary)",
+          },
+          algorithm: [theme.darkAlgorithm, theme.compactAlgorithm],
+        }}
       >
         <FrameLayoutContext.Provider value={layout}>
           <FrameLayoutDispatchContext.Provider value={dispatch}>
             <FrameLayout>{children}</FrameLayout>
           </FrameLayoutDispatchContext.Provider>
         </FrameLayoutContext.Provider>
-      </LocaleProvider>
-    </ConfigProvider>
+      </ConfigProvider>
+    </LocaleProvider>
   );
 }
 
