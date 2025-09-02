@@ -1,9 +1,10 @@
-import React, { Suspense, FC, memo } from "react";
+import React, { Suspense, FC, memo, useContext } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import routes, { IRoute, IMeta } from "./routes";
 import lazyLoad from "@src/compoents/lazyLoad";
 import { useFrameLayout } from "@src/layout/frameLayout/frameLayoutContext";
 import { Spin } from "antd";
+import { LocaleContext } from "@src/core/i18n/localeContent";
 
 interface IPrivateRoute {
   children: JSX.Element | null;
@@ -13,8 +14,9 @@ interface IPrivateRoute {
 }
 
 const PrivateRoute: FC<IPrivateRoute> = ({ children, meta, title, token }) => {
+  const { $t } = useContext(LocaleContext);
   if (title) {
-    document.title = `${window.CONFIG.title}-${title}`;
+    document.title = $t("login_title") + `-${title}`;
   }
   // 处理未登录情况时跳首页
   if (meta.auth && !token) {

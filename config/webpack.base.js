@@ -96,7 +96,7 @@ module.exports = {
       template: path.resolve(__dirname, "../public/index.html"),
       config: `<script>window.CONFIG=${JSON.stringify(config)}</script>`,
       // 标题
-      title: config.title,
+      title: "",
       // 描述
       description: config.description,
       // 关键词
