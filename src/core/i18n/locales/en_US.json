@@ -25,5 +25,18 @@
   "frame_route_pc_page_temp_list": "List of page templates",
   "frame_route_pc_page_temp_config": "Page template configuration",
   "frame_route_pc_project_list": "Project list",
-  "frame_route_pc_project_config": "Project configuration"
+  "frame_route_pc_project_config": "Project configuration",
+  "element_name": "name",
+  "element_img": "image",
+  "element_type": "type",
+  "element_all": "all",
+  "element_text": "text",
+  "element_table": "table",
+  "element_line": "line",
+  "element_bar": "bar",
+  "element_pie": "pie",
+  "element_component": "component",
+  "element_use_num": "use number",
+  "element_create_time": "create time",
+  "element_components_list": "components list"
 }

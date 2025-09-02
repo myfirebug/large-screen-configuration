@@ -25,5 +25,18 @@
   "frame_route_pc_page_temp_list": "页面模版列表",
   "frame_route_pc_page_temp_config": "页面模版配置",
   "frame_route_pc_project_list": "项目列表",
-  "frame_route_pc_project_config": "项目配置"
+  "frame_route_pc_project_config": "项目配置",
+  "element_name": "名称",
+  "element_img": "图片",
+  "element_type": "类型",
+  "element_all": "全部",
+  "element_text": "文本",
+  "element_table": "表格",
+  "element_line": "折线图",
+  "element_bar": "柱状图",
+  "element_pie": "饼图",
+  "element_component": "组件",
+  "element_use_num": "使用次数",
+  "element_create_time": "创建时间",
+  "element_components_list": "组件列表"
 }
