@@ -67,7 +67,7 @@ const Header: FC<IHeader> = () => {
   ];
 
   const changeHandler = (value: boolean) => {
-    value ? setLocale("zh_CN") : setLocale("en");
+    value ? setLocale("zh_CN") : setLocale("en_US");
     setTimeout(() => {
       window.location.reload();
     }, 100);

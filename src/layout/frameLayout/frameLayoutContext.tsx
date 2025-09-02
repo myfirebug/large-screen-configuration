@@ -34,9 +34,9 @@ export function FrameLayoutProvider(props: IThemeProvider) {
 
   const currentTheme = useTheme();
   return (
-    <LocaleProvider locale={localStorage.get(LOCAL_NAME) || "en"}>
+    <LocaleProvider locale={localStorage.get(LOCAL_NAME) || "en_US"}>
       <ConfigProvider
-        locale={localStorage.get(LOCAL_NAME) === "en" ? en_US : zhCN}
+        locale={localStorage.get(LOCAL_NAME) === "en_US" ? en_US : zhCN}
         theme={{
           token: {
             colorPrimary: getCurrentPrimaryColor(currentTheme as IThemeName),

@@ -11,7 +11,7 @@ export type LocaleContextType = {
 };
 
 export const LocaleContext = createContext<LocaleContextType>({
-  locale: "en",
+  locale: "en_US",
   setLocale: () => {},
   $t: () => "",
 });
