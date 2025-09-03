@@ -38,5 +38,22 @@
   "element_component": "component",
   "element_use_num": "use number",
   "element_create_time": "create time",
-  "element_components_list": "components list"
+  "element_components_list": "components list",
+  "widget_name": "name",
+  "widget_img": "image",
+  "widget_type": "type",
+  "widget_all": "all",
+  "widget_text": "text",
+  "widget_table": "table",
+  "widget_line": "line",
+  "widget_bar": "bar",
+  "widget_pie": "pie",
+  "widget_operation": "operation",
+  "widget_use_num": "use number",
+  "widget_create_time": "create time",
+  "widget_list": "widget list",
+  "operation_create": "create",
+  "operation_view": "view",
+  "operation_edit": "edit",
+  "operation_delete": "delete"
 }

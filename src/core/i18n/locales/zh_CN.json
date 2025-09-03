@@ -38,5 +38,22 @@
   "element_component": "组件",
   "element_use_num": "使用次数",
   "element_create_time": "创建时间",
-  "element_components_list": "组件列表"
+  "element_components_list": "组件列表",
+  "widget_name": "名称",
+  "widget_img": "图片",
+  "widget_type": "类型",
+  "widget_all": "全部",
+  "widget_text": "文本",
+  "widget_table": "表格",
+  "widget_line": "折线图",
+  "widget_bar": "柱状图",
+  "widget_pie": "饼图",
+  "widget_operation": "操作",
+  "widget_use_num": "使用次数",
+  "widget_create_time": "创建时间",
+  "widget_list": "微件列表",
+  "operation_create": "新建",
+  "operation_view": "预览",
+  "operation_edit": "编辑",
+  "operation_delete": "删除"
 }
