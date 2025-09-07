@@ -55,5 +55,11 @@
   "operation_create": "create",
   "operation_view": "view",
   "operation_edit": "edit",
-  "operation_delete": "delete"
+  "operation_delete": "delete",
+  "page_name": "name",
+  "page_operation": "operation",
+  "page_use_num": "use number",
+  "page_create_time": "create time",
+  "page_list": "page list",
+  "page_screen": "screen ratio"
 }

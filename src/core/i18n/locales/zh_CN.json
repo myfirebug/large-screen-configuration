@@ -55,5 +55,11 @@
   "operation_create": "新建",
   "operation_view": "预览",
   "operation_edit": "编辑",
-  "operation_delete": "删除"
+  "operation_delete": "删除",
+  "page_name": "名称",
+  "page_operation": "操作",
+  "page_use_num": "使用次数",
+  "page_create_time": "创建时间",
+  "page_list": "页面模版列表",
+  "page_screen": "屏幕占比"
 }
