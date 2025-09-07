@@ -61,5 +61,9 @@
   "page_use_num": "使用次数",
   "page_create_time": "创建时间",
   "page_list": "页面模版列表",
-  "page_screen": "屏幕占比"
+  "page_screen": "屏幕占比",
+  "project_name": "名称",
+  "project_operation": "操作",
+  "project_create_time": "创建时间",
+  "project_list": "页面模版列表"
 }

@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import type { ActionType, ProColumns } from "@ant-design/pro-components";
 import { ProTable } from "@ant-design/pro-components";
-import React, { useRef, FC, useEffect, useState } from "react";
+import React, { useRef, FC, useEffect, useState, useContext } from "react";
 import { IProject } from "@src/service";
 import "./index.scss";
 import { Button } from "antd";
@@ -9,6 +9,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { web } from "@src/core/hook";
 import PreviewDialog from "@src/compoents/previewDialog";
+import { LocaleContext } from "@src/core/i18n/localeContent";
 
 export const waitTimePromise = async (time: number = 100) => {
   return new Promise((resolve) => {
@@ -23,6 +24,7 @@ export const waitTime = async (time: number = 100) => {
 };
 
 const ProjectList: FC<any> = () => {
+  const { $t } = useContext(LocaleContext);
   const actionRef = useRef<ActionType>();
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
@@ -35,24 +37,24 @@ const ProjectList: FC<any> = () => {
 
   const columns: ProColumns<IProject>[] = [
     {
-      title: "名称",
+      title: $t("project_name" /*名称*/),
       dataIndex: "name",
     },
     {
-      title: "创建时间",
+      title: $t("project_create_time" /*创建时间*/),
       dataIndex: "createTime",
       valueType: "date",
       hideInSearch: true,
       width: 150,
     },
     {
-      title: "创建时间",
+      title: $t("project_create_time" /*创建时间*/),
       dataIndex: "createTime",
       valueType: "dateRange",
       hideInTable: true,
     },
     {
-      title: "操作",
+      title: $t("project_operation" /*操作*/),
       valueType: "option",
       key: "option",
       width: 100,
@@ -66,7 +68,7 @@ const ProjectList: FC<any> = () => {
               );
             }}
           >
-            编辑
+            {$t("operation_edit" /*编辑*/)}
           </span>
           <span
             key="view"
@@ -75,7 +77,7 @@ const ProjectList: FC<any> = () => {
               setProject(record);
             }}
           >
-            预览
+            {$t("operation_view" /*预览*/)}
           </span>
         </div>
       ),
@@ -122,7 +124,7 @@ const ProjectList: FC<any> = () => {
           onChange: (page) => console.log(page),
         }}
         dateFormatter="string"
-        headerTitle="项目列表"
+        headerTitle={$t("project_list" /*项目列表*/)}
         toolBarRender={() => [
           <Button
             key="button"
@@ -130,7 +132,7 @@ const ProjectList: FC<any> = () => {
             onClick={() => navigate("/web/project/configuration")}
             type="primary"
           >
-            新建
+            {$t("operation_create" /*新建*/)}
           </Button>,
         ]}
       />

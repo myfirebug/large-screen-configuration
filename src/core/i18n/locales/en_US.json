@@ -61,5 +61,9 @@
   "page_use_num": "use number",
   "page_create_time": "create time",
   "page_list": "page list",
-  "page_screen": "screen ratio"
+  "page_screen": "screen ratio",
+  "project_name": "name",
+  "project_operation": "operation",
+  "project_create_time": "create time",
+  "project_list": "project list"
 }
