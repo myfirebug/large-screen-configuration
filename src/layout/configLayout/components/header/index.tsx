@@ -1,7 +1,8 @@
-import React, { FC, useState } from "react";
+import React, { FC, useContext, useState } from "react";
 import "./index.scss";
 import { useNavigate } from "react-router-dom";
 import ModifyNameDialog from "@src/compoents/modifyNameDialog";
+import { LocaleContext } from "@src/core/i18n/localeContent";
 
 interface IConfigLayoutHeader {
   // 类型
@@ -26,6 +27,7 @@ export const ConfigLayoutHeader: FC<IConfigLayoutHeader> = ({
   previewHandler,
   publishHandler,
 }) => {
+  const { $t } = useContext(LocaleContext);
   const navigate = useNavigate();
   const [isModalNameOpen, setIsModalNameOpen] = useState(false);
   return (
@@ -46,13 +48,16 @@ export const ConfigLayoutHeader: FC<IConfigLayoutHeader> = ({
         </div>
         <div className="cms-config-layout__header--right">
           <div className="preview" onClick={previewHandler}>
-            <i className="cms-icon">&#xe668;</i>预览
+            <i className="cms-icon">&#xe668;</i>
+            {$t("operation_view" /*预览*/)}
           </div>
           <div className="publish" onClick={publishHandler}>
-            <i className="cms-icon">&#xe620;</i>发布
+            <i className="cms-icon">&#xe620;</i>
+            {$t("operation_publish" /*发布*/)}
           </div>
           <div className="preview" onClick={() => navigate(-1)}>
-            <i className="cms-icon">&#xe720;</i>返回
+            <i className="cms-icon">&#xe720;</i>
+            {$t("operation_return" /*返回*/)}
           </div>
         </div>
       </div>

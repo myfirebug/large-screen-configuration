@@ -56,6 +56,8 @@
   "operation_view": "预览",
   "operation_edit": "编辑",
   "operation_delete": "删除",
+  "operation_publish": "发布",
+  "operation_return": "返回",
   "page_name": "名称",
   "page_operation": "操作",
   "page_use_num": "使用次数",

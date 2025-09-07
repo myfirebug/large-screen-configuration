@@ -56,6 +56,8 @@
   "operation_view": "view",
   "operation_edit": "edit",
   "operation_delete": "delete",
+  "operation_publish": "publish",
+  "operation_return": "return",
   "page_name": "name",
   "page_operation": "operation",
   "page_use_num": "use number",
